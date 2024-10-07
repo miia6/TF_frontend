@@ -7,15 +7,13 @@ const CourseSelection = () => {
     const navigate = useNavigate()
   
     const handleCourseSelection = (course) => {
-        console.log("ÄÄÄ " + course)
-        navigate('/dashboard')
-      /*if (course) {
-        //localStorage.setItem('selectedCourse', course)
+      if (course) {
+        localStorage.setItem('selectedCourse', course)
         console.log("Course selected:", course)
         navigate('/dashboard')
       } else {
         console.log("No course selected")
-      }*/
+      }
     }
   
     return (
