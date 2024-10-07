@@ -23,12 +23,12 @@ const Login = () => {
     console.log('Logging in with')
 
     // TODO: request to backend
-    navigate('/dashboard')
+    navigate('/courseSelection')
   }
 
   const handleLogout = () => {
     // Clear session logic (e.g., remove tokens)
-    navigate('/login')
+    navigate('/')
   }
 
   return (

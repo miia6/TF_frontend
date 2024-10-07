@@ -5,6 +5,7 @@ import './App.css'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
+import CourseSelection from './pages/CourseSelection'
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom'
 
 // import { useState, useEffect, useRef } from 'react'
@@ -52,6 +53,7 @@ function AppContent() {
           } />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/courseSelection" element={<CourseSelection />} />
           <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
           {/* You can add more routes for other pages here */}
       </Routes>

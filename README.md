@@ -23,8 +23,8 @@ The application is started with npm run dev -command.
 Install to the root: npm install react-router-dom
 
 # ! PROTOTYPE FOR DEMO GALA !
-Done: Homepage (App.jsx), Login, Signup.
-Currently I'm working on the Dashboard. Next I'm doing the project selecting page.
+Done: Homepage (App.jsx), Login, Signup, CourseSelection.
+Currently I'm working on the Dashboard. 
 
 Pages TeammatesFinding, ProjectFinding and ProjectProposal need to be somehow implemented for the demo gala. All of these pages should have the same menu than the Dashboard currently has. 
 
