@@ -38,4 +38,4 @@ Below is the summary of what I added and changed.
 They're just my personal suggestions, so please feel feel to disagree and revert the changes.
 
 1. Let's make make our pages name a bit more consistent: 
-- Homepage 
+- `Homepage` &rarr `Find Courses`
