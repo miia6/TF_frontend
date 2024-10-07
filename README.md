@@ -32,5 +32,10 @@ In the App.css, font and background color to the whole app have been defined.
 (Most of the) buttons should be as they are defined, for example, in the Homepage (App.css).
 For forms, see signup.css, for example.
 
+## Notes from Binh:
 
+Below is the summary of what I added and changed. 
+They're just my personal suggestions, so please feel feel to disagree and revert the changes.
 
+1. Let's make make our pages name a bit more consistent: 
+- Homepage 

@@ -1,0 +1,58 @@
+.project-proposal-container {
+    padding: 50px 100px;
+}
+
+.project-proposal-form {}
+
+.project-proposal-form h1 {
+    font-size: 2rem;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.project-proposal-form h3 {
+    font-size: 1rem;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    color: black;
+}
+
+.form-group-proposal {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.form-group-proposal label {
+    width: 30%;
+    font-weight: bold;
+    color: black;
+    font-size: 1rem;
+}
+
+.input, .textarea {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #0d6344;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: black;
+    flex: 1;
+}
+
+.project-proposal-form button {
+    width: auto;
+    padding: 10px;
+    font-size: 1rem;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #C4DAD2;
+    border: none;
+    border-radius: 5px;
+    color: #16423C;
+}
+
+.project-proposal-form button:hover {
+    background-color: #6A9C89;
+}

@@ -6,18 +6,15 @@ body, html {
 }
 
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  width: 100%;
+  height: 100vh;
 }
 
-/*.App {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}*/
+.App {
+  height: 100%;
+}
 
 .App-logo {
   margin: 5px auto;
