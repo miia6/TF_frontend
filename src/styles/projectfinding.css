@@ -1,0 +1,20 @@
+.project-card {
+    color: black;
+}
+
+.project-card-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.project-card-read-more {
+    background-color: #6A9C89;
+}
+
+.project-card-apply {
+    background-color: #6A9C89;
+}
+
+.project-topic {}

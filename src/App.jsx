@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import CourseSelection from './pages/CourseSelection'
 import ProjectProposal from './pages/ProjectProposal'
+import ProjectFinding from './pages/ProjectFinding'
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom'
 
 // import { useState, useEffect, useRef } from 'react'
@@ -40,24 +41,25 @@ function AppContent() {
       )}
 
       <Routes>
-          <Route path="/" element={
-            <section className="App-intro">
-              <h2>Welcome to TeammatesFinding App</h2>
-              <p>
-                TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
-              </p>
-              <div className="App-buttons">
-                <button onClick={() => navigate('/login')}>Login</button>
-                <button onClick={() => navigate('/register')}>Sign up</button>
-              </div>
-            </section>
-          } />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/courseSelection" element={<CourseSelection />} />
-          <Route path="/projectProposal" element={<ProjectProposal />} />
-          <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
-          {/* You can add more routes for other pages here */}
+        <Route path="/" element={
+          <section className="App-intro">
+            <h2>Welcome to TeammatesFinding App</h2>
+            <p>
+              TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
+            </p>
+            <div className="App-buttons">
+              <button onClick={() => navigate('/login')}>Login</button>
+              <button onClick={() => navigate('/register')}>Sign up</button>
+            </div>
+          </section>
+        } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/courseSelection" element={<CourseSelection />} />
+        <Route path="/projectProposal" element={<ProjectProposal />} />
+        <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
+        <Route path="/projectFinding" element={<ProjectFinding />} />
+        {/* You can add more routes for other pages here */}
       </Routes>
     </div>
   )

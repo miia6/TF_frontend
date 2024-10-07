@@ -37,18 +37,21 @@ For forms, see signup.css, for example.
 Below is the summary of what I added and changed. 
 They're just my personal suggestions, so please feel feel to disagree and revert the changes.
 
-1. Let's make our page names a bit more consistent: 
-- Rename `Homepage` to `Find Courses`.
-- Rename `Project finding` to `Find Projects`.
-- `Project proposal` omitted from dashboard and can be accessed via `Find Projects`.
-- Rename `Teammates finding` to `Find Teammates`.
+0. Homepage (when user has not logged in) and login/signup could be combined into one.
+
+1. Let's make our page names a bit more simpler: 
+- Combine `Homepage` with `Course selection` and rename to `Courses` as we don't need a separate homepage to display anything.
+- Rename `Project finding` to `Projects`.
+- `Project proposal` omitted from dashboard and can be accessed via `Projects`.
+- Rename `Teammates finding` to `Teammates`.
 
 So the dashboard includes 3 main routes, which can be accessed in the following flow:
 
-`Find Courses` &rarr; `Find Projects` &rarr; `Find Teammates`
+`Courses` &rarr; `Projects` &rarr; `Teammates`
 
 For example, when a user first accesses our website:
-1. User is asked to login (or signup). 
-2. User is asked to choose a course. 
-3. User is asked to choose a project from the selected course, or propose a project themselves.
-4. If user proposed a project, they are automatically directed to the `Find Teammates` page, where they will see how many people applied to their project. If not, nothing happens (user does not need to access `Find Teammates` if they simply apply to someone else's project).
+- User is asked to login (or signup). 
+- User is asked to choose a course in `Courses`.
+- User is asked to choose a project from the selected course, or propose a project themselves in `Projects`.
+- User can monitor what projects they have applied or applications to their project in `Teammates`.
+
