@@ -1,0 +1,109 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Trebuchet MS', sans-serif; 
+  background-color: #E9EFEC;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/*.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}*/
+
+.App-logo {
+  margin: 5px auto;
+  justify-content: center; 
+}
+
+.App-logo img {
+  width: 80px;
+  height: 80px; 
+  border-radius: 50%; 
+  justify-content: center;
+}
+
+.App-header {
+  font-size: calc(3px + 2vmin);
+  color: black;
+  justify-content: center; 
+}
+
+.App-logo-left {
+  margin: 5px auto;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+.App-logo-left img {
+  width: 80px;
+  height: 80px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+}
+
+/* Login and Register links */
+
+nav {
+  position: absolute;
+  top: 20px;  
+  right: 20px;  
+}
+
+nav a {
+  margin: 0 10px;
+  color: #16423C;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+  color: #6A9C89;  
+}
+
+.App-link {
+  color: #16423C;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.App-link:hover {
+  text-decoration: underline;
+}
+
+
+.App-intro {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.App-footer {
+  color: black;
+  padding: 10px;
+}
+
+.App-buttons button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin: 10px;
+  cursor: pointer;
+  background-color: #C4DAD2;
+  border: none;
+  border-radius: 5px;
+  color: #16423C;
+}
+
+.App-buttons button:hover {
+  background-color: #6A9C89; 
+}
+
