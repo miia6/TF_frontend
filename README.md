@@ -38,4 +38,11 @@ Below is the summary of what I added and changed.
 They're just my personal suggestions, so please feel feel to disagree and revert the changes.
 
 1. Let's make make our pages name a bit more consistent: 
-- `Homepage` &rarr `Find Courses`
+- Rename `Homepage` to `Find Courses`.
+- Rename `Project finding` to `Find Projects`.
+- `Project proposal` omitted from dashboard and can be accessed via `Find Projects`.
+- Rename `Teammates finding` to `Find Teammates`.
+
+So the new dashboard includes 3 main routes, which can be accessed in the following flow:
+
+`Find Courses` &rarr; `Find Projects` &rarr; `Find Teammates`
