@@ -1,0 +1,40 @@
+.teammates-finding-container {
+    padding: 130px 50px;
+}
+
+.teammates-finding-container {
+    position: relative;
+}
+
+.teammates-finding-container h1 {
+    font-size: 2rem;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.teammates-finding-container h3 {
+    font-size: 1rem;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    color: black;
+}
+
+.view-button {
+    padding: 10px;
+    font-size: 1rem;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #C4DAD2;
+    border: none;
+    border-radius: 5px;
+    color: #16423C;
+}
+
+.course {
+    position: absolute;
+    left: 20px;
+    top: 150px;
+    color: black;
+    font-size: 1rem;
+}

@@ -8,7 +8,10 @@ import Dashboard from './pages/Dashboard'
 import CourseSelection from './pages/CourseSelection'
 import ProjectProposal from './pages/ProjectProposal'
 import ProjectFinding from './pages/ProjectFinding'
+import TeammatesFinding from './pages/TeammatesFinding'
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom'
+import Applications from './pages/Applications'
+import { useState } from 'react'
 
 // import { useState, useEffect, useRef } from 'react'
 
@@ -16,6 +19,11 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate 
 // import components
 
 function AppContent() {
+  const [course, setCourse] = useState('')
+
+  const handleCourseSelect = (event) => {
+
+  }
 
   const location = useLocation()
   const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register'
@@ -55,10 +63,12 @@ function AppContent() {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/courseSelection" element={<CourseSelection />} />
+        <Route path="/courseSelection" element={<CourseSelection handleCourseSelect={handleCourseSelect} />} />
         <Route path="/projectProposal" element={<ProjectProposal />} />
         <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
         <Route path="/projectFinding" element={<ProjectFinding />} />
+        <Route path="/teammatesFinding" element={<TeammatesFinding />} />
+        <Route path="/applications" element={<Applications />} />
         {/* You can add more routes for other pages here */}
       </Routes>
     </div>

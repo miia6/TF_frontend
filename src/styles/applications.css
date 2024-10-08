@@ -1,0 +1,15 @@
+.applications {
+    padding: 150px 50px;
+}
+
+.course {
+    position: absolute;
+    left: 20px;
+    top: 150px;
+    color: black;
+    font-size: 1rem;
+}
+
+.project-card {
+    margin-top: 50px;
+}
