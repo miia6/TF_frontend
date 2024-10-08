@@ -63,7 +63,7 @@ const SignUpForm = ({
 
         <button type="submit">Sign up</button>
       
-        <div className="signup-section">
+        <div className="login-section">
           <p>Already have an account?</p>
             <button
                 type="button"

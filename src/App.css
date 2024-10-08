@@ -6,7 +6,8 @@ body, html {
 }
 
 #root {
-  max-width: 1280px;
+  max-width: auto; /*1280px;*/
+  max-height: auto;
   margin: 0 auto;
   text-align: center;
 }
@@ -20,8 +21,8 @@ body, html {
 }*/
 
 .App-logo {
-  margin: 5px auto;
-  justify-content: center; 
+  margin: 0;
+  justify-content: center;
 }
 
 .App-logo img {
@@ -35,11 +36,13 @@ body, html {
   font-size: calc(3px + 2vmin);
   color: black;
   justify-content: center; 
+  margin: 50px;
+  /*position: fixed;*/
 }
 
 .App-logo-left {
   margin: 5px auto;
-  position: absolute;
+  position: fixed;
   top: 30px;
   left: 30px;
 }
@@ -54,13 +57,13 @@ body, html {
 /* Login and Register links */
 
 nav {
-  position: absolute;
+  position: fixed;
   top: 20px;  
   right: 20px;  
 }
 
 nav a {
-  margin: 0 10px;
+  margin: 10px;
   color: #16423C;
   text-decoration: none;
 }
