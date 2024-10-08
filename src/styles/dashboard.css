@@ -2,10 +2,11 @@
     width: 100vw;
     background-color: #16423C;
     box-sizing: border-box;
-    position: fixed; 
     top: 0; 
     left: 0; 
     z-index: 1000;
+    /*overflow: hidden;*/
+    position: fixed;
 }
   
 .dashboard-header {
@@ -66,21 +67,30 @@
     background-color: #6A9C89; 
 }
 
+
 .course-section {
-    width: 100vw;
-    padding: 20px;
+    width: 90vw;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 100px;
     color: black; 
     text-align: left; 
-    margin-top: 100px; 
-    position: absolute;
-    top: 20px;
-    left: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.course-section p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: black;
 }
 
 .course-info {
-    font-size: 0.9rem; 
+    font-size: 1rem; 
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .change-course-button {
@@ -96,4 +106,44 @@
 .change-course-button:hover {
     background-color: #6A9C89;
 }
+
+
+.content-container {
+    padding-left: 30px;
+    padding-top: 0;
+    justify-content: left;
+    align-items: left;
+    overflow: hidden;
+    position: relative;
+}
+
+.info-section {
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    color: black;
+    margin-top: 0;
+}
+
+.info-section h3 {
+    margin: 20px 0 5px 0;
+}
+
+.info-section p {
+    margin: 0 0 6px 0;
+    font-size: 1rem;
+    color: black;
+}
+  
+.info-section a {
+    color: #16423C;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.info-section a:hover {
+    text-decoration: underline;
+    color: #6A9C89;  
+}
+
 
