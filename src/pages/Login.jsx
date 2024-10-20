@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LoginForm from '../components/LoginForm'
 import '../styles/login.css'
+import { login } from '../services/auth'
 
 
 const Login = () => {
@@ -18,21 +19,22 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
     console.log('Logging in with')
 
-    // TODO: request to backend
-    navigate('/courseSelection')
-  }
+    try {
+      const response = await login(emailOrPhoneNumber, password)
 
-  const handleLogout = () => {
-    // Clear session logic (e.g., remove tokens)
-    navigate('/')
+      console.log('Login successful', response)
+      navigate('/courseSelection')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
-    <div className="login-container"> 
+    <div className="login-container">
       <LoginForm
         handleLogin={handleLogin}
         handleEmailOrPhoneNumberChange={handleEmailOrPhoneNumberChange}
