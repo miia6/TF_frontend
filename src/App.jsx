@@ -6,7 +6,12 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import CourseSelection from './pages/CourseSelection'
+import ProjectProposal from './pages/ProjectProposal'
+import ProjectFinding from './pages/ProjectFinding'
+import TeammatesFinding from './pages/TeammatesFinding'
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom'
+import Applications from './pages/Applications'
+import { useState } from 'react'
 
 // import { useState, useEffect, useRef } from 'react'
 
@@ -14,6 +19,11 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate 
 // import components
 
 function AppContent() {
+  const [course, setCourse] = useState('')
+
+  const handleCourseSelect = (event) => {
+
+  }
 
   const location = useLocation()
   const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register'
@@ -39,23 +49,27 @@ function AppContent() {
       )}
 
       <Routes>
-          <Route path="/" element={
-            <section className="App-intro">
-              <h2>Welcome to TeammatesFinding App</h2>
-              <p>
-                TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
-              </p>
-              <div className="App-buttons">
-                <button onClick={() => navigate('/login')}>Login</button>
-                <button onClick={() => navigate('/register')}>Sign up</button>
-              </div>
-            </section>
-          } />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/courseSelection" element={<CourseSelection />} />
-          <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
-          {/* You can add more routes for other pages here */}
+        <Route path="/" element={
+          <section className="App-intro">
+            <h2>Welcome to TeammatesFinding App</h2>
+            <p>
+              TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
+            </p>
+            <div className="App-buttons">
+              <button onClick={() => navigate('/login')}>Login</button>
+              <button onClick={() => navigate('/register')}>Sign up</button>
+            </div>
+          </section>
+        } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/courseSelection" element={<CourseSelection handleCourseSelect={handleCourseSelect} />} />
+        <Route path="/projectProposal" element={<ProjectProposal />} />
+        <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
+        <Route path="/projectFinding" element={<ProjectFinding />} />
+        <Route path="/teammatesFinding" element={<TeammatesFinding />} />
+        <Route path="/applications" element={<Applications />} />
+        {/* You can add more routes for other pages here */}
       </Routes>
     </div>
   )
