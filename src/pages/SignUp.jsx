@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SignUpForm from '../components/SignUpForm'
 import '../styles/signup.css'
+import { signup } from '../services/auth'
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
@@ -27,7 +28,13 @@ const SignUp = () => {
   const handleSignUp = (event) => {
     event.preventDefault()
     console.log('Signing up with:', { username, email, phoneNumber, password })
-    
+
+    signup(email, password, username, phoneNumber).then((response) => {
+      console.log('Signup response:', response)
+    }).catch((error) => {
+      console.error('Signup error:', error)
+    })
+
     // TODO: request to backend
   }
 
