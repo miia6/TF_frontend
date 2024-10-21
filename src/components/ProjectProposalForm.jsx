@@ -1,9 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { createProject } from '../services/project';
 
 const ProjectProposalForm = () => {
-  const handleSubmit = (event) => {
+  const [courseId, setCourseId] = useState('')
+  const handleSubmit = async (event) => {
     event.preventDefault()
+
+    if (!courseId || !event.target.title.value || !event.target.teamName.value) {
+      return
+    }
+
+    await createProject({
+      name: event.target.title.value,
+      description: event.target.description.value,
+      teamName: event.target.teamName.value,
+      teammates: event.target.teammates.value,
+      courseId: courseId
+    })
+
   }
+
+  useEffect(() => {
+
+    setCourseId(localStorage.getItem('selectedCourse'))
+  }, [])
 
   return (
     <div className="project-proposal-form">

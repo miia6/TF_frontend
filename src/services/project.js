@@ -38,3 +38,28 @@ export const getProject = async (projectId) => {
 	}
 };
 
+
+/**
+ * Function to create a project.
+ * @param {Object} projectData - Project data.
+ * @param {string} projectData.name - Project title.
+ * @param {string} projectData.description - Project description.
+ * @param {string} projectData.teamName - Project team name.
+ * @param {string} projectData.teammates - Project teammates.
+ * @param {string} projectData.courseId - Course ID.
+*/
+export const createProject = async (projectData) => {
+	try {
+		const user = JSON.parse(Cookies.get('user'));
+		const response = await axios.post(`${API_URL}/project/create-project`, projectData, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		});
+
+		return response.data;
+	} catch (error) {
+		console.error(error);
+		throw new Error('Error al crear el proyecto');
+	}
+}
