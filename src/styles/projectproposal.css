@@ -1,5 +1,7 @@
 .project-proposal-container {
-    padding: 50px 100px;
+    /*padding: 50px 100px;*/
+    padding-top: 50px;
+    padding-right: 150px;
 }
 
 .project-proposal-form {}

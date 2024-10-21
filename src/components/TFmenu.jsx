@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/TF_app_logo.jpg'
 import '../styles/dashboard.css'
 
-const TFToolbar = () => {
+const TFmenu = () => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
         // Add your logout logic here (e.g., clear session or tokens)
-        navigate('/login'); // Redirect back to login page after logging out
+        navigate('/login')
     }
 
     return (
-        <div className="dashboard-container">
-            <div className="dashboard-header">
-                <img src={logo} alt="TF logo" className="dashboard-logo" />
+        <div className="dashboard-menu">
+              <img src={logo} alt="TF logo" className="dashboard-logo" />
                 <div className="dashboard-links">
                     <button onClick={() => navigate('/teammatesFinding')} className="dashboard-link">
                         Teammates Finding
@@ -25,16 +24,15 @@ const TFToolbar = () => {
                     <button onClick={() => navigate('/projectFinding')} className="dashboard-link">
                         Project Finding
                     </button>
-                    <button onClick={() => navigate('/help')} className="dashboard-link help">
+                    <button onClick={() => navigate('/help')} className="dashboard-link dashboard-link-right help">
                         Help
                     </button>
                     <button onClick={handleLogout} className="dashboard-link logout">
                         Logout
                     </button>
                 </div>
-            </div>
-        </div>
+          </div>
     )
 }
 
-export default TFToolbar
+export default TFmenu

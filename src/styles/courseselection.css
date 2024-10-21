@@ -1,3 +1,5 @@
+/* container and form */
+
 .course-selection-container {
     display: flex;
     flex-direction: column;
@@ -10,18 +12,19 @@
 .course-select-form {
     display: flex;
     flex-direction: column; 
-    width: 400px; 
+    width: 600px; 
     height: auto; 
     background-color: #fff; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     border-radius: 10px; 
     padding: 20px;
 }
-  
+
+/* content of the form */
+
 .course-select-form h1 {
     font-size: 2rem;
-    margin-top: 0px;
-    margin-bottom: 20px; 
+    margin: 10px;
     color: black; 
 }
 
@@ -34,13 +37,14 @@
     font-weight: bold; 
     color: black; 
     font-size: 1rem; 
+    margin: 10px;
   }
 
 .course-select {
     padding: 10px;
     background-color: #E9EFEC; 
-    border: 1px solid #C4DAD2; 
-    border-radius: 5px; 
+    /*border: 1px solid #C4DAD2; 
+    border-radius: 10px; */
     font-size: 1rem; 
     font-family: 'Trebuchet MS', sans-serif;
     color: black;
@@ -54,6 +58,8 @@
     opacity: 1;
 }
 
+/* dropdown (searching courses) */
+
 .dropdown {
     list-style: none;
     width: 100%;
@@ -62,8 +68,7 @@
     border-radius: 5px;
     background-color: #fff;
     position:relative;
-    /*z-index: 1;*/
-    max-height: 170px;
+    max-height: 120px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -83,6 +88,8 @@
     background-color: #6A9C89;
     color: #fff;
 }
+
+/* select button */
 
 .course-select-form button {
     width: auto;

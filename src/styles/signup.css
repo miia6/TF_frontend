@@ -1,3 +1,5 @@
+/* container and form */
+
 .signup-container {
     display: flex;
     flex-direction: column;
@@ -7,7 +9,6 @@
     background-color: #E9EFEC;
     padding: 20px;
 }
-
 
 .signup-form {
     display: flex;
@@ -20,13 +21,14 @@
     padding: 20px;
 }
 
+/* content of the form */
+
 .signup-form h1 {
     font-size: 2rem;
     margin-top: 0px;
     margin-bottom: 20px; 
     color: black; 
 }
-
 
 .form-group {
     display: flex; 
@@ -66,7 +68,6 @@
 .signup-form button:hover {
     background-color: #6A9C89; 
 }
-
 
 .login-section {
     margin-top: 20px; 

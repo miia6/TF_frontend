@@ -5,46 +5,40 @@ import ProjectCard from '../components/ProjectCard'
 import '../styles/projectfinding.css'
 import '../styles/dashboard.css'
 import Grid from '@mui/material/Grid';
-import TFToolbar from '../components/TFToolbar'
+import TFmenu from '../components/TFmenu'
+import CourseInfo from '../components/CourseInfo'
 
 const ProjectFinding = ({ appLogo }) => {
     const navigate = useNavigate()
-    const [course, setCourse] = useState('')
-
-    useEffect(() => {
-        setCourse(localStorage.getItem('selectedCourse'))
-    }, [])
-    const handleLogout = () => {
-        // Add your logout logic here (e.g., clear session or tokens)
-        navigate('/login'); // Redirect back to login page after logging out
-    }
 
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = (event) => {
-        const term = event.target.value
-        setSearchTerm(term)
+        setSearchTerm(event.target.value)
     }
 
     return (
         <>
-            <TFToolbar />
+            < TFmenu />
+            < CourseInfo />
 
-            <div className='course'>{course}</div>
+            {/*<div className='project-finding-container'>*/}
+                <div className='project-finding-form'>
+                    <h1>Projects</h1>
+                    <h3>Description of the page</h3>
 
-            <div className='project-finding'>
-                <h1>Projects</h1>
-                <h3>Description of the page</h3>
-
-                <div className="project-search">
-                    <label htmlFor="project">Search:</label>
-                    <input
-                        type="text"
-                        id="project"
-                        className="input"
-                        onChange={handleSearch}
-                    />
-                </div>
+                    <div className="project-search">
+                        <label htmlFor="projectSearch">Search:</label>
+                        <input
+                            type="text"
+                            id="projectSearch"
+                            placeholder="Type to search. Search by words, #tags or team names."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="input"
+                        />
+                    </div>
+                {/*</div>*/}
 
                 <Grid container spacing={2}>
                     {["1", "2", "3", "4", "5"].filter(x => searchTerm.includes(x) || x.includes(searchTerm)).map(

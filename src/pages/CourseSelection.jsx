@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import CourseSelectionForm from '../components/CourseSelectionForm'
 import '../styles/courseselection.css'
 
-// TODO: resolve confusing names `handleCourseSelection` vs `handleCourseSelect`
-const CourseSelection = ({ handleCourseSelect }) => {
+const CourseSelection = () => {
   const navigate = useNavigate()
 
   const handleCourseSelection = (course) => {
@@ -21,7 +20,6 @@ const CourseSelection = ({ handleCourseSelect }) => {
     <div className="course-selection-container">
       <CourseSelectionForm
         handleCourseSelection={handleCourseSelection}
-        handleCourseSelect={handleCourseSelect}
       />
     </div>
   )

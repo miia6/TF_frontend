@@ -21,66 +21,64 @@ import { useState } from 'react'
 function AppContent() {
   const [course, setCourse] = useState('')
 
-  const handleCourseSelect = (event) => {
-
-  }
-
   const location = useLocation()
-  const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register'
-  const isLoginOrSignUpPage = location.pathname === '/login' || location.pathname === '/register'
+  const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/courseSelection'
+  const appLogoAndHeader = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/courseSelection'
 
   const navigate = useNavigate()
 
   return (
-    <div className="App">
-      {showAppLogoAndHeader && (
-        <>
-          <div className={`App-logo ${isLoginOrSignUpPage ? 'App-logo-left' : ''}`}>
-            <img src={logo} alt="TF Logo" />
-          </div>
-          <header className="App-header">
-            <h1>TeammatesFinding</h1>
-            <nav>
-              <a href="/login">Login</a>
-              <a href="/register">Sign up</a>
-            </nav>
-          </header>
-        </>
-      )}
+      <div className="App">
+          {showAppLogoAndHeader && (
+            <>
+                <div className={`App-header-container ${appLogoAndHeader ? 'App-header-container-flex' : ''}`}>
+                    <div className={`App-logo ${appLogoAndHeader ? 'App-logo-flex' : ''}`}>
+                        <img src={logo} alt="TF Logo" />
+                        </div>
+                            <header className="App-header">
+                                <h1>TeammatesFinding</h1>
+                                <nav>
+                                    <a href="/login">Login</a>
+                                    <a href="/register">Sign up</a>
+                                </nav>
+                            </header>
+                        </div>
+            </>
+          )}
 
-      <Routes>
-        <Route path="/" element={
-          <section className="App-intro">
-            <h2>Welcome to TeammatesFinding App</h2>
-            <p>
-              TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
-            </p>
-            <div className="App-buttons">
-              <button onClick={() => navigate('/login')}>Login</button>
-              <button onClick={() => navigate('/register')}>Sign up</button>
-            </div>
-          </section>
-        } />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/courseSelection" element={<CourseSelection handleCourseSelect={handleCourseSelect} />} />
-        <Route path="/projectProposal" element={<ProjectProposal />} />
-        <Route path="/dashboard" element={<Dashboard appLogo={logo} />} />
-        <Route path="/projectFinding" element={<ProjectFinding />} />
-        <Route path="/teammatesFinding" element={<TeammatesFinding />} />
-        <Route path="/applications" element={<Applications />} />
-        {/* You can add more routes for other pages here */}
-      </Routes>
+        <Routes>
+            <Route path="/" element={
+                <section className="App-intro">
+                    <h2>Welcome to TeammatesFinding App</h2>
+                    <p>
+                        TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
+                    </p>
+                    <div className="App-buttons">
+                        <button onClick={() => navigate('/login')}>Login</button>
+                        <button onClick={() => navigate('/register')}>Sign up</button>
+                    </div>
+                </section>
+            }/>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/courseSelection" element={<CourseSelection />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/teammatesFinding" element={<TeammatesFinding />} />
+            <Route path="/projectProposal" element={<ProjectProposal />} />
+            <Route path="/projectFinding" element={<ProjectFinding />} />
+            <Route path="/applications" element={<Applications />} />
+            {/* You can add more routes for other pages here */}
+        </Routes>
     </div>
   )
 }
 
 function App() {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
-  )
+    return (
+      <Router>
+          <AppContent />
+      </Router>
+    )
 }
 
 export default App

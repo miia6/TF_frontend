@@ -1,29 +1,24 @@
-.dashboard-container {
-    width: 100vw;
+/* menu */
+
+.dashboard-menu {
     background-color: #16423C;
     box-sizing: border-box;
     top: 0; 
     left: 0; 
-    z-index: 1000;
-    /*overflow: hidden;*/
     position: fixed;
-}
-  
-.dashboard-header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    padding: 15px 20px; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
+    padding: 15px;
+    z-index: 1000; 
 }
   
 .dashboard-logo {
     height: 80px;
     width: 80px;
     border-radius: 50%;
-    margin-left: 20px;
+    margin-left: 30px;
     margin-right: 100px;
 }
 
@@ -34,10 +29,11 @@
 }
   
 .dashboard-link {
-    padding: 10px 20px;
-    background-color: #C4DAD2;
-    color: #16423C;
-    font-size: 1.1rem;
+    padding: 15px 20px;
+    background-color: #E9EFEC;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -46,57 +42,63 @@
   
 .dashboard-link:hover {
     background-color: #6A9C89;
+    color: white;
+}
+
+.dashboard-link-right {
+    margin-left: auto;
 }
 
 .help {
-    background-color: #ffffff; 
+    background-color: #E9EFEC; 
     color: black;
-    margin-left: 250px;
+    /*position:relative;
+    align-items: right;
+    justify-content: right;*/
 }
 
 .help:hover {
     background-color: #6A9C89; 
+    color: white
 }
 
 .logout {
-    background-color: #ffffff; 
+    background-color: #E9EFEC; 
     color: black;
+    margin-right: 30px;
 }
 
 .logout:hover {
     background-color: #6A9C89; 
+    color: white
 }
 
+/* selected course */
 
 .course-section {
-    width: 90vw;
-    padding-left: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 100px;
+    padding: 30px !important;
+    margin-left: 20px !important;
     color: black; 
     text-align: left; 
-    overflow: hidden;
     position: relative;
 }
 
 .course-section p {
     margin: 0;
     font-size: 0.9rem;
-    color: black;
 }
 
 .course-info {
     font-size: 1rem; 
     font-weight: bold;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .change-course-button {
     padding: auto;
     background-color: #C4DAD2;
-    color: #16423C;
+    color: black !important;
     border: none;
     border-radius: 5px;
     font-size: 0.8rem;
@@ -107,13 +109,16 @@
     background-color: #6A9C89;
 }
 
+/* content of the page */
 
 .content-container {
-    padding-left: 30px;
-    padding-top: 0;
+    margin-left: 80px;
+    margin-right: 80px;
+    padding: 0;
+    /*padding-left: 60px;
+    padding-top: 0;*/
     justify-content: left;
     align-items: left;
-    overflow: hidden;
     position: relative;
 }
 

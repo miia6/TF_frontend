@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import SignUpForm from '../components/SignUpForm'
 import '../styles/signup.css'
 
@@ -7,6 +8,8 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value)
@@ -26,8 +29,8 @@ const SignUp = () => {
 
   const handleSignUp = (event) => {
     event.preventDefault()
-    console.log('Signing up with:', { username, email, phoneNumber, password })
-    
+    navigate('/login')
+    //console.log('Signing up with:', { username, email, phoneNumber, password })
     // TODO: request to backend
   }
 
