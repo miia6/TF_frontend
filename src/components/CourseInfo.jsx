@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../styles/dashboard.css'
+import '../styles/courseinfo.css'
 
 const CourseInfo = ({}) => {
     const [selectedCourse, setSelectedCourse] = useState('') 

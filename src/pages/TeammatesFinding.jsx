@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+//import { useNavigate } from 'react-router-dom'
 import TeammatesFindingForm from '../components/TeammatesFindingForm'
 import '../styles/teammatesfinding.css'
 import TFmenu from '../components/TFmenu'
 import CourseInfo from '../components/CourseInfo'
 
 const TeammatesFinding = () => {
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
 
     const handleTeammatesFinding = (user) => {
         if (user) {

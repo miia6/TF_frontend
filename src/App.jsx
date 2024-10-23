@@ -1,25 +1,30 @@
 // HOMEPAGE / APP
 
+import { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from './assets/TF_app_logo.jpg'
+
 import './App.css'
+
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import CourseSelection from './pages/CourseSelection'
 import ProjectProposal from './pages/ProjectProposal'
+
 import ProjectFinding from './pages/ProjectFinding'
+import ProjectSearch from './pages/ProjectSearch'
+import UserProject from './pages/UserProject'
+//import SentApplications from './pages/SentApplications'
+//import ProjectApplications from '/pages/ProjectApplications'
+//import ProjectInvitations from '/pages/ProjectInvitations'
+//import SentInvitations from '/pages/SentInvitations'
+
 import TeammatesFinding from './pages/TeammatesFinding'
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom'
 import Applications from './pages/Applications'
-import { useState } from 'react'
 
-// import { useState, useEffect, useRef } from 'react'
-
-// import services
-// import components
 
 function AppContent() {
-  const [course, setCourse] = useState('')
 
   const location = useLocation()
   const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/courseSelection'
@@ -65,7 +70,15 @@ function AppContent() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teammatesFinding" element={<TeammatesFinding />} />
             <Route path="/projectProposal" element={<ProjectProposal />} />
+
             <Route path="/projectFinding" element={<ProjectFinding />} />
+            <Route path="/projectSearch" element={<ProjectSearch />} />
+            <Route path="/yourProject" element={<UserProject />} />
+            {/*<Route path="/sentApplications" element={<SentApplications />} />*/}
+            {/*<Route path="/projectApplications" element={<projectApplications />} />*/}
+            {/*<Route path="/projectInvitations" element={<projectInvitations />} />*/}
+            {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}
+
             <Route path="/applications" element={<Applications />} />
             {/* You can add more routes for other pages here */}
         </Routes>

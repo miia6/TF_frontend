@@ -1,0 +1,32 @@
+.no-project-container {
+    width: 100%;
+    height: auto;
+    justify-content: left !important;
+    align-items: left;
+    position: relative;
+    text-align: left;
+}
+
+.no-project-header {
+    margin-left: 50px;
+    color: black;
+}
+
+.no-project-links p {
+    margin-left: 70px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    color: black;
+}
+
+.no-project-links a {
+    margin-left: 70px;
+    color: #16423C;
+    text-decoration: underline;
+    font-size: 1.4rem;
+}
+
+.no-project-links a:hover {
+    text-decoration: underline;
+    color: #6A9C89;
+}

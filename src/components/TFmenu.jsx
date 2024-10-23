@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/TF_app_logo.jpg'
-import '../styles/dashboard.css'
+import '../styles/tfmenu.css'
 
 const TFmenu = () => {
     const navigate = useNavigate()
@@ -15,18 +15,23 @@ const TFmenu = () => {
         <div className="dashboard-menu">
               <img src={logo} alt="TF logo" className="dashboard-logo" />
                 <div className="dashboard-links">
-                    <button onClick={() => navigate('/teammatesFinding')} className="dashboard-link">
-                        Teammates Finding
-                    </button>
-                    <button onClick={() => navigate('/projectProposal')} className="dashboard-link">
-                        Project Proposal
-                    </button>
-                    <button onClick={() => navigate('/projectFinding')} className="dashboard-link">
-                        Project Finding
-                    </button>
-                    <button onClick={() => navigate('/help')} className="dashboard-link dashboard-link-right help">
-                        Help
-                    </button>
+                    <div className="left-links">
+                        <button onClick={() => navigate('/dashboard')} className="dashboard-link">
+                            Frontpage
+                        </button>
+                        <button onClick={() => navigate('/projectFinding')} className="dashboard-link">
+                            Project Finding
+                        </button>
+                        <button onClick={() => navigate('/teammatesFinding')} className="dashboard-link">
+                            Teammates Finding
+                        </button>
+                        <button onClick={() => navigate('/projectProposal')} className="dashboard-link">
+                            Project Proposal
+                        </button>
+                        <button onClick={() => navigate('/yourProject')} className="dashboard-link">
+                            Your Project
+                        </button>
+                    </div>
                     <button onClick={handleLogout} className="dashboard-link logout">
                         Logout
                     </button>

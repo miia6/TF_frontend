@@ -1,0 +1,37 @@
+/* selected course */
+
+.course-section {
+    padding: 30px !important;
+    margin-left: 20px !important;
+    color: black; 
+    text-align: left; 
+    position: relative;
+    margin-bottom: 0px;
+}
+
+.course-section p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.course-info {
+    font-size: 1rem; 
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.change-course-button {
+    padding: auto;
+    background-color: #C4DAD2;
+    color: black !important;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.change-course-button:hover {
+    background-color: #6A9C89;
+    color: white !important;
+}

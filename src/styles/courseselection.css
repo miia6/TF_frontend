@@ -43,8 +43,8 @@
 .course-select {
     padding: 10px;
     background-color: #E9EFEC; 
-    /*border: 1px solid #C4DAD2; 
-    border-radius: 10px; */
+    border: 1px solid #C4DAD2; 
+    border-radius: 10px; 
     font-size: 1rem; 
     font-family: 'Trebuchet MS', sans-serif;
     color: black;
@@ -67,7 +67,7 @@
     border: 1px solid #C4DAD2;
     border-radius: 5px;
     background-color: #fff;
-    position:relative;
+    position: relative !important;
     max-height: 120px;
     overflow-y: auto;
     overflow-x: hidden;

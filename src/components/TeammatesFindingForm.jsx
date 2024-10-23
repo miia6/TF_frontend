@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 //import { useNavigate } from 'react-router-dom'
 import '../styles/teammatesfinding.css'
 
-// Change later: get users from database
+// TO DO: get users from database
 const users = [
-    { name: 'user 1', project: 'Project 1' },
-    { name: 'user 2', project: 'Project 2' },
-    { name: 'user 3', project: 'Project 3' },
-    { name: 'user 4', project: 'Project 4' },
-    { name: 'user 5', project: 'Project 5' },
-    { name: 'user 6', project: 'Project 6' },
+    { name: 'user 1', },
+    { name: 'user 2', },
+    { name: 'user 3', },
+    { name: 'user 4', },
+    { name: 'user 5', },
+    { name: 'user 6', },
 ]
 
 const TeammatesFindingForm = ({ handleTeammatesFinding }) => {

@@ -1,41 +1,62 @@
+/* container and form */
+
 .project-proposal-container {
-    /*padding: 50px 100px;*/
-    padding-top: 50px;
-    padding-right: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
 }
 
-.project-proposal-form {}
+.project-proposal-form {
+    display: flex;
+    flex-direction: column; 
+    width: 700px; 
+    height: auto; 
+    background-color: #fff; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    padding: 20px;
+}
+
+/* labels and inputs */
 
 .project-proposal-form h1 {
     font-size: 2rem;
+    color: black; 
+    padding: 10px;
     margin-top: 0px;
-    margin-bottom: 20px;
-    color: black;
-}
-
-.project-proposal-form h3 {
-    font-size: 1rem;
-    margin-top: 0px;
-    margin-bottom: 50px;
-    color: black;
 }
 
 .form-group-proposal {
     display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 }
 
 .form-group-proposal label {
-    width: 30%;
+    width: auto;
     font-weight: bold;
     color: black;
     font-size: 1rem;
+    text-align: left;
+    margin-left: 30px;
 }
 
-.input, .textarea {
+.required {
+    color: black; 
+    margin-left: 4px; 
+    font-weight: bold;
+    font-size: 1.1rem; 
+}
+
+.team-name, .project-title, .project-description, .project-teammate {
     padding: 10px;
-    background-color: white;
-    border: 1px solid #0d6344;
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border: 1px solid #C4DAD2;
+    background-color: #E9EFEC; 
     border-radius: 5px;
     font-size: 1rem;
     font-family: 'Trebuchet MS', sans-serif;
@@ -43,18 +64,152 @@
     flex: 1;
 }
 
+/* buttons */
+
+.create-button-container, .invite-button-container, .cancel-button-container {
+    display: flex;
+    justify-content: center; 
+}
+
+.invite-teammate-button {
+    width: auto !important;
+    padding: 10px !important;
+    font-size: 1rem !important;
+    margin: 10px !important;
+    cursor: pointer;
+    background-color: #E9EFEC !important;
+    border: none;
+    border-radius: 5px;
+    color: black;
+}
+
+.cancel-teammate-button {
+    width: auto !important;  
+    padding: 10px !important;
+    font-size: 1rem !important;
+    margin: 10px !important;
+    align-self: center !important;
+    cursor: pointer;
+    background-color: #E9EFEC !important;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    max-width: 70px;
+}
+
 .project-proposal-form button {
     width: auto;
-    padding: 10px;
-    font-size: 1rem;
-    margin: 10px;
+    padding: 15px;
+    font-size: 1.2rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
     cursor: pointer;
     background-color: #C4DAD2;
     border: none;
     border-radius: 5px;
-    color: #16423C;
+    color: black;
+}
+
+.invite-teammate-button:hover, .cancel-teammate-button:hover {
+    background-color: #C4DAD2 !important;
+    color: white;
 }
 
 .project-proposal-form button:hover {
     background-color: #6A9C89;
+    color: white;
+}
+
+/* teammates section */
+
+.teammates-section {
+    padding: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.teammates-section p {  
+    font-size: 1.1rem;
+    color: black; 
+    margin: 10px;
+    text-align: left;
+}
+
+.project-teammate {
+    padding: 10px;
+    margin-top: 0px;
+    width: auto;
+    position: relative;
+}
+
+/* dropdown (searching users) */
+
+.dropdown {
+    list-style: none;
+    width: 90% !important;
+    margin-left: 30px;
+    margin-bottom: 5px;
+    padding: 0px;
+    border: 1px solid #C4DAD2;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative;
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #C4DAD2;
+    border-bottom: 1px solid #ddd;
+    color: black;
+    font-size: 0.8rem;
+    box-sizing: border-box; 
+}
+
+.dropdown-item:hover {
+    background-color: #6A9C89;
+    color: #fff;
+}
+
+/* list of teammates to be invited*/
+
+.confirmed-teammates-section {
+    color: black;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.confirmed-teammates-section p {
+    font-size: 1.1rem;
+    margin: 10px;
+    margin-top: 0px;
+    text-align: left;
+}
+
+.confirmed-teammates-section ul {
+    list-style-type:disc;  
+    margin-left: 30px !important;
+    margin: 0px;      
+    text-align: left;                 
+}
+
+.confirmed-teammates-section li {
+    margin-bottom: 5px;    
+}
+
+/* errors */
+
+.error {
+    border: 2px solid red; 
+    color: black;
+}
+
+.error-text {
+    color: red; 
+    font-size: 0.875rem; 
+    margin-top: 4px; 
 }
