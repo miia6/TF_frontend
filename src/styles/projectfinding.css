@@ -1,110 +1,24 @@
-.project-card {
-    color: black;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 20px
-}
-
-.project-topic {
-    background-color: #6A9C89;
-    padding: 10px 20px;
-    border-radius: 10px;
-    width: 50%;
-    align-self: center;
-}
-
-.project-card-section {
+.project-finding-buttons {
+    margin-top: 100px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 10px;
+    gap: 20px; 
+    justify-content: center; 
+    align-items: center; 
+    flex-wrap: wrap; 
 }
 
-.project-card-read-more {
-    background-color: #6A9C89;
-}
-
-.project-card-apply {
-    background-color: #6A9C89;
-}
-
-.project-topic {}
-
-.team-name {
-    text-align: start;
-    margin-bottom: 10px;
-}
-
-.project-topic-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-finding {
-    padding-top: 150px;
-}
-
-.project-finding h1 {
-    font-size: 2rem;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    color: black;
-}
-
-.project-finding h3 {
-    font-size: 1rem;
-    margin-top: 0px;
-    margin-bottom: 50px;
-    color: black;
-}
-
-.project-search {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.project-search label {
-    width: 30%;
-    font-weight: bold;
+.project-finding-button {
+    padding: 15px 20px;
+    background-color: #C4DAD2;
     color: black;
     font-size: 1rem;
-}
-
-.project-search .input {
-    padding: 10px;
-    background-color: white;
-    border: 1px solid #0d6344;
+    border: none;
     border-radius: 5px;
-    font-size: 1rem;
-    font-family: 'Trebuchet MS', sans-serif;
-    color: black;
-    flex: 1;
-    margin-right: 20px;
+    text-align: center;
+    cursor: pointer;
 }
 
-.project-card-header {
-    display: flex;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    padding: 6px 8px 0px 8px;
-    margin-bottom: 10px;
-}
-
-.project-card-header div {
-    margin-left: 10px;
-}
-
-.project-card-description {
-    text-align: start;
-    padding: 0 10px;
-}
-
-.course {
-    position: absolute;
-    left: 20px;
-    top: 150px;
-    color: black;
-    font-size: 1rem;
+.project-finding-button:hover {
+    background-color: #6A9C89;
+    color: white;
 }

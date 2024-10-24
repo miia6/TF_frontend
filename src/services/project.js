@@ -51,6 +51,7 @@ export const getProject = async (projectId) => {
 export const createProject = async (projectData) => {
 	try {
 		const user = JSON.parse(Cookies.get('user'));
+		console.log('user', user);
 		const response = await axios.post(`${API_URL}/project/create-project`, projectData, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -63,3 +64,22 @@ export const createProject = async (projectData) => {
 		throw new Error('Error al crear el proyecto');
 	}
 }
+
+export const getMyCourseProject = async (courseId) => {
+	try {
+		const user = JSON.parse(Cookies.get('user'));
+		const response = await axios.get(`${API_URL}/project/my-course-project`, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			},
+			params: {
+				courseId: courseId
+			}
+		});
+		return response.data;
+	} catch (error) {
+		console.error(error);
+		throw new Error('Error al obtener el proyecto');
+	}
+}
+

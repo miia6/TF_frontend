@@ -1,5 +1,4 @@
-body,
-html {
+body, html {
   margin: 0;
   padding: 0;
   font-family: 'Trebuchet MS', sans-serif;
@@ -18,9 +17,24 @@ html {
   height: 100%;
 }
 
+#root {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+/* App logo and header */ 
+
+.App {
+  min-height: 100vh; 
+  background-color: #E9EFEC; 
+  padding-top: 1px;
+}
+
 .App-logo {
-  margin: 5px auto;
+  margin: 60px auto;
   justify-content: center;
+  display: flex;
 }
 
 .App-logo img {
@@ -30,32 +44,46 @@ html {
   justify-content: center;
 }
 
+.App-header-container {
+  display: block;
+}
+
 .App-header {
   font-size: calc(3px + 2vmin);
   color: black;
   justify-content: center;
+  margin: 20px; 
+  text-align: center;
 }
 
-.App-logo-left {
-  margin: 5px auto;
-  position: fixed;
-  top: 30px;
-  left: 30px;
+.App-header-container-flex {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 20px;
 }
 
-.App-logo-left img {
+.App-logo-flex {
+  margin: 0;
+  position: static;
+}
+
+.App-logo-flex img {
   width: 80px;
   height: 80px;
+  min-width: 80px;  
+  min-height: 80px;
   border-radius: 50%;
-  object-fit: cover;
 }
+
 
 /* Login and Register links */
 
 nav {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  position: fixed;
+  padding: 20px;
+  top: 0; 
+  right:0;  
 }
 
 nav a {
@@ -79,6 +107,7 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* App intro and content */
 
 .App-intro {
   margin-top: 10px;

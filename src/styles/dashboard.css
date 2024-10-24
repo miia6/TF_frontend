@@ -1,147 +1,35 @@
+/* content of the page */
+
 .dashboard-container {
-    width: 100vw;
-    background-color: #16423C;
-    box-sizing: border-box;
-    top: 0; 
-    left: 0; 
-    z-index: 1000;
-    /*overflow: hidden;*/
-    position: fixed;
-}
-  
-.dashboard-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
     width: 100%;
-    padding: 15px 20px; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
-  
-.dashboard-logo {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    margin-left: 20px;
-    margin-right: 100px;
-}
-
-.dashboard-links {
-    display: flex;
-    gap: 20px; 
-    flex-grow: 1;
-}
-  
-.dashboard-link {
-    padding: 10px 20px;
-    background-color: #C4DAD2;
-    color: #16423C;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-}
-  
-.dashboard-link:hover {
-    background-color: #6A9C89;
-}
-
-.help {
-    background-color: #ffffff; 
-    color: black;
-    margin-left: 250px;
-}
-
-.help:hover {
-    background-color: #6A9C89; 
-}
-
-.logout {
-    background-color: #ffffff; 
-    color: black;
-}
-
-.logout:hover {
-    background-color: #6A9C89; 
-}
-
-
-.course-section {
-    width: 90vw;
-    padding-left: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 100px;
-    color: black; 
     text-align: left; 
-    overflow: hidden;
-    position: relative;
+    color: black;
+    box-sizing: border-box;
+    padding-left: 50px;
 }
 
-.course-section p {
-    margin: 0;
-    font-size: 0.9rem;
+.dashboard-container h2 {
+    margin: 10px;
+}
+
+.dashboard-container p {
+    margin: 10px;
+    font-size: 1.1rem;
     color: black;
 }
 
-.course-info {
-    font-size: 1rem; 
-    font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 10px;
+.dashboard-link-container {
+    margin-bottom: 25px;
 }
 
-.change-course-button {
-    padding: auto;
-    background-color: #C4DAD2;
+.dashboard-link-container a {
+    padding-left: 10px;
     color: #16423C;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1.1rem;
 }
 
-.change-course-button:hover {
-    background-color: #6A9C89;
-}
-
-
-.content-container {
-    padding-left: 30px;
-    padding-top: 0;
-    justify-content: left;
-    align-items: left;
-    overflow: hidden;
-    position: relative;
-}
-
-.info-section {
-    justify-content: left;
-    align-items: left;
-    text-align: left;
-    color: black;
-    margin-top: 0;
-}
-
-.info-section h3 {
-    margin: 20px 0 5px 0;
-}
-
-.info-section p {
-    margin: 0 0 6px 0;
-    font-size: 1rem;
-    color: black;
-}
-  
-.info-section a {
-    color: #16423C;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.info-section a:hover {
+.dashboard-link-container a:hover {
     text-decoration: underline;
     color: #6A9C89;  
 }

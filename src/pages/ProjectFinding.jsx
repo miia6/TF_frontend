@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
+//import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ProjectProposalForm from '../components/ProjectProposalForm'
-import ProjectCard from '../components/ProjectCard'
-import '../styles/projectfinding.css'
+
+import TFmenu from '../components/TFmenu'
+import CourseInfo from '../components/CourseInfo'
+
 import '../styles/dashboard.css'
 import Grid from '@mui/material/Grid';
-import TFToolbar from '../components/TFToolbar'
 import { getProjects } from '../services/project'
+import '../styles/projectfinding.css'
+import { useEffect, useState } from 'react';
 
-const ProjectFinding = ({ appLogo }) => {
+const ProjectFinding = () => {
     const navigate = useNavigate()
     const [course, setCourse] = useState('')
     const [projects, setProjects] = useState([])
@@ -42,36 +44,32 @@ const ProjectFinding = ({ appLogo }) => {
 
     return (
         <>
-            <TFToolbar />
+            < TFmenu />
+            < CourseInfo />
 
-            <div className='course'>{course}</div>
+            <div className="project-finding-buttons">
+                <button onClick={() => navigate('/projectSearch')} className="project-finding-button">
+                    Search projects
+                </button>
+                <button onClick={() => navigate('/yourProject')} className="project-finding-button">
+                    Your project
+                </button>
+                <button onClick={() => navigate('/sentApplications')} className="project-finding-button">
+                    Sent applications
+                </button>
+                <button onClick={() => navigate('/projectApplications')} className="project-finding-button">
+                    Project applications
+                </button>
+                <button onClick={() => navigate('/projectInvitations')} className="project-finding-button">
+                    Project Invitations
+                </button>
+                <button onClick={() => navigate('/sentInvitations')} className="project-finding-button">
+                    Sent invitations
+                </button>
 
-            <div className='project-finding'>
-                <h1>Projects</h1>
-                <h3>Description of the page</h3>
-
-                <div className="project-search">
-                    <label htmlFor="project">Search:</label>
-                    <input
-                        type="text"
-                        id="project"
-                        className="input"
-                        onChange={handleSearch}
-                    />
-                </div>
-
-                <Grid container spacing={2}>
-                    {projects.filter(x => searchTerm.includes(x.name) || x.name.includes(searchTerm)).map(
-                        x => <Grid key={x.id} item xs={4}>
-                            <ProjectCard teamName={x.name} />
-                        </Grid>
-                    )}
-                </Grid>
             </div>
         </>
     )
 }
 
 export default ProjectFinding
-
-//nho phai mo truoc khi hut thong minh

@@ -1,4 +1,4 @@
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const SignUpForm = ({
   handleSignUp,
@@ -78,7 +78,7 @@ const SignUpForm = ({
   )
 }
 
-/*SignUpForm.propTypes = {
+SignUpForm.propTypes = {
     handleSignUp: PropTypes.func.isRequired,
     handleUsernameChange: PropTypes.func.isRequired,
     handleEmailChange: PropTypes.func.isRequired,
@@ -88,6 +88,6 @@ const SignUpForm = ({
     email: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-}*/
+}
 
 export default SignUpForm

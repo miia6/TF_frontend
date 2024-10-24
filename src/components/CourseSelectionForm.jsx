@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getCourses } from '../services/course';
+import PropTypes from 'prop-types';
 
 const CourseSelectionForm = ({ handleCourseSelection }) => {
+
     const [searchTerm, setSearchTerm] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState(() => localStorage.getItem('selectedCourse') || '')
@@ -43,6 +45,7 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
         }
     }
 
+
     return (
         <div className="course-select-form">
             <form onSubmit={handleSubmit}>
@@ -63,9 +66,9 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
 
                 {isDropdownOpen && filteredCourses.length > 0 && (
                     <ul className="dropdown">
-                        {filteredCourses.map((course) => (
+                        {filteredCourses.map((course, index) => (
                             <li
-                                key={course.id}
+                                key={index}
                                 onClick={() => handleSelect(course)}
                                 className="dropdown-item"
                             >
@@ -81,6 +84,10 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
             </form>
         </div>
     )
+}
+
+CourseSelectionForm.propTypes = {
+    handleCourseSelection: PropTypes.func.isRequired
 }
 
 export default CourseSelectionForm

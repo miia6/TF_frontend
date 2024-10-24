@@ -12,6 +12,9 @@ The application is started with npm run dev -command.
 # Routing (without backend)
 Install to the root: npm install react-router-dom
 
+# packages:
+Install to the root: npm install prop-types
+
 # ! PROTOTYPE FOR DEMO GALA !
 Done: Homepage (App.jsx), Login, Signup, CourseSelection.
 Currently I'm working on the Dashboard. 
