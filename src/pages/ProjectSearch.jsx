@@ -26,25 +26,25 @@ const projects = [
     {
         teamName: "Team C",
         title: "Project Gamma",
-        description: "Project Gamma focuses on developing innovative solutions.",
+        description: "nothing.",
         teammates: ["Frank", "Grace", "Heidi"]
     },
     {
         teamName: "Team C",
         title: "Project Gamma",
-        description: "Project Gamma focuses on developing innovative solutionsProject Gamma focuses on developing innovative solutions.",
+        description: "ykskakskolmeneljäviiskuus seittämän kaheksan yheksän kymmenen.123456712345671234567123456789012",
         teammates: ["Frank", "Grace", "Heidi"]
     },
     {
         teamName: "Team C",
         title: "Project Gamma",
-        description: "Project Gamma focuses on developing innovative solutions.",
+        description: "yks kaks kolme neljä viis kuus seittämän kaheksan yheksän kymmenen. 123456712345671 234567123456789012",
         teammates: ["Frank", "Grace", "Heidi"]
     },
     {
         teamName: "Team C",
         title: "Project Gamma",
-        description: "Project Gamma focuses on developing innovative solutionsProject Gamma focuses on developing innovative solutions.",
+        description: "Project Gamma focuses on developing innovative solutions. Project Gamma focuses on developing innovative solutions.",
         teammates: ["Frank", "Grace", "Heidi"]
     },
     

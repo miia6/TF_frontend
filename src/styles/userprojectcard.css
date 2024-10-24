@@ -95,13 +95,15 @@
 .user-project-description {
     padding: 10px;
     padding-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
     text-align: left;
     font-size: 1rem;
     width: auto;
     height: auto;
 }
 
-/* read more */
+/* show more or less buttons */
 
 .user-project-card-read-more {
     background-color: #E9EFEC;

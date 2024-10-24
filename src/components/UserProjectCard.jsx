@@ -6,7 +6,7 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
 
     const getShortDescription = (desc) => {
         const words = desc.split(' ')
-        return words.length > 10 ? words.slice(0, 10).join(' ') + '...' : desc
+        return words.length > 20 ? words.slice(0, 20).join(' ') + '...' : desc
     }
 
     const descriptionWordCount = description.split(' ').length
@@ -40,10 +40,10 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
                     <button
                         className='user-project-card-read-more'
                         onClick={() => setShowDescription(!showDescription)}
-                        disabled={descriptionWordCount <= 10} 
+                        disabled={descriptionWordCount <= 20} 
                         style={{
-                            opacity: descriptionWordCount <= 10 ? 0.5 : 1, // Dim the button
-                            cursor: descriptionWordCount <= 10 ? 'not-allowed' : 'pointer' // Change cursor style
+                            opacity: descriptionWordCount <= 20 ? 0.5 : 1, 
+                            cursor: descriptionWordCount <= 20 ? 'not-allowed' : 'pointer' 
                         }}
                     >
                         {showDescription ? 'Show less' : 'Show more'}

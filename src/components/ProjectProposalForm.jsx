@@ -30,11 +30,13 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
             setErrors(validationErrors)
             return
         }
+
+        const sanitizedDescription = description.replace(/\s+/g, ' ').trim()
   
         const projectData = {
             teamName,
             title,
-            description,
+            sanitizedDescription,
             teammates: Object.values(teammates).filter(teammate => teammate !== '') 
         }
 
