@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { getProject, getProjects } from '../services/project'
+
 import TFmenu from '../components/TFmenu'
 import CourseInfo from '../components/CourseInfo'
 import UserProjectCard from '../components/SearchProjectCard'
@@ -10,7 +12,7 @@ import '../styles/projectsearch.css'
 import '../styles/searchprojectcard.css'
 
 // TEST PROJECTS
-const projects = [
+/*const projects = [
     {
         teamName: "Team A",
         title: "Project Alpha",
@@ -48,13 +50,20 @@ const projects = [
         teammates: ["Frank", "Grace", "Heidi"]
     },
     
-]
-
+]*/
 
 const ProjectSearch = ({ appLogo }) => {
     const navigate = useNavigate()
+    const [projects, setProjects] = useState()
 
     const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        const course = localStorage.getItem('selectedCourse')
+        getProjects(course).then((projects) => {
+            setProjects(projects)
+        })
+    }, [])
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
@@ -82,17 +91,17 @@ const ProjectSearch = ({ appLogo }) => {
 
                 <Grid container spacing={2}>
                     {projects
-                        .filter(project => 
-                            project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                            project.description.toLowerCase().includes(searchTerm.toLowerCase())
+                        ?.filter(project =>
+                            project?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            project?.description.toLowerCase().includes(searchTerm.toLowerCase())
                         )
                         .map((project, index) => (
                             <Grid item key={index} xs={12} sm={6} md={4}>
-                                <UserProjectCard 
-                                    teamName={project.teamName}
-                                    title={project.title}
-                                    description={project.description}
-                                    teammates={project.teammates}
+                                <UserProjectCard
+                                    teamName={project?.teamName}
+                                    title={project?.name}
+                                    description={project?.description}
+                                    teammates={project?.teammates}
                                 />
                             </Grid>
                         ))}

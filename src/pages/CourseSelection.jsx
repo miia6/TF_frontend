@@ -25,4 +25,6 @@ const CourseSelection = () => {
     )
 }
 
+CourseSelection.propTypes = {}
+
 export default CourseSelection

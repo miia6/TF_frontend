@@ -3,6 +3,17 @@ body, html {
   padding: 0;
   font-family: 'Trebuchet MS', sans-serif;
   background-color: #E9EFEC;
+}
+
+#root {
+  max-width: auto; /*1280px;*/
+  max-height: auto;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.App {
   height: 100%;
 }
 
@@ -40,6 +51,7 @@ body, html {
 .App-header {
   font-size: calc(3px + 2vmin);
   color: black;
+  justify-content: center;
   margin: 20px; 
   text-align: center;
 }

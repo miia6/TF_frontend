@@ -5,10 +5,42 @@ import TFmenu from '../components/TFmenu'
 import CourseInfo from '../components/CourseInfo'
 
 import '../styles/dashboard.css'
+import Grid from '@mui/material/Grid';
+import { getProjects } from '../services/project'
 import '../styles/projectfinding.css'
+import { useEffect, useState } from 'react';
 
 const ProjectFinding = () => {
     const navigate = useNavigate()
+    const [course, setCourse] = useState('')
+    const [projects, setProjects] = useState([])
+
+    useEffect(() => {
+        setCourse(localStorage.getItem('selectedCourse'))
+    }, [])
+
+    const handleLogout = () => {
+        // Add your logout logic here (e.g., clear session or tokens)
+        navigate('/login'); // Redirect back to login page after logging out
+    }
+
+    useEffect(() => {
+        if (!course) {
+            return
+        }
+        getProjects(course).then((projects) => {
+            setProjects(projects)
+            console.log(projects)
+        })
+    }, [course])
+
+
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearch = (event) => {
+        const term = event.target.value
+        setSearchTerm(term)
+    }
 
     return (
         <>
@@ -34,6 +66,7 @@ const ProjectFinding = () => {
                 <button onClick={() => navigate('/sentInvitations')} className="project-finding-button">
                     Sent invitations
                 </button>
+
             </div>
         </>
     )

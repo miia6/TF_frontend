@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
@@ -7,18 +7,21 @@ import UserProjectCard from '../components/UserProjectCard'
 
 import '../styles/userproject.css'
 import '../styles/userprojectcard.css'
+import { getMyCourseProject } from '../services/project'
 
 const UserProject = () => {
     const navigate = useNavigate()
+    const [project, setProject] = useState(null) // temporary
 
-    const project = {
-        teamName: "Team A",
-        title: "Project Alpha",
-        description: "This is a description for Project Alpha. It covers important aspects.",
-        teammates: ["Alice", "Bob", "Charlie"]
-    }
-
-    //const project = null
+    useEffect(() => {
+        const course = localStorage.getItem('selectedCourse')
+        if (!course) {
+            return
+        }
+        getMyCourseProject(course).then((project) => {
+            setProject(project)
+        })
+    }, [])
 
     return (
         <>
@@ -27,11 +30,11 @@ const UserProject = () => {
 
             <div className="project-proposal-container">
                 {project ? (
-                    <UserProjectCard 
-                        teamName={project.teamName} 
-                        title={project.title} 
-                        description={project.description} 
-                        teammates={project.teammates} 
+                    <UserProjectCard
+                        teamNamr={project?.teamName ?? name}
+                        title={project.name}
+                        description={project?.description ?? 'No description'}
+                        teammates={project?.teammates}
                     />
                 ) : (
                     <div className="no-project-container">

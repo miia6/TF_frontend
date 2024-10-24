@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import TeammateInvite from './TeammateInvite'
 
 const ProjectProposalForm = ({ handleProjectCreation }) => {
-  
+
     const [teamName, setTeamName] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [teammates, setTeammates] = useState([]) 
+    const [teammates, setTeammates] = useState([])
 
     const [errors, setErrors] = useState({})
 
@@ -17,7 +17,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         let validationErrors = {}
 
         if (!teamName) {
-          validationErrors.teamName = "Team Name is required"
+            validationErrors.teamName = "Team Name is required"
         }
         if (!title) {
             validationErrors.title = "Title is required"
@@ -25,12 +25,12 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         if (!description) {
             validationErrors.description = "Description is required"
         }
-    
+
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors)
             return
         }
-
+        
         const sanitizedDescription = description.replace(/\s+/g, ' ').trim()
   
         const projectData = {
@@ -38,7 +38,6 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
             title,
             sanitizedDescription,
             teammates: Object.values(teammates).filter(teammate => teammate !== '') 
-        }
 
         handleProjectCreation(projectData)
     }
