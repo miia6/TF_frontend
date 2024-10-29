@@ -6,25 +6,30 @@
     align-items: center;
     justify-content: center;
     background-color: #E9EFEC;
-    padding: 20px;
+    margin-top: 10rem;
+    padding: 1rem;
+}
+
+.course-selection-container.with-sidebar {
+    margin-left: calc(12rem + 2rem); 
 }
 
 .course-select-form {
     display: flex;
     flex-direction: column; 
-    width: 600px; 
+    width: 30rem;
     height: auto; 
     background-color: #fff; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     border-radius: 10px; 
-    padding: 20px;
+    padding: 1rem;
 }
 
 /* content of the form */
 
-.course-select-form h1 {
+.course-select-form h2 {
     font-size: 2rem;
-    margin: 10px;
+    margin: 0.5rem;
     color: black; 
 }
 
@@ -37,15 +42,14 @@
     font-weight: bold; 
     color: black; 
     font-size: 1rem; 
-    margin: 10px;
   }
 
 .course-select {
-    padding: 10px;
+    padding: auto;
     background-color: #E9EFEC; 
     border: 1px solid #C4DAD2; 
     border-radius: 10px; 
-    font-size: 1rem; 
+    font-size: 0.9rem; 
     font-family: 'Trebuchet MS', sans-serif;
     color: black;
     flex: 1;  
@@ -54,7 +58,7 @@
 .course-select::placeholder {
     color: #888; 
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1rem; 
+    font-size: 0.9rem;
     opacity: 1;
 }
 
@@ -68,13 +72,13 @@
     border-radius: 5px;
     background-color: #fff;
     position: relative !important;
-    max-height: 120px;
+    max-height: 10rem !important;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .dropdown-item {
-    padding: 10px;
+    padding: auto;
     cursor: pointer;
     background-color: #C4DAD2;
     border-bottom: 1px solid #ddd;
@@ -93,14 +97,14 @@
 
 .course-select-form button {
     width: auto;
-    padding: 10px;
+    padding: auto;
     font-size: 1rem;
-    margin: 10px; 
+    margin: 1rem; 
     cursor: pointer; 
     background-color: #C4DAD2; 
     border: none; 
     border-radius: 5px;
-    color: #16423C;    
+    color: black;
 }
 
 .course-select-form button:hover {

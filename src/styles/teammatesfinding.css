@@ -6,13 +6,15 @@
     align-items: center;
     justify-content: center;
     background-color: #E9EFEC;
-    padding: 0px;
+    padding: 0;
+    margin-left: 12rem;
+    margin-top: 10rem;
 }
 
 .teammates-finding-form {
     display: flex;
     flex-direction: column; 
-    width: 600px; 
+    width: 40rem;
     height: auto; 
     background-color: #fff; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 

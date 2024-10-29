@@ -1,15 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { getCourses } from '../services/course';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react'
+//import { getCourses } from '../services/course'
+import PropTypes from 'prop-types'
+
+import '../styles/courseselection.css'
+
+const courses = [
+    'Design of WWW Services D',
+    'User-Centered Methods for Product and Service Design D',
+    'Data Science',
+    'Machine Learning',
+    'Linear Optimization D',
+    'Complex networks D',
+    'Full Stack',
+    'Web Software Development',
+    'Information security',
+    'Software Engineering',
+    'Artificial Intelligence',
+    'Databases',
+    'Data Structures and Algorithms',
+]
 
 const CourseSelectionForm = ({ handleCourseSelection }) => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState(() => localStorage.getItem('selectedCourse') || '')
-    const [courses, setCourses] = useState([]);
+    //const [courses, setCourses] = useState([]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         getCourses()
             .then((courses) => {
                 setCourses(courses);
@@ -17,7 +35,7 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
             .catch((error) => {
                 console.error("Failed to fetch courses:", error);
             });
-    }, []);
+    }, []);*/
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
@@ -25,14 +43,13 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
     }
 
     const handleSelect = (course) => {
-        setSelectedCourse(course.id);
-        localStorage.setItem('selectedCourse', course.id);
-        setSearchTerm(course.name)
+        setSelectedCourse(course) // course.id ?
+        setSearchTerm(course) // course.name
         setIsDropdownOpen(false)
     }
 
     const filteredCourses = courses.filter((course) =>
-        course.name.toLowerCase().includes(searchTerm.toLowerCase())
+        course.toLowerCase().includes(searchTerm.toLowerCase()) // course.name
     )
 
     const handleSubmit = (event) => {
@@ -45,14 +62,13 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
         }
     }
 
-
     return (
         <div className="course-select-form">
             <form onSubmit={handleSubmit}>
-                <h1>Select your course</h1>
+                <h2>Select your course</h2>
 
                 <div className="form-group">
-                    <label htmlFor="courseSelect">Search or select a course:</label>
+                    <label htmlFor="courseSelect"></label>
                     <input
                         type="text"
                         id="courseSelect"
@@ -72,7 +88,8 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
                                 onClick={() => handleSelect(course)}
                                 className="dropdown-item"
                             >
-                                {course.name}
+                                {/*course.name*/}
+                                {course}
                             </li>
                         ))}
                     </ul>

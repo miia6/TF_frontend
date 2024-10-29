@@ -5,28 +5,29 @@
     text-align: left; 
     color: black;
     box-sizing: border-box;
-    padding-left: 50px;
+    padding-left: 15rem;
+    margin-top: 10rem;
 }
 
 .dashboard-container h2 {
-    margin: 10px;
+    margin: 0.5rem;
 }
 
 .dashboard-container p {
-    margin: 10px;
-    font-size: 1.1rem;
+    margin: 0.5rem;
+    font-size: 1rem;
     color: black;
 }
 
 .dashboard-link-container {
-    margin-bottom: 25px;
+    margin-bottom: 2rem !important;
 }
 
 .dashboard-link-container a {
-    padding-left: 10px;
+    padding-left: 0.5rem;
     color: #16423C;
     text-decoration: underline;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .dashboard-link-container a:hover {

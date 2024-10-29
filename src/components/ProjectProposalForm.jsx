@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import TeammateInvite from './TeammateInvite'
 
+import '../styles/projectproposal.css'
+
 const ProjectProposalForm = ({ handleProjectCreation }) => {
 
     const [teamName, setTeamName] = useState('')
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
+    const [descriptionInput, setDescriptionInput] = useState('')
     const [teammates, setTeammates] = useState([])
 
     const [errors, setErrors] = useState({})
@@ -22,8 +24,8 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         if (!title) {
             validationErrors.title = "Title is required"
         }
-        if (!description) {
-            validationErrors.description = "Description is required"
+        if (!descriptionInput) {
+            validationErrors.descriptionInput = "Description is required"
         }
 
         if (Object.keys(validationErrors).length > 0) {
@@ -31,11 +33,13 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
             return
         }
 
+        const description = descriptionInput.replace(/\s+/g, ' ').trim()
+  
         const projectData = {
             teamName,
             title,
             description,
-            teammates: Object.values(teammates).filter(teammate => teammate !== '')
+            teammates: Object.values(teammates).filter(teammate => teammate !== '') 
         }
 
         handleProjectCreation(projectData)
@@ -44,7 +48,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
     return (
         <div className="project-proposal-form">
             <form onSubmit={handleSubmit}>
-                <h1>Create your own project</h1>
+                <h2>Create your own project</h2>
 
                 <div className="form-group-proposal">
                     <label htmlFor="teamName"> <span className="required">*</span> Team name:</label>
@@ -76,13 +80,13 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     <label htmlFor="description"> <span className="required">*</span> Description:</label>
                     <textarea
                         id="description"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
+                        value={descriptionInput}
+                        onChange={(event) => setDescriptionInput(event.target.value)}
                         placeholder="max. 100 words. You may use #tags."
-                        className={`project-description ${errors.description ? 'error' : ''}`}
+                        className={`project-description ${errors.descriptionInput ? 'error' : ''}`}
                         rows="6"
                     />
-                    {errors.description && <p className="error-text">{errors.description}</p>}
+                    {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
                 </div>
 
                 <TeammateInvite teammates={teammates} setTeammates={setTeammates} />
@@ -102,7 +106,7 @@ ProjectProposalForm.propTypes = {
     handleProjectCreation: PropTypes.func.isRequired,
     teamName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired
+    descriptionInput: PropTypes.string.isRequired
 }
 
 export default ProjectProposalForm

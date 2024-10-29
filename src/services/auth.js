@@ -3,36 +3,39 @@ import Cookies from 'js-cookie';
 import { API_URL } from './config';
 
 // Login function
-export const login = async (email, password) => {
+const login = async (email, password) => {
 	try {
-		const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+		const response = await axios.post(`${API_URL}/auth/login`, { emailOrPhoneNumber: email, password })
 		if (response.data.token) {
-			Cookies.set('user', JSON.stringify(response.data), { expires: 7, secure: true, sameSite: 'Strict' });
+			Cookies.set('user', JSON.stringify(response.data), { expires: 7, secure: true, sameSite: 'Strict' })
 		}
-		return response.data;
+		return response.data
 	} catch (error) {
-		console.error(error);
-		throw new Error('Login failed');
+		console.error(error)
+		throw new Error('Login failed')
 	}
-};
+}
 
 // Signup function
-export const signup = async (email, password, username, phoneNumber) => {
+const signup = async (email, password, username, phoneNumber) => {
 	try {
-		const response = await axios.post(`${API_URL}/auth/signup`, { email, password, username: username, phone: phoneNumber });
-		return response.data;
+		const response = await axios.post(`${API_URL}/auth/signup`, { email, password, username: username, phone: phoneNumber })
+		return response.data
 	} catch {
-		throw new Error('Signup failed');
+		throw new Error('Signup failed')
 	}
-};
+}
 
 // Logout function
-export const logout = () => {
-	Cookies.remove('user');
-};
+const logout = () => {
+	Cookies.remove('user')
+}
 
 // Get current user
-export const getCurrentUser = () => {
-	return JSON.parse(Cookies.get('user'));
-};
+const getCurrentUser = () => {
+	return JSON.parse(Cookies.get('user'))
+}
+
+export { login, signup, logout, getCurrentUser }
+
 

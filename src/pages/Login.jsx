@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LoginForm from '../components/LoginForm'
+//import { login } from '../services/auth'
 import '../styles/login.css'
-import { login } from '../services/auth'
 
 const Login = () => {
-    const [emailOrPhoneNumber, setEmailOrPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    const handleEmailOrPhoneNumberChange = (event) => {
-        setEmailOrPhoneNumber(event.target.value)
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value)
     }
 
     const handlePasswordChange = (event) => {
@@ -19,35 +19,42 @@ const Login = () => {
     const navigate = useNavigate()
 
     // TO DO: request to backend etc
-    const handleLogin = async (event) => {
+    //const handleLogin = async (event) => {
+    const handleLogin = (event) => {
         event.preventDefault()
-        console.log('Logging in with')
+        console.log('Loggin in with:', { email, password })
 
-        try {
-            const response = await login(emailOrPhoneNumber, password)
-
-            console.log('Login successful', response)
-            navigate('/courseSelection')
-        } catch (error) {
-            console.error(error)
-            alert('Invalid email/phone number or password. Please try again.')
-
+        if (!email || !password) {
+            alert('Please fill username and password.')
+            return
         }
 
-    }
+        const storedUser = JSON.parse(localStorage.getItem('user'))
 
-    const handleLogout = () => {
-        // TO DO: Clear session logic (e.g., remove tokens)
-        navigate('/')
+        if (storedUser && storedUser.email === email && storedUser.password === password) {
+            console.log('Login successful')
+            navigate('/courseSelection')
+        } else {
+            alert('Invalid email or password. Please try again.')
+        }
+
+        /*try {
+            //const response = await login(email, password)
+            //console.log('Login successful', response)
+        } catch (error) {
+            console.error(error)
+            alert('Invalid email or password. Please try again.')
+
+        }*/
     }
 
     return (
         <div className="login-container">
             <LoginForm
                 handleLogin={handleLogin}
-                handleEmailOrPhoneNumberChange={handleEmailOrPhoneNumberChange}
+                handleEmailChange={handleEmailChange}
                 handlePasswordChange={handlePasswordChange}
-                emailOrPhoneNumber={emailOrPhoneNumber}
+                email={email}
                 password={password}
             />
         </div>

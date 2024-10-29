@@ -12,7 +12,6 @@ import Dashboard from './pages/Dashboard'
 import CourseSelection from './pages/CourseSelection'
 import ProjectProposal from './pages/ProjectProposal'
 
-import ProjectFinding from './pages/ProjectFinding'
 import ProjectSearch from './pages/ProjectSearch'
 import UserProject from './pages/UserProject'
 //import SentApplications from './pages/SentApplications'
@@ -21,35 +20,33 @@ import UserProject from './pages/UserProject'
 //import SentInvitations from '/pages/SentInvitations'
 
 import TeammatesFinding from './pages/TeammatesFinding'
-import Applications from './pages/Applications'
 
 
 function AppContent() {
+    const navigate = useNavigate()
 
-  const location = useLocation()
-  const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/courseSelection'
-  const appLogoAndHeader = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/courseSelection'
+    const location = useLocation()
+    const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register' 
+    const appLogoAndHeaderLoginAndSignup = location.pathname === '/login' || location.pathname === '/register' 
 
-  const navigate = useNavigate()
-
-  return (
-      <div className="App">
-          {showAppLogoAndHeader && (
-            <>
-                <div className={`App-header-container ${appLogoAndHeader ? 'App-header-container-flex' : ''}`}>
-                    <div className={`App-logo ${appLogoAndHeader ? 'App-logo-flex' : ''}`}>
-                        <img src={logo} alt="TF Logo" />
-                        </div>
-                            <header className="App-header">
-                                <h1>TeammatesFinding</h1>
-                                <nav>
-                                    <a href="/login">Login</a>
-                                    <a href="/register">Sign up</a>
-                                </nav>
-                            </header>
-                        </div>
-            </>
-          )}
+    return (
+        <div className="App">
+            {showAppLogoAndHeader && (
+                <>
+                    <div className={`App-header-container ${appLogoAndHeaderLoginAndSignup ? 'App-header-container-flex' : ''}`}>
+                        <div className={`App-logo ${appLogoAndHeaderLoginAndSignup ? 'App-logo-flex' : ''}`}>
+                            <img src={logo} alt="TF Logo" />
+                            </div>
+                                <header className="App-header">
+                                    <h1>TeammatesFinding</h1>
+                                    <nav>
+                                        <a href="/login">Login</a>
+                                        <a href="/register">Sign up</a>
+                                    </nav>
+                                </header>
+                            </div>
+                </>
+            )}
 
         <Routes>
             <Route path="/" element={
@@ -71,7 +68,6 @@ function AppContent() {
             <Route path="/teammatesFinding" element={<TeammatesFinding />} />
             <Route path="/projectProposal" element={<ProjectProposal />} />
 
-            <Route path="/projectFinding" element={<ProjectFinding />} />
             <Route path="/projectSearch" element={<ProjectSearch />} />
             <Route path="/yourProject" element={<UserProject />} />
             {/*<Route path="/sentApplications" element={<SentApplications />} />*/}
@@ -79,7 +75,6 @@ function AppContent() {
             {/*<Route path="/projectInvitations" element={<projectInvitations />} />*/}
             {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}
 
-            <Route path="/applications" element={<Applications />} />
             {/* You can add more routes for other pages here */}
         </Routes>
     </div>

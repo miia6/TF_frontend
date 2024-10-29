@@ -5,11 +5,12 @@ const SearchProjectCard = ({ teamName, title, description, teammates }) => {
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
-        const words = desc.split(' ')
-        return words.length > 10 ? words.slice(0, 10).join(' ') + '...' : desc
+        const maxChars = 70
+        return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 
-    const descriptionWordCount = description.split(' ').length
+    const descriptionCharCount = description.length
+    const maxChars = 70
     
     return (
         <>
@@ -32,10 +33,10 @@ const SearchProjectCard = ({ teamName, title, description, teammates }) => {
                         <button
                             className='search-project-card-read-more'
                             onClick={() => setShowDescription(!showDescription)}
-                            disabled={descriptionWordCount <= 10} 
+                            disabled={descriptionCharCount <= 70} 
                             style={{
-                                opacity: descriptionWordCount <= 10 ? 0.5 : 1, // Dim the button
-                                cursor: descriptionWordCount <= 10 ? 'not-allowed' : 'pointer' // Change cursor style
+                                opacity: descriptionCharCount <= maxChars ? 0.5 : 1, 
+                                cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'
                             }}
                         >
                             {showDescription ? 'Show less' : 'Show more'}
