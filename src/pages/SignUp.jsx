@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SignUpForm from '../components/SignUpForm'
-//import { signup } from '../services/auth'
+import { signup } from '../services/auth'
 import '../styles/signup.css'
 
 const SignUp = () => {
@@ -27,8 +27,7 @@ const SignUp = () => {
         setErrors((prev) => ({ ...prev, password: '' }))
     }
 
-    //const handleSignUp = async (event) => {
-    const handleSignUp = (event) => {
+    const handleSignUp = async (event) => {
         event.preventDefault()
         console.log('Signing up with:', { username, email, password })
 
@@ -50,12 +49,8 @@ const SignUp = () => {
         }
 
         try {
-            //const response = await signup(email, password, username)
-            //console.log('Signup response:', response)
-            // TEMPORARY SOLUTION
-            const newUser = { username, email, password }
-            localStorage.setItem('user', JSON.stringify(newUser))
-            console.log('Sign up OK')
+            const response = await signup(email, password, username)
+            console.log('Signup response:', response)
             navigate('/CourseSelection')
         } catch (error) {
             console.error(error)

@@ -5,7 +5,7 @@ import { API_URL } from './config';
 // Login function
 const login = async (email, password) => {
 	try {
-		const response = await axios.post(`${API_URL}/auth/login`, { emailOrPhoneNumber: email, password })
+		const response = await axios.post(`${API_URL}/auth/login`, { email: email, password })
 		if (response.data.token) {
 			Cookies.set('user', JSON.stringify(response.data), { expires: 7, secure: true, sameSite: 'Strict' })
 		}

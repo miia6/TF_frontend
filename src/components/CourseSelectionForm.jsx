@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from 'react'
-//import { getCourses } from '../services/course'
+import { getCourses } from '../services/course'
 import PropTypes from 'prop-types'
 
 import '../styles/courseselection.css'
-
-const courses = [
-    'Design of WWW Services D',
-    'User-Centered Methods for Product and Service Design D',
-    'Data Science',
-    'Machine Learning',
-    'Linear Optimization D',
-    'Complex networks D',
-    'Full Stack',
-    'Web Software Development',
-    'Information security',
-    'Software Engineering',
-    'Artificial Intelligence',
-    'Databases',
-    'Data Structures and Algorithms',
-]
 
 const CourseSelectionForm = ({ handleCourseSelection }) => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState(() => localStorage.getItem('selectedCourse') || '')
-    //const [courses, setCourses] = useState([]);
+    const [courses, setCourses] = useState([]);
 
-    /*useEffect(() => {
+    useEffect(() => {
         getCourses()
             .then((courses) => {
                 setCourses(courses);
@@ -35,7 +19,7 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
             .catch((error) => {
                 console.error("Failed to fetch courses:", error);
             });
-    }, []);*/
+    }, []);
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
@@ -43,13 +27,13 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
     }
 
     const handleSelect = (course) => {
-        setSelectedCourse(course) // course.id ?
-        setSearchTerm(course) // course.name
+        setSelectedCourse(course.id) // course.id ?
+        setSearchTerm(course.name) // course.name
         setIsDropdownOpen(false)
     }
 
     const filteredCourses = courses.filter((course) =>
-        course.toLowerCase().includes(searchTerm.toLowerCase()) // course.name
+        course?.name?.toLowerCase().includes(searchTerm.toLowerCase()) // course.name
     )
 
     const handleSubmit = (event) => {
@@ -88,8 +72,7 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
                                 onClick={() => handleSelect(course)}
                                 className="dropdown-item"
                             >
-                                {/*course.name*/}
-                                {course}
+                                {course.name}
                             </li>
                         ))}
                     </ul>

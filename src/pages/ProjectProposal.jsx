@@ -5,26 +5,25 @@ import TFmenu from '../components/TFmenu'
 import ProjectProposalForm from '../components/ProjectProposalForm'
 import UserProjectCard from '../components/UserProjectCard'
 
-//import { createProject } from '../services/project'
+import { createProject } from '../services/project'
 
 const ProjectProposal = () => {
     const navigate = useNavigate()
     const [project, setProject] = useState(null) // temporary
 
-    //const handleProjectCreation = async (project) => {
-    const handleProjectCreation = (project) => {
+    const handleProjectCreation = async (project) => {
         if (project) {
-            const course = localStorage.getItem('selectedCourse') // courseId
+            const courseId = localStorage.getItem('selectedCourse') // courseId
             const user = localStorage.getItem('user')
-            console.log(`${user} creating project in course ${course}`)
+            console.log(`${user} creating project in course ${courseId}`)
 
-            /*await createProject({
+            await createProject({
                 teamName: project.teamName,
                 name: project.title,
                 description: project.description,
                 courseId: courseId,
-            })*/
-           
+            })
+
             localStorage.setItem('createdProject', JSON.stringify(project))
             setProject(project) // temporary
             alert("Project has been created successfully!")
