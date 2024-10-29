@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-const API_URL = 'http://localhost:3000'; // Reemplaza con la URL de tu backend
+import { API_URL } from './config';
 
 // Función para obtener todos los proyectos
 export const getProjects = async (courseId) => {

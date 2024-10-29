@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-const API_URL = 'http://localhost:3000'; // Replace with your backend URL
+import { API_URL } from './config';
 
 // Login function
 export const login = async (email, password) => {
