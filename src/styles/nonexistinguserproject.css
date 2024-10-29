@@ -8,22 +8,22 @@
 }
 
 .no-project-header {
-    margin-left: 50px;
+    margin-left: 3rem;
     color: black;
 }
 
 .no-project-links p {
-    margin-left: 70px;
-    margin-bottom: 10px;
-    font-size: 1.4rem;
+    margin-left: 4rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
     color: black;
 }
 
 .no-project-links a {
-    margin-left: 70px;
+    margin-left: 4rem;
     color: #16423C;
     text-decoration: underline;
-    font-size: 1.4rem;
+    font-size: 1rem;
 }
 
 .no-project-links a:hover {

@@ -5,8 +5,8 @@
     display: flex;
     flex-wrap: wrap; 
     justify-content: center;
-    gap: 10px !important; 
-    margin-top: 20px !important;
+    gap: 1rem !important; 
+    margin-top: 1rem !important;
     margin: 0 auto;
     width: 90%;
 }
@@ -15,10 +15,10 @@
     color: black;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    border-radius: 15px;
-    margin: 0px;
-    width: 300px;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 0;
+    width: 30rem !important;
     height: auto;
 }
 
@@ -29,17 +29,16 @@
     align-items: flex-start;
     border: 1px solid lightgray;
     border-radius: 10px;
-    height: auto;
-    max-height: 25px;
-    padding: 10px;
+    height: 1.5rem;
+    padding: 0.8rem;
 }
 
 .search-project-group-icon {
     align-self: flex-start !important;
-    font-size: 25px !important;
-    padding: 0px !important;
-    margin: 10px;
-    margin-top: 0px !important;
+    font-size: 1.5rem !important;
+    padding: 0 !important;
+    margin: 0.5rem;
+    margin-top: 0 !important;
 }
 
 .search-project-team-name {
@@ -48,7 +47,7 @@
     text-align: start;
     font-size: 1rem;
     width: 90%;
-    margin-bottom: 0px;
+    margin-left: 0.5rem;
 }
 
 /* topic */
@@ -60,11 +59,10 @@
 }
 
 .search-project-topic {
-    padding: 10px;
+    padding: 1rem;
     align-self: center;
     font-weight: bold;
-    font-size: 1.1rem;
-    margin: 10px;
+    font-size: 1rem;
 }
 
 /* description */
@@ -74,16 +72,16 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: 0px;
+    margin-top: 0;
     width: auto;
     height: auto;
 }
 
 .search-project-description {
-    padding: 10px;
-    padding-top: 0px;
+    padding: 1rem;
+    padding-top: 0;
     text-align: left;
-    font-size: 1rem;
+    font-size: 0.9rem;
     overflow-wrap: break-word;
     overflow: hidden;
     white-space: normal;
@@ -96,8 +94,8 @@
 
 .search-project-card-read-more {
     background-color: #E9EFEC;
-    padding: 10px;
-    margin: 0px;
+    padding: auto;
+    margin: 0;
     width: auto;
     white-space: nowrap;
     height: auto;
@@ -105,7 +103,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer; 
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: black;
 }
 
@@ -126,21 +124,21 @@
 }
 
 .searching-text {
-    margin: 10px; 
-    font-size: 1rem; 
+    margin: 1rem;
+    font-size: 0.9rem; 
 }
 
 .search-project-card-apply-button {
     background-color: #C4DAD2;
-    padding: 10px;
-    margin-right: 20px;
+    padding: auto;
+    margin-right: 1.5rem;
     width: auto;
     height: auto;
     align-self: center;
     border: none;
     border-radius: 5px;
     cursor: pointer; 
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
     color: black;
 }

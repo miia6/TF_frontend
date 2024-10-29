@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import TFmenu from '../components/TFmenu'
 import CourseSelectionForm from '../components/CourseSelectionForm'
 import '../styles/courseselection.css'
 
 const CourseSelection = () => {
     const navigate = useNavigate()
+    const selectedCourse = localStorage.getItem('selectedCourse')
 
     const handleCourseSelection = (course) => {
         if (course) {
@@ -17,14 +19,15 @@ const CourseSelection = () => {
     }
 
     return (
-        <div className="course-selection-container">
-            <CourseSelectionForm
-                handleCourseSelection={handleCourseSelection}
-            />
-        </div>
+        <>
+            <TFmenu />
+            <div className={`course-selection-container ${selectedCourse ? 'with-sidebar' : ''}`}>
+                <CourseSelectionForm
+                    handleCourseSelection={handleCourseSelection}
+                />
+            </div>
+        </>
     )
 }
-
-CourseSelection.propTypes = {}
 
 export default CourseSelection

@@ -44,9 +44,11 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
         const updatedTeammates = [...teammates]
         updatedTeammates[teammateIndex] = user.name
         setTeammates(updatedTeammates)
+
         const updatedDropdownStates = [...dropdownStates]
         updatedDropdownStates[teammateIndex] = false
         setDropdownStates(updatedDropdownStates)
+
         const updatedSearchTerms = [...searchTerms]
         updatedSearchTerms[teammateIndex] = user.name
         setSearchTerms(updatedSearchTerms)
@@ -55,16 +57,18 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
     const handleRemoveTeammate = (teammateIndex) => {
         const updatedTeammates = teammates.filter((_, index) => index !== teammateIndex)
         setTeammates(updatedTeammates)
+
         const updatedSearchTerms = searchTerms.filter((_, index) => index !== teammateIndex)
         setSearchTerms(updatedSearchTerms)
+
         const updatedDropdownStates = dropdownStates.filter((_, index) => index !== teammateIndex)
         setDropdownStates(updatedDropdownStates)
     };
 
     return (
         <div className="teammates-section">
-            <p>Invite teammates. You can invite max. 4 teammates. 
-                Not mandatory, teammates can also be invited later. </p>
+            <h3>Invite teammates</h3>
+            <p>You can invite max. 4 teammates. Not mandatory, teammates can also be invited later. </p>
 
             {teammates.map((_, index) => (
                 <div key={index} className="form-group-proposal">

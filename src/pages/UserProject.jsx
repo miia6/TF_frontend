@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
-import CourseInfo from '../components/CourseInfo'
 import UserProjectCard from '../components/UserProjectCard'
 
-import '../styles/userproject.css'
-import '../styles/userprojectcard.css'
-import { getMyCourseProject } from '../services/project'
+import '../styles/nonexistinguserproject.css'
+//import { getMyCourseProject } from '../services/project'
 
 const UserProject = () => {
     const navigate = useNavigate()
@@ -15,26 +13,27 @@ const UserProject = () => {
 
     useEffect(() => {
         const course = localStorage.getItem('selectedCourse')
-        if (!course) {
-            return
+        const storedProject = localStorage.getItem('createdProject')
+        if (storedProject) {
+            setProject(JSON.parse(storedProject))
+            //console.log("Stored project in UserProject:", storedProject)
         }
-        getMyCourseProject(course).then((project) => {
+        /*getMyCourseProject(course).then((project) => {
             setProject(project)
-        })
+        })*/
     }, [])
 
     return (
         <>
             < TFmenu />
-            < CourseInfo />
 
             <div className="project-proposal-container">
                 {project ? (
                     <UserProjectCard
-                        teamNamr={project?.teamName ?? name}
-                        title={project.name}
-                        description={project?.description ?? 'No description'}
-                        teammates={project?.teammates}
+                        teamName={project.teamName}
+                        title={project.title}
+                        description={project.description}
+                        teammates={project.teammates}
                     />
                 ) : (
                     <div className="no-project-container">

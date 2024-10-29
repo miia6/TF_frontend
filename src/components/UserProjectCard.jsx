@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import GroupsIcon from '@mui/icons-material/Groups';
+import React, { useState, useEffect } from 'react'
+import GroupsIcon from '@mui/icons-material/Groups'
+
+import '../styles/userprojectcard.css'
 
 const UserProjectCard = ({ teamName, title, description, teammates }) => {
+    //console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
-        const words = desc.split(' ')
-        return words.length > 20 ? words.slice(0, 20).join(' ') + '...' : desc
+        const maxChars = 100
+        return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 
-    const descriptionWordCount = description.split(' ').length
+    const descriptionCharCount = description.length
+    const maxChars = 100
     
     return (
-        <>
-            <div className='user-project-header'>
-                <h1>Your project</h1>
-            </div>
+        <>  
             <div className='user-project-card'>
-
+                <h2>Your project</h2>
                 <div className='user-project-card-header'>
                     <GroupsIcon className="user-project-group-icon"/>
                     <div className='user-project-team-info'>
@@ -40,10 +41,10 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
                     <button
                         className='user-project-card-read-more'
                         onClick={() => setShowDescription(!showDescription)}
-                        disabled={descriptionWordCount <= 20} 
+                        disabled={descriptionCharCount <= 100} 
                         style={{
-                            opacity: descriptionWordCount <= 20 ? 0.5 : 1, 
-                            cursor: descriptionWordCount <= 20 ? 'not-allowed' : 'pointer' 
+                            opacity: descriptionCharCount <= maxChars ? 0.5 : 1, 
+                            cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'
                         }}
                     >
                         {showDescription ? 'Show less' : 'Show more'}

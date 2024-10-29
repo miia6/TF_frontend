@@ -6,7 +6,6 @@ const SearchProjectCard = ({ teamName, title, description, teammates }) => {
 
     const getShortDescription = (desc) => {
         const maxChars = 70
-        console.log(desc, desc.length)
         return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 

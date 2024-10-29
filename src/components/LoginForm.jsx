@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 
 const LoginForm = ({
     handleLogin,
-    handleEmailOrPhoneNumberChange,
+    handleEmailChange,
     handlePasswordChange,
-    emailOrPhoneNumber,
+    email,
     password
 }) => {
 
@@ -13,13 +13,13 @@ const LoginForm = ({
             <form onSubmit={handleLogin}>
                 <h1>Login</h1>
                 <div className="form-group">
-                    <label htmlFor="emailOrPhoneNumber">Email or mobile phone number:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
                         type="text"
-                        id="emailOrPhoneNumber"
-                        value={emailOrPhoneNumber}
-                        name="emailOrPhoneNumber"
-                        onChange={handleEmailOrPhoneNumberChange}
+                        id="email"
+                        value={email}
+                        name="email"
+                        onChange={handleEmailChange}
                     />
                 </div>
 
@@ -55,9 +55,9 @@ LoginForm.propTypes = {
     handleLogin: PropTypes.func.isRequired,
     handleUsernameChange: PropTypes.func.isRequired,
     handlePasswordChange: PropTypes.func.isRequired,
-    emailOrPhoneNumber: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    handleEmailOrPhoneNumberChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired
 }
 
 export default LoginForm

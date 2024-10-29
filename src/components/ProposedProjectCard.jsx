@@ -1,3 +1,5 @@
+/* TO BE DELETED...
+
 import React, { useState, useEffect } from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
 
@@ -5,7 +7,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 ProjectCard component is used to display project from all users.
 ProposedProjectCard component is used to display only projects belong to the logged in user.
 Let's choose better names for these later.
-*/
+
 // TODO: pick better name
 const ProposedProjectCard = ({ teamName }) => {
     const [showDescription, setShowDescription] = useState(false)
@@ -38,4 +40,4 @@ const ProposedProjectCard = ({ teamName }) => {
     )
 }
 
-export default ProposedProjectCard
+export default ProposedProjectCard*/

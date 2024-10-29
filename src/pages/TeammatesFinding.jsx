@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import TeammatesFindingForm from '../components/TeammatesFindingForm'
 import '../styles/teammatesfinding.css'
 import TFmenu from '../components/TFmenu'
-import CourseInfo from '../components/CourseInfo'
+//import CourseInfo from '../components/CourseInfo'
 
 const TeammatesFinding = () => {
     //const navigate = useNavigate()
@@ -20,7 +20,7 @@ const TeammatesFinding = () => {
     return (
         <>
             < TFmenu />
-            < CourseInfo />
+            {/*< CourseInfo />*/}
             <div className="teammates-finding-container">
             <TeammatesFindingForm
                 handleTeammatesFinding={handleTeammatesFinding}

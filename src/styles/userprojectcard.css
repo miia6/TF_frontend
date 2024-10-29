@@ -1,26 +1,19 @@
-/* header */
-
-.user-project-header {
-    margin-top: 0px;
-}
-
-.user-project-header h1 {
-    color: black;
-    font-size: 2rem;
-    margin: 0px;
-}
-
 /* card */
 
 .user-project-card {
     color: black;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    border-radius: 15px;
-    margin: 20px;
-    width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    width: 30rem;
     height: auto;
+}
+.user-project-card h2 {
+    font-size: 2rem;
+    color: black; 
+    padding: 0.5rem;
+    margin: 0;
 }
 
 /* team section */
@@ -31,15 +24,15 @@
     border: 1px solid lightgray;
     border-radius: 10px;
     margin: 0px;
-    padding: 10px;
+    padding: 1rem;
 }
 
 .user-project-group-icon {
     align-self: flex-start !important;
-    font-size: 30px !important;
+    font-size: 1.5rem !important;
     padding: 0px !important;
-    margin: 10px;
-    margin-top: 0px !important;
+    margin: 0.5rem;
+    margin-top: 0 !important;
 }
 
 .user-project-team-info {
@@ -49,7 +42,7 @@
 }
 
 .user-project-team-name {
-    margin: 5px;
+    margin-left: 0.5rem;
     text-align: start;
     font-size: 1rem;
     width: 90%;
@@ -60,8 +53,8 @@
     color: grey;
     text-align: start;
     width: auto;
-    margin: 5px;
-    margin-bottom: 0px;
+    margin: 0.6rem;
+    margin-bottom: 0;
 }
 
 /* topic */
@@ -73,11 +66,10 @@
 }
 
 .user-project-topic {
-    padding: 10px;
+    padding: 1rem;
     align-self: center;
     font-weight: bold;
-    font-size: 1.1rem;
-    margin: 10px;
+    font-size: 1rem;
 }
 
 /* description */
@@ -87,16 +79,17 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: 0px;
+    margin-top: 0;
     width: auto;
     height: auto;
 }
 
 .user-project-description {
-    padding: 10px;
-    padding-top: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding: 1rem;
+    padding-top: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
     text-align: left;
     font-size: 1rem;
     width: auto;
@@ -107,8 +100,8 @@
 
 .user-project-card-read-more {
     background-color: #E9EFEC;
-    padding: 10px;
-    margin: 0px;
+    padding: auto;
+    margin: 0;
     width: auto;
     white-space: nowrap;
     height: auto;

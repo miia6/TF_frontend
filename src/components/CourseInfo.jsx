@@ -1,39 +1,50 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import '../styles/courseinfo.css'
-import { getCourse } from '../services/course'
+import CourseSelectionForm from './CourseSelectionForm'
 
-const CourseInfo = ({ }) => {
-    const [selectedCourse, setSelectedCourse] = useState('')
-    const [course, setCourse] = useState()
-    const navigate = useNavigate()
+import '../styles/courseinfo.css'
+
+const CourseInfo = () => { // { selectedCourse, handleCourseChange }
+    const [selectedCourse, setSelectedCourse] = useState(localStorage.getItem('selectedCourse'))
+    const [changingCourse, setChangingCourse] = useState(false)
+
+    // TODO: add later backend logic
 
     useEffect(() => {
-        setSelectedCourse(localStorage.getItem('selectedCourse'))
+        // Change later to backend logic
+        const storedCourse = localStorage.getItem('selectedCourse')
+        if (storedCourse !== selectedCourse) {
+            setSelectedCourse(storedCourse)
+            console.log('effect; stored course ' + storedCourse)
+        }
     }, [])
 
-    useEffect(() => {
-        if (!selectedCourse) {
-            return
-        }
-        getCourse(selectedCourse).then((course) => {
-            setCourse(course)
-        })
-    }, [selectedCourse])
-
     const handleCourseChange = () => {
-        navigate('/courseSelection')
+        setChangingCourse(true)
     }
+
+    const handleCourseSelection = (course) => {
+        localStorage.setItem('selectedCourse', course)
+        setSelectedCourse(course)
+        setChangingCourse(false)
+        console.log("Selection; selected course: " + selectedCourse)
+    }
+
 
     return (
         <div className="course-section">
-            <p>Selected course:</p>
-            <h3 className="course-info">
-                <strong>{course?.name || 'No course selected'}</strong>
-            </h3>
-            <button className="change-course-button" onClick={handleCourseChange}>
-                Change Course
-            </button>
+            {changingCourse ? (
+                <CourseSelectionForm handleCourseSelection={handleCourseSelection} />
+            ) : (
+                <>
+                   <p>Selected course:</p>
+                    <h3 className="course-info">
+                        <strong>{selectedCourse || 'No course selected'}</strong> 
+                    </h3>
+                    <button className="change-course-button" onClick={handleCourseChange}>
+                        Change Course
+                    </button>
+                </> 
+            )}
         </div>
     )
 }

@@ -95,4 +95,16 @@
     background-color: #6A9C89; 
 }
 
+/* errors */
+
+.error {
+    border: 2px solid red; 
+    color: black;
+}
+
+.error-text {
+    color: red; 
+    font-size: 0.875rem; 
+    margin-top: 4px; 
+}
 

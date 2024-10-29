@@ -1,57 +1,81 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SignUpForm from '../components/SignUpForm'
+//import { signup } from '../services/auth'
 import '../styles/signup.css'
-import { signup } from '../services/auth'
 
 const SignUp = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
+    const [errors, setErrors] = useState({})
 
     const navigate = useNavigate()
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value)
+        setErrors((prev) => ({ ...prev, username: '' }))
     }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value)
-    }
-
-    const handlePhoneNumberChange = (event) => {
-        setPhoneNumber(event.target.value)
+        setErrors((prev) => ({ ...prev, email: '' }))
     }
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value)
+        setErrors((prev) => ({ ...prev, password: '' }))
     }
+
+    //const handleSignUp = async (event) => {
     const handleSignUp = (event) => {
         event.preventDefault()
-        console.log('Signing up with:', { username, email, phoneNumber, password })
+        console.log('Signing up with:', { username, email, password })
 
-        signup(email, password, username, phoneNumber).then((response) => {
-            console.log('Signup response:', response)
-        }).catch((error) => {
-            console.error('Signup error:', error)
-        })
+        let validationErrors = {}
+
+        if (!username) {
+            validationErrors.username = "Username is required"
+        }
+        if (!email) {
+            validationErrors.email = "Email is required"
+        }
+        if (!password) {
+            validationErrors.password = "Password is required"
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors)
+            return
+        }
+
+        try {
+            //const response = await signup(email, password, username)
+            //console.log('Signup response:', response)
+            // TEMPORARY SOLUTION
+            const newUser = { username, email, password }
+            localStorage.setItem('user', JSON.stringify(newUser))
+            console.log('Sign up OK')
+            navigate('/CourseSelection')
+        } catch (error) {
+            console.error(error)
+        }
 
         // TODO: request to backend
     }
 
     return (
         <div className="signup-container">
+            {/*{errors.general && <p className="error-text">{errors.general}</p>}*/}
             <SignUpForm
                 handleSignUp={handleSignUp}
                 handleUsernameChange={handleUsernameChange}
                 handleEmailChange={handleEmailChange}
-                handlePhoneNumberChange={handlePhoneNumberChange}
                 handlePasswordChange={handlePasswordChange}
                 username={username}
                 email={email}
-                phoneNumber={phoneNumber}
                 password={password}
+                errors={errors}
             />
         </div>
     )
