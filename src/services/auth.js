@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { API_URL } from './config';
+import { jwtDecode } from 'jwt-decode';
 
 // Login function
 const login = async (email, password) => {
@@ -26,6 +27,10 @@ const signup = async (email, password, username, phoneNumber) => {
 	}
 }
 
+export const isUserLoggedIn = () => {
+	return !!Cookies.get('user')
+}
+
 // Logout function
 const logout = () => {
 	Cookies.remove('user')
@@ -36,6 +41,17 @@ const getCurrentUser = () => {
 	return JSON.parse(Cookies.get('user'))
 }
 
-export { login, signup, logout, getCurrentUser }
+const isTokenExpired = () => {
+	const user = Cookies.get('user');
+	if (!user) return true;
+
+	const { token } = JSON.parse(user);
+	const decodedToken = jwtDecode(token);
+	const currentTime = Date.now() / 1000;
+
+	return decodedToken.exp < currentTime;
+}
+
+export { login, signup, logout, getCurrentUser, isTokenExpired }
 
 
