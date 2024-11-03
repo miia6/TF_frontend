@@ -51,15 +51,13 @@ const LoginForm = ({
     )
 }
 
-/* @binh: I just commented these functions out to make the console log happy when developing.
-Please feel free to uncomment them if needed. */
 LoginForm.propTypes = {
     handleLogin: PropTypes.func.isRequired,
-    //handleUsernameChange: PropTypes.func.isRequired,
+    handleUsernameChange: PropTypes.func.isRequired,
     handlePasswordChange: PropTypes.func.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    //handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired
 }
 
 export default LoginForm
