@@ -12,15 +12,16 @@
     top: 0;
     left: 0;
     z-index: 1000;
+    background-color: #E9EFEC;
 }
 
+/* logo */
+
 .app-logo {
-    margin-left: 3.5rem;
     height: 5rem;
     width: 5rem;
+    padding: 1rem;
     border-radius: 50%;
-    /*margin-left: 1rem;
-    margin-right: 1.5rem;*/
 }
 
 /* selected course in top menu */

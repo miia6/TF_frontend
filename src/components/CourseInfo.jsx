@@ -1,50 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CourseSelectionForm from './CourseSelectionForm'
-
+import { getSelectedCourse, setSelectedCourse } from '../services/course'
 import '../styles/courseinfo.css'
 
-const CourseInfo = () => { // { selectedCourse, handleCourseChange }
-    const [selectedCourse, setSelectedCourse] = useState(localStorage.getItem('selectedCourse'))
-    const [changingCourse, setChangingCourse] = useState(false)
-
-    // TODO: add later backend logic
-
+const CourseInfo = () => { 
+    const [selectedCourse, setSelectedCourse] = useState(null) // useState(localStorage.getItem('selectedCourse'))
+    
     useEffect(() => {
-        // Change later to backend logic
-        const storedCourse = localStorage.getItem('selectedCourse')
-        if (storedCourse !== selectedCourse) {
-            setSelectedCourse(storedCourse)
-            console.log('effect; stored course ' + storedCourse)
-        }
+        const currentCourse = getSelectedCourse()
+        setSelectedCourseState(currentCourse) 
     }, [])
 
     const handleCourseChange = () => {
-        setChangingCourse(true)
+        navigate('/courseSelection') //setChangingCourse(true)
     }
 
     const handleCourseSelection = (course) => {
-        localStorage.setItem('selectedCourse', course)
-        setSelectedCourse(course)
-        setChangingCourse(false)
-        console.log("Selection; selected course: " + selectedCourse)
+        setSelectedCourse(course)  //localStorage.setItem('selectedCourse', course)
+        setSelectedCourseState(course) 
+        console.log("Changing to course: " + course)
     }
 
 
     return (
         <div className="course-section">
-            {changingCourse ? (
-                <CourseSelectionForm handleCourseSelection={handleCourseSelection} />
+            {selectedCourse ? (
+                <h3 className="course-info">
+                    <strong>{selectedCourse}</strong>
+                </h3>
             ) : (
-                <>
-                   <p>Selected course:</p>
-                    <h3 className="course-info">
-                        <strong>{selectedCourse || 'No course selected'}</strong> 
-                    </h3>
-                    <button className="change-course-button" onClick={handleCourseChange}>
-                        Change Course
-                    </button>
-                </> 
+                <p> </p>
             )}
+            <button className="change-course-button" onClick={handleCourseChange}>
+                Change Course
+            </button>
         </div>
     )
 }

@@ -1,11 +1,12 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { API_URL } from './config';
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import { API_URL } from './config'
+import { getCourse, getSelectedCourseCookies } from '../services/course'
 
-// Función para obtener todos los proyectos
+// Función para obtener todos los proyectos / get all projects
 export const getProjects = async (courseId) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'));
+		const user = JSON.parse(Cookies.get('user'))
 		const response = await axios.get(`${API_URL}/project/list-projects`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -13,15 +14,15 @@ export const getProjects = async (courseId) => {
 			params: {
 				courseId: courseId
 			}
-		});
-		return response.data;
+		})
+		return response.data
 	} catch (error) {
-		console.error(error);
-		throw new Error('Error al obtener los proyectos');
+		console.error(error)
+		throw new Error('Error al obtener los proyectos')
 	}
 };
 
-// Función para obtener un proyecto específico
+// Función para obtener un proyecto específico / get a spesific project
 export const getProject = async (projectId) => {
 	try {
 		const user = JSON.parse(Cookies.get('user'));
@@ -29,13 +30,13 @@ export const getProject = async (projectId) => {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
 			}
-		});
+		})
 		return response.data;
 	} catch (error) {
 		console.error(error);
-		throw new Error('Error al obtener el proyecto');
+		throw new Error('Error al obtener el proyecto')
 	}
-};
+}
 
 
 /**
@@ -49,24 +50,28 @@ export const getProject = async (projectId) => {
 */
 export const createProject = async (projectData) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'));
-		console.log('user', user);
+		const user = JSON.parse(Cookies.get('user'))
+		const courseId = getSelectedCourseCookies()
+		//console.log('user', user)
 		const response = await axios.post(`${API_URL}/project/create-project`, projectData, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
 			}
-		});
+			/*params: {
+                courseId: courseId // My addition
+            }*/
+		})
 
-		return response.data;
+		return response.data
 	} catch (error) {
-		console.error(error);
-		throw new Error('Error al crear el proyecto');
+		console.error(error)
+		throw new Error('Error al crear el proyecto')
 	}
 }
 
-export const getMyCourseProject = async (courseId) => {
+export const getUserCourseProject = async (courseId) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'));
+		const user = JSON.parse(Cookies.get('user'))
 		const response = await axios.get(`${API_URL}/project/my-course-project`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -74,11 +79,22 @@ export const getMyCourseProject = async (courseId) => {
 			params: {
 				courseId: courseId
 			}
-		});
-		return response.data;
+		})
+		return response.data
 	} catch (error) {
-		console.error(error);
-		throw new Error('Error al obtener el proyecto');
+		console.error(error)
+		throw new Error('Error al obtener el proyecto')
 	}
 }
 
+/*export const setUserCourseProjectCookies = (project) => {
+    Cookies.set('userCourseProject', project, { expires: 7, secure: true, sameSite: 'Strict' })
+}
+
+export const getUserCourseProjectCookies = () => {
+	return Cookies.get('userCourseProject')
+}
+
+export const removeUserProjectCookies = () => {
+	Cookies.remove('userCourseProject')
+}*/

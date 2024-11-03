@@ -1,24 +1,52 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/TF_app_logo.jpg'
+
+import { getCourse, getSelectedCourseCookies } from '../services/course'
+import { getUserCourseProject } from '../services/project'
+import { logout } from '../services/auth'
+
 import '../styles/tfmenu.css'
-import Cookies from 'js-cookie'
-import { getCourse } from '../services/course'
 
 const TFmenu = () => {
-    const navigate = useNavigate()
     const [course, setCourse] = useState(null)
-    const selectedCourse = localStorage.getItem('selectedCourse')
+    const [hasProject, setHasProject] = useState(false)
     const [isProjectFindingOpen, setIsProjectFindingOpen] = useState(false)
     const [showMenu, setShowMenu] = useState(true)
-    const [lastScrollPos, setLastScrollPos] = useState(0)
+
+    const selectedCourse = getSelectedCourseCookies() 
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchCourseAndProjectData = async () => {
+            if (selectedCourse) {
+                try {
+                    const fetchedCourse = await getCourse(selectedCourse)
+                    setCourse(fetchedCourse)
+                    //console.log("Fetched course: ", fetchedCourse.name)
+                } catch (error) {
+                    console.error("Failed to fetch course:", error)
+                }
+
+                try {
+                    const project = await getUserCourseProject(selectedCourse)
+                    setHasProject(!!project)
+                    //console.log("Existing project: ", project.name)
+                } catch (error) {
+                    console.error("Failed to check project existence:", error)
+                }
+
+            } else {
+                setCourse(null)
+            }
+        }
+
+        fetchCourseAndProjectData()
+    }, [selectedCourse])
 
     const handleLogout = () => {
-        // Add your logout logic here (e.g., clear session or tokens)
-        localStorage.removeItem('user')
-        localStorage.removeItem('selectedCourse')
-        localStorage.removeItem('createdProject')
-        Cookies.remove('user')
+        logout() 
         navigate('/')
     }
 
@@ -26,36 +54,24 @@ const TFmenu = () => {
         navigate('/courseSelection')
     }
 
-    const handleScroll = () => {
-        const currentScrollPos = window.pageYOffset
-        setShowMenu(currentScrollPos < lastScrollPos || currentScrollPos < 10)
-        setLastScrollPos(currentScrollPos)
+    const logoSectionStyle = {
+        backgroundColor: selectedCourse ? '#16423C' : '#E9EFEC', 
+        width: '12rem',
+        height: '100%',
     }
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [lastScrollPos])
-
-    useEffect(() => {
-        getCourse(selectedCourse).then((course) => {
-            setCourse(course)
-        }).catch((error) => {
-            console.error("Failed to fetch course:", error)
-        })
-    }, [selectedCourse])
-
 
     return (
         <>
             {showMenu && (
                 <div className="top-menu-bar">
-                    <img src={logo} alt="TF logo" className="app-logo" />
+                    <div className="logo-section" style={logoSectionStyle}>
+                        <img src={logo} alt="TF logo" className="app-logo" />
+                    </div>
 
                     <div className="course-section">
                         <p>Selected course:</p>
                         <div className='course-name'>
-                            <p>{course?.name || 'No course selected'}</p>
+                            <p>{course?.name || ' '}</p>
                         </div>
                         <button className="change-course-button" onClick={handleCourseChange}>
                             Change Course
@@ -109,10 +125,11 @@ const TFmenu = () => {
                                 Find teammates
                             </li>
 
-                            <li onClick={() => navigate('/projectProposal')} className="sidebar-link">
-                                Create project
-                            </li>
-
+                            {!hasProject && (
+                                <li onClick={() => navigate('/projectProposal')} className="sidebar-link">
+                                    Create project
+                                </li>
+                            )}
                         </ul>
                     </nav>
                 </div>

@@ -1,9 +1,9 @@
 // HOMEPAGE / APP
 
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import logo from './assets/TF_app_logo.jpg'
+import { useEffect } from 'react'
 
-import './App.css'
+import logo from './assets/TF_app_logo.jpg'
 
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
@@ -19,21 +19,31 @@ import UserProject from './pages/UserProject'
 //import SentInvitations from '/pages/SentInvitations'
 
 import TeammatesFinding from './pages/TeammatesFinding'
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/PrivateRoute'
 import { isTokenExpired } from './services/auth'
-import { useEffect } from 'react'
 
+import './App.css'
 
 function AppContent() {
     const navigate = useNavigate()
 
     const location = useLocation()
-    const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register'
-    const appLogoAndHeaderLoginAndSignup = location.pathname === '/login' || location.pathname === '/register'
+    const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup'
+    const appLogoAndHeaderLoginAndSignup = location.pathname === '/login' || location.pathname === '/signup'
+
+    /*useEffect(() => {
+        isTokenExpired() && navigate('/login')
+    }, [navigate])*/
 
     useEffect(() => {
-        isTokenExpired() && navigate('/login')
-    }, [navigate])
+        const publicPaths = ['/', '/login', '/signup'];
+        if (!publicPaths.includes(location.pathname) && isTokenExpired()) {
+            navigate('/login');
+        }
+        /*if (location.pathname !== '/signup' && isTokenExpired()) {
+            navigate('/login');
+        }*/
+    }, [navigate, location.pathname]);
 
     return (
         <div className="App">
@@ -47,7 +57,7 @@ function AppContent() {
                             <h1>TeammatesFinding</h1>
                             <nav>
                                 <a href="/login">Login</a>
-                                <a href="/register">Sign up</a>
+                                <a href="/signup">Sign up</a>
                             </nav>
                         </header>
                     </div>
@@ -63,12 +73,12 @@ function AppContent() {
                         </p>
                         <div className="App-buttons">
                             <button onClick={() => navigate('/login')}>Login</button>
-                            <button onClick={() => navigate('/register')}>Sign up</button>
+                            <button onClick={() => navigate('/signup')}>Sign up</button>
                         </div>
                     </section>
                 } />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<SignUp />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="/courseSelection" element={<PrivateRoute><CourseSelection /></PrivateRoute>} />
                 <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                 <Route path="/teammatesFinding" element={<PrivateRoute><TeammatesFinding /></PrivateRoute>} />

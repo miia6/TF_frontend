@@ -29,7 +29,7 @@ const SignUp = () => {
 
     const handleSignUp = async (event) => {
         event.preventDefault()
-        console.log('Signing up with:', { username, email, password })
+        console.log('Signing up with:', { username, email })
 
         let validationErrors = {}
 
@@ -49,19 +49,18 @@ const SignUp = () => {
         }
 
         try {
-            const response = await signup(email, password, username)
-            console.log('Signup response:', response)
-            navigate('/CourseSelection')
+            const response = await signup(email, password, username, '1234567890')
+            removeSelectedCourseCookies()
+            removeUserProjectCookies()
+            navigate('/courseSelection')
         } catch (error) {
             console.error(error)
         }
-
-        // TODO: request to backend
     }
 
     return (
         <div className="signup-container">
-            {/*{errors.general && <p className="error-text">{errors.general}</p>}*/}
+            {errors.general && <p className="error-text">{errors.general}</p>}
             <SignUpForm
                 handleSignUp={handleSignUp}
                 handleUsernameChange={handleUsernameChange}

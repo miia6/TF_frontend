@@ -28,18 +28,18 @@ body, html {
 .App {
   min-height: 100vh; 
   background-color: #E9EFEC; 
-  padding-top: 1px;
+  padding-top: 2rem;
 }
 
 .App-logo {
-  margin: 60px auto;
+  margin: auto;
   justify-content: center;
   display: flex;
 }
 
 .App-logo img {
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   justify-content: center;
 }
@@ -52,7 +52,7 @@ body, html {
   font-size: calc(3px + 2vmin);
   color: black;
   justify-content: center;
-  margin: 20px; 
+  margin: 1rem;
   text-align: center;
 }
 
@@ -60,7 +60,7 @@ body, html {
   display: flex; 
   align-items: center; 
   justify-content: center; 
-  gap: 20px;
+  gap: 1rem;
 }
 
 .App-logo-flex {
@@ -69,25 +69,22 @@ body, html {
 }
 
 .App-logo-flex img {
-  width: 80px;
-  height: 80px;
-  min-width: 80px;  
-  min-height: 80px;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
 }
-
 
 /* Login and Register links */
 
 nav {
   position: fixed;
-  padding: 20px;
+  padding: 2rem;
   top: 0; 
   right:0;  
 }
 
 nav a {
-  margin: 10px;
+  margin: 0.5rem;
   color: #16423C;
   text-decoration: none;
 }
@@ -100,7 +97,7 @@ nav a:hover {
 .App-link {
   color: #16423C;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .App-link:hover {
@@ -110,20 +107,20 @@ nav a:hover {
 /* App intro and content */
 
 .App-intro {
-  margin-top: 10px;
+  margin-top: 1rem;
   font-size: 1.2rem;
   color: black;
 }
 
 .App-footer {
   color: black;
-  padding: 10px;
+  padding: 1rem;
 }
 
 .App-buttons button {
-  padding: 10px 20px;
+  padding: auto;
   font-size: 1rem;
-  margin: 10px;
+  margin: 1rem;
   cursor: pointer;
   background-color: #C4DAD2;
   border: none;

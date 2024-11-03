@@ -41,7 +41,7 @@ const LoginForm = ({
                     <button
                         type="button"
                         className="signup-button"
-                        onClick={() => window.location.href = '/register'}
+                        onClick={() => window.location.href = '/signup'}
                     >
                         Sign up
                     </button>

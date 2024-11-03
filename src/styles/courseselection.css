@@ -6,12 +6,18 @@
     align-items: center;
     justify-content: center;
     background-color: #E9EFEC;
-    margin-top: 10rem;
+    margin-top: 8rem;
     padding: 1rem;
 }
 
+/* When the sidebar is visible, apply a left margin to shift content right */
 .course-selection-container.with-sidebar {
     margin-left: calc(12rem + 2rem); 
+}
+
+/* Center-align the container when there’s no sidebar */
+.course-selection-container.without-sidebar {
+    margin-left: 0;
 }
 
 .course-select-form {
@@ -109,4 +115,17 @@
 
 .course-select-form button:hover {
     background-color: #6A9C89;
+}
+
+/* errors */
+
+.error {
+    border: 2px solid red !important; 
+    color: black;
+}
+
+.error-text {
+    color: red; 
+    font-size: 0.875rem; 
+    margin-top: 0.1rem; 
 }

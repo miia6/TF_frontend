@@ -4,36 +4,46 @@ import { useNavigate } from 'react-router-dom'
 import TFmenu from '../components/TFmenu'
 import UserProjectCard from '../components/UserProjectCard'
 
+import { getSelectedCourseCookies } from '../services/course'
+import { getUserCourseProject } from '../services/project'
+
 import '../styles/nonexistinguserproject.css'
-//import { getMyCourseProject } from '../services/project'
 
 const UserProject = () => {
+    const [project, setProject] = useState(null) 
+
+    const selectedCourse = getSelectedCourseCookies()
+
     const navigate = useNavigate()
-    const [project, setProject] = useState(null) // temporary
 
     useEffect(() => {
-        const course = localStorage.getItem('selectedCourse')
-        const storedProject = localStorage.getItem('createdProject')
-        if (storedProject) {
-            setProject(JSON.parse(storedProject))
-            //console.log("Stored project in UserProject:", storedProject)
+        const fetchProjectData = async () => {
+            if (selectedCourse) {
+                try {
+                    const fetchedProject = await getUserCourseProject(selectedCourse)
+                    setProject(fetchedProject)
+                    console.log("Existing project: ", project.name)
+                } catch (error) {
+                    console.error("Failed to check project existence:", error)
+                }
+
+            }
         }
-        /*getMyCourseProject(course).then((project) => {
-            setProject(project)
-        })*/
-    }, [])
+
+        fetchProjectData()
+    }, [selectedCourse])
 
     return (
         <>
             < TFmenu />
 
             <div className="project-proposal-container">
-                {project ? (
+                {project? (
                     <UserProjectCard
                         teamName={project.teamName}
-                        title={project.title}
+                        title={project.name}
                         description={project.description}
-                        teammates={project.teammates}
+                        teammates={project.maxMembers}
                     />
                 ) : (
                     <div className="no-project-container">

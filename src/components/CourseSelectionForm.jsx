@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getCourses } from '../services/course'
 import PropTypes from 'prop-types'
+import { getCourses } from '../services/course'
 
 import '../styles/courseselection.css'
 
@@ -8,42 +8,48 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [selectedCourse, setSelectedCourse] = useState(() => localStorage.getItem('selectedCourse') || '')
-    const [courses, setCourses] = useState([]);
+    const [courses, setCourses] = useState([])
+    const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        getCourses()
-            .then((courses) => {
-                setCourses(courses);
-            })
-            .catch((error) => {
-                console.error("Failed to fetch courses:", error);
-            });
-    }, []);
+        const fetchCourses = async () => {
+            try {
+                const coursesList = await getCourses()
+                setCourses(coursesList)
+            } catch (error) {
+                console.error("Failed to fetch courses", error)
+            }
+        }
+        fetchCourses()
+    }, [])
+
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
-        setIsDropdownOpen(event.target.value.length > 0 || selectedCourse.length > 0)
+        setIsDropdownOpen(event.target.value.length > 0 )
     }
 
     const handleSelect = (course) => {
-        setSelectedCourse(course.id) // course.id ?
-        setSearchTerm(course.name) // course.name
+        setSearchTerm(course.name) 
         setIsDropdownOpen(false)
+        setErrors({})
     }
 
     const filteredCourses = courses.filter((course) =>
-        course?.name?.toLowerCase().includes(searchTerm.toLowerCase()) // course.name
+        course?.name?.toLowerCase().includes(searchTerm.toLowerCase()) 
     )
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (selectedCourse) {
-            handleCourseSelection(selectedCourse)
-        } else {
-            // Add later error handling
-            console.log("No course selected")
+
+        const selectedCourse = courses.find((course) => course.name === searchTerm)
+
+        if (!selectedCourse) {
+            setErrors({ selectedCourse: "Please select a course from the list" }) 
+            return
         }
+
+        handleCourseSelection(selectedCourse.id)
     }
 
     return (
@@ -60,8 +66,9 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
                         value={searchTerm}
                         onChange={handleSearch}
                         onFocus={() => setIsDropdownOpen(true)}
-                        className="course-select"
+                        className={`course-select ${errors.selectedCourse ? 'error' : ''}`}
                     />
+                    {errors.selectedCourse && <p className="error-text">{errors.selectedCourse}</p>}
                 </div>
 
                 {isDropdownOpen && filteredCourses.length > 0 && (

@@ -1,21 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
 import ProjectProposalForm from '../components/ProjectProposalForm'
 import UserProjectCard from '../components/UserProjectCard'
 
-import { createProject } from '../services/project'
+import { getCurrentUserEmail } from '../services/auth'
+import { createProject, getUserCourseProject } from '../services/project'
+import { getSelectedCourseCookies } from '../services/course'
 
 const ProjectProposal = () => {
+    const [project, setProject] = useState(null) 
+    const [hasProject, setHasProject] = useState(false)
+    
+    const selectedCourse = getSelectedCourseCookies() 
+
     const navigate = useNavigate()
-    const [project, setProject] = useState(null) // temporary
+
+    useEffect(() => {
+        const fetchProjectData = async () => {
+            if (selectedCourse) {
+                try {
+                    const existingProject = await getUserCourseProject(selectedCourse)
+                    setProject(existingProject)
+                    setHasProject(!!existingProject)
+                    console.log("Existing project: ", existingProject.name)
+                } catch (error) {
+                    console.error("Failed to check project existence:", error)
+                }
+
+            } 
+        }
+
+        fetchProjectData()
+    }, [selectedCourse])
 
     const handleProjectCreation = async (project) => {
         if (project) {
-            const courseId = localStorage.getItem('selectedCourse') // courseId
-            const user = localStorage.getItem('user')
-            console.log(`${user} creating project in course ${courseId}`)
+            const courseId = getSelectedCourseCookies() // localStorage.getItem('selectedCourse')
+            const userEmail = getCurrentUserEmail() // localStorage.getItem('user')
+            console.log(`User ${userEmail} creating project in course ${courseId}`)
 
             await createProject({
                 teamName: project.teamName,
@@ -24,10 +48,9 @@ const ProjectProposal = () => {
                 courseId: courseId,
             })
 
-            localStorage.setItem('createdProject', JSON.stringify(project))
-            setProject(project) // temporary
+            setProject(project) 
+            setHasProject(true)
             alert("Project has been created successfully!")
-            //navigate('/yourProject')
         } else {
             alert("Error creating a project")
         }
@@ -38,7 +61,7 @@ const ProjectProposal = () => {
             < TFmenu />
 
             <div className="project-proposal-container">
-                {project ? (
+                {hasProject ? (
                     <UserProjectCard
                         teamName={project.teamName}
                         title={project.title}

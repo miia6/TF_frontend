@@ -4,7 +4,7 @@ import GroupsIcon from '@mui/icons-material/Groups'
 import '../styles/userprojectcard.css'
 
 const UserProjectCard = ({ teamName, title, description, teammates }) => {
-    //console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
+    console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
