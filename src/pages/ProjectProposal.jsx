@@ -15,7 +15,7 @@ const ProjectProposal = () => {
 
     const selectedCourse = getSelectedCourseCookies()
 
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjectData = async () => {
