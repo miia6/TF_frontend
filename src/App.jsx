@@ -32,8 +32,7 @@ function AppContent() {
     const appLogoAndHeaderLoginAndSignup = location.pathname === '/login' || location.pathname === '/register'
 
     useEffect(() => {
-        if (location.pathname !== '/register')
-            isTokenExpired() && navigate('/login')
+        (location.pathname !== '/register') && isTokenExpired() && navigate('/login')
     }, [navigate])
 
     return (
