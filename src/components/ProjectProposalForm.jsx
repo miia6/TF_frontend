@@ -34,12 +34,12 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         }
 
         const description = descriptionInput.replace(/\s+/g, ' ').trim()
-  
+
         const projectData = {
             teamName,
             title,
             description,
-            teammates: Object.values(teammates).filter(teammate => teammate !== '') 
+            teammates: Object.values(teammates).filter(teammate => teammate !== '')
         }
 
         handleProjectCreation(projectData)
@@ -104,9 +104,9 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
 
 ProjectProposalForm.propTypes = {
     handleProjectCreation: PropTypes.func.isRequired,
-    teamName: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    descriptionInput: PropTypes.string.isRequired
+    //teamName: PropTypes.string.isRequired,
+    //title: PropTypes.string.isRequired,
+    //descriptionInput: PropTypes.string.isRequired
 }
 
 export default ProjectProposalForm

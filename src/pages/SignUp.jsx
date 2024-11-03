@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SignUpForm from '../components/SignUpForm'
 import { signup } from '../services/auth'
+import { removeSelectedCourseCookies } from '../services/course'
+import { removeUserProjectCookies } from '../services/project'
+import Loader from '../components/Loader'
 import '../styles/signup.css'
 
 const SignUp = () => {
@@ -9,6 +12,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -29,6 +33,7 @@ const SignUp = () => {
 
     const handleSignUp = async (event) => {
         event.preventDefault()
+        setIsLoading(true)
         console.log('Signing up with:', { username, email })
 
         let validationErrors = {}
@@ -52,8 +57,10 @@ const SignUp = () => {
             const response = await signup(email, password, username, '1234567890')
             removeSelectedCourseCookies()
             removeUserProjectCookies()
+            setIsLoading(false)
             navigate('/courseSelection')
         } catch (error) {
+            setIsLoading(false)
             console.error(error)
         }
     }
@@ -61,6 +68,7 @@ const SignUp = () => {
     return (
         <div className="signup-container">
             {errors.general && <p className="error-text">{errors.general}</p>}
+            {isLoading && <Loader message="Signing up..." />}
             <SignUpForm
                 handleSignUp={handleSignUp}
                 handleUsernameChange={handleUsernameChange}

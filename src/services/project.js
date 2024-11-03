@@ -58,8 +58,8 @@ export const createProject = async (projectData) => {
 				'Authorization': `Bearer ${user.token}`
 			}
 			/*params: {
-                courseId: courseId // My addition
-            }*/
+				courseId: courseId // My addition
+			}*/
 		})
 
 		return response.data
@@ -87,8 +87,8 @@ export const getUserCourseProject = async (courseId) => {
 	}
 }
 
-/*export const setUserCourseProjectCookies = (project) => {
-    Cookies.set('userCourseProject', project, { expires: 7, secure: true, sameSite: 'Strict' })
+export const setUserCourseProjectCookies = (project) => {
+	Cookies.set('userCourseProject', project, { expires: 7, secure: true, sameSite: 'Strict' })
 }
 
 export const getUserCourseProjectCookies = () => {
@@ -97,4 +97,4 @@ export const getUserCourseProjectCookies = () => {
 
 export const removeUserProjectCookies = () => {
 	Cookies.remove('userCourseProject')
-}*/
+}

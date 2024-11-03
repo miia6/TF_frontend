@@ -23,6 +23,10 @@ const login = async (email, password) => {
 const signup = async (email, password, username, phoneNumber) => {
 	try {
 		const response = await axios.post(`${API_URL}/auth/signup`, { email, password, username: username, phone: phoneNumber })
+		if (response.data.email) {
+			await login(email, password)
+			window.location.href = '/courseSelection'
+		}
 		console.log('Signup response:', response.data)
 	} catch (error) {
 		console.error("Signup error:", error.response ? error.response.data : error.message)

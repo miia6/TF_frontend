@@ -10,10 +10,10 @@ import { createProject, getUserCourseProject } from '../services/project'
 import { getSelectedCourseCookies } from '../services/course'
 
 const ProjectProposal = () => {
-    const [project, setProject] = useState(null) 
+    const [project, setProject] = useState(null)
     const [hasProject, setHasProject] = useState(false)
-    
-    const selectedCourse = getSelectedCourseCookies() 
+
+    const selectedCourse = getSelectedCourseCookies()
 
     const navigate = useNavigate()
 
@@ -24,12 +24,12 @@ const ProjectProposal = () => {
                     const existingProject = await getUserCourseProject(selectedCourse)
                     setProject(existingProject)
                     setHasProject(!!existingProject)
-                    console.log("Existing project: ", existingProject.name)
+                    console.log("Existing project: ", existingProject?.name)
                 } catch (error) {
                     console.error("Failed to check project existence:", error)
                 }
 
-            } 
+            }
         }
 
         fetchProjectData()
@@ -48,7 +48,7 @@ const ProjectProposal = () => {
                 courseId: courseId,
             })
 
-            setProject(project) 
+            setProject(project)
             setHasProject(true)
             alert("Project has been created successfully!")
         } else {
