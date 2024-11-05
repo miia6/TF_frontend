@@ -13,28 +13,29 @@ const TFmenu = () => {
     const [hasProject, setHasProject] = useState(false)
     const [isProjectFindingOpen, setIsProjectFindingOpen] = useState(false)
     const [showMenu, setShowMenu] = useState(true)
-
-    const selectedCourse = getSelectedCourseCookies() 
+    const selectedCourseId = getSelectedCourseCookies() 
 
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchCourseAndProjectData = async () => {
-            if (selectedCourse) {
+            if (selectedCourseId) {
                 try {
-                    const fetchedCourse = await getCourse(selectedCourse)
+                    const fetchedCourse = await getCourse(selectedCourseId)
                     setCourse(fetchedCourse)
-                    //console.log("Fetched course: ", fetchedCourse.name)
+                    console.log("Fetched course: ", fetchedCourse.name)
+
+                    const project = await getUserCourseProject(fetchedCourse.id)
+                    setHasProject(!!project)
+                    
+                    /*if (project) {
+                        console.log('User has an existing project: ' + project.name)  
+                    } else {
+                        console.log('User has not created any projects')
+                    }*/
+                    
                 } catch (error) {
                     console.error("Failed to fetch course:", error)
-                }
-
-                try {
-                    const project = await getUserCourseProject(selectedCourse)
-                    setHasProject(!!project)
-                    //console.log("Existing project: ", project.name)
-                } catch (error) {
-                    console.error("Failed to check project existence:", error)
                 }
 
             } else {
@@ -43,7 +44,7 @@ const TFmenu = () => {
         }
 
         fetchCourseAndProjectData()
-    }, [selectedCourse])
+    }, [selectedCourseId])
 
     const handleLogout = () => {
         logout() 
@@ -55,7 +56,7 @@ const TFmenu = () => {
     }
 
     const logoSectionStyle = {
-        backgroundColor: selectedCourse ? '#16423C' : '#E9EFEC', 
+        backgroundColor: selectedCourseId ? '#16423C' : '#E9EFEC', 
         width: '12rem',
         height: '100%',
     }
@@ -84,7 +85,7 @@ const TFmenu = () => {
                 </div>
             )}
 
-            {selectedCourse && (
+            {selectedCourseId && (
                 <div className="sidebar-menu">
                     <nav className="sidebar-links">
                         <ul className="link-list">

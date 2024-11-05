@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SignUpForm from '../components/SignUpForm'
+
 import { signup } from '../services/auth'
+import { removeSelectedCourseCookies } from '../services/course'
+
 import '../styles/signup.css'
 
 const SignUp = () => {
@@ -51,7 +54,6 @@ const SignUp = () => {
         try {
             const response = await signup(email, password, username, '1234567890')
             removeSelectedCourseCookies()
-            removeUserProjectCookies()
             navigate('/courseSelection')
         } catch (error) {
             console.error(error)

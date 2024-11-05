@@ -36,14 +36,14 @@ function AppContent() {
     }, [navigate])*/
 
     useEffect(() => {
-        const publicPaths = ['/', '/login', '/signup'];
+        const publicPaths = ['/', '/login', '/signup']
         if (!publicPaths.includes(location.pathname) && isTokenExpired()) {
-            navigate('/login');
+            navigate('/login')
         }
         /*if (location.pathname !== '/signup' && isTokenExpired()) {
             navigate('/login');
         }*/
-    }, [navigate, location.pathname]);
+    }, [navigate, location.pathname])
 
     return (
         <div className="App">

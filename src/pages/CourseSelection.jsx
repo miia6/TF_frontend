@@ -10,8 +10,9 @@ import { getUserCourseProject } from '../services/project'
 import '../styles/courseselection.css'
 
 const CourseSelection = () => {
+    const [selectedCourse, setSelectedCourse] = useState(getSelectedCourseCookies())
+    
     const navigate = useNavigate()
-    const [selectedCourse, setSelectedCourse] = useState(getSelectedCourseCookies()) 
 
     const handleCourseSelection = async (courseId) => {
         if (courseId) {

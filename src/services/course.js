@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { API_URL } from './config'
 
-// Función para obtener todos los cursos
+// Get all courses / Función para obtener todos los cursos
 export const getCourses = async () => {
 	try {
 		const user = JSON.parse(Cookies.get('user'))
@@ -18,7 +18,7 @@ export const getCourses = async () => {
 	}
 }
 
-
+// Get course object by id
 export const getCourse = async (courseId) => {
 	try {
 		const user = JSON.parse(Cookies.get('user'))
@@ -34,14 +34,17 @@ export const getCourse = async (courseId) => {
 	}
 }
 
+// Set current course Id to cookies
 export const setSelectedCourseCookies = (courseId) => {
     Cookies.set('selectedCourse', courseId, { expires: 7, secure: true, sameSite: 'Strict' })
 }
 
+// Get current course Id from cookies
 export const getSelectedCourseCookies = () => {
     return Cookies.get('selectedCourse')
 }
 
+// Remove current course Id from cookies
 export const removeSelectedCourseCookies = () => {
     Cookies.remove('selectedCourse')
 }

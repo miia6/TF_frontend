@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-// TO DO: Get users from database
+// TO DO: Get users from a certain course
 const users = [
   { name: 'user 1' },
   { name: 'user 2' },

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import GroupsIcon from '@mui/icons-material/Groups';
 
-const SearchProjectCard = ({ teamName, title, description, teammates }) => {
+const SearchProjectCard = ({ teamName, title, description, teammates, projectMember, maxMembers }) => {
+    //console.log("Props received in SearchProjectCard:", { teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
@@ -11,6 +12,8 @@ const SearchProjectCard = ({ teamName, title, description, teammates }) => {
 
     const descriptionCharCount = description.length
     const maxChars = 70
+
+    const memberCount = maxMembers !== null ? maxMembers : 5
     
     return (
         <>
@@ -44,9 +47,10 @@ const SearchProjectCard = ({ teamName, title, description, teammates }) => {
                     </div>
 
                     <div className='search-project-card-apply-section'>
-                        <p className='searching-text'>Searching for 4 members</p>
-                        {/*<p>Teammates: {teammates.length > 0 ? teammates.join(', ') : 'None'}</p>*/}
-                        <button className='search-project-card-apply-button'>Apply</button>
+                        <p className='searching-text'>Searching for {memberCount} members</p>
+                        {!projectMember ? (
+                            <button className='search-project-card-apply-button'>Apply</button>
+                        ): null}
                     </div>
                 </div>
             </div>

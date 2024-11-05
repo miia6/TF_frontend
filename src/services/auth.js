@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode'
 const login = async (email, password) => {
 	try {
 		const response = await axios.post(`${API_URL}/auth/login`, { email: email, password })
+		console.log(response.data)
 		if (response.data.token) {
 			Cookies.set('user', JSON.stringify(response.data), { expires: 7, secure: true, sameSite: 'Strict' })
 			Cookies.set('userEmail', email)
@@ -23,6 +24,10 @@ const login = async (email, password) => {
 const signup = async (email, password, username, phoneNumber) => {
 	try {
 		const response = await axios.post(`${API_URL}/auth/signup`, { email, password, username: username, phone: phoneNumber })
+		if (response.data.email) {
+			await login(email, password)
+			window.location.href = '/courseSelection'
+		}
 		console.log('Signup response:', response.data)
 	} catch (error) {
 		console.error("Signup error:", error.response ? error.response.data : error.message)

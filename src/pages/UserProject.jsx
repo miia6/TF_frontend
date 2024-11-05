@@ -11,34 +11,41 @@ import '../styles/nonexistinguserproject.css'
 
 const UserProject = () => {
     const [project, setProject] = useState(null) 
-
-    const selectedCourse = getSelectedCourseCookies()
+    const [hasProject, setHasProject] = useState(false)
+    const selectedCourseId = getSelectedCourseCookies()
 
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjectData = async () => {
-            if (selectedCourse) {
+            if (selectedCourseId) {
                 try {
-                    const fetchedProject = await getUserCourseProject(selectedCourse)
-                    setProject(fetchedProject)
-                    console.log("Existing project: ", project.name)
+                    const fetchedProject = await getUserCourseProject(selectedCourseId)
+                    setHasProject(!!fetchedProject)
+                    
+                    if (fetchedProject) {
+                        setProject(fetchedProject)
+                        console.log('User has an existing project: ' + fetchedProject)
+                    } else {
+                        console.log("User has not created any projects yet")
+                    }
+                
                 } catch (error) {
-                    console.error("Failed to check project existence:", error)
+                    console.error("Error fetching project data " + error)
                 }
 
             }
         }
 
         fetchProjectData()
-    }, [selectedCourse])
+    }, [selectedCourseId])
 
     return (
         <>
             < TFmenu />
 
             <div className="project-proposal-container">
-                {project? (
+                {hasProject ? (
                     <UserProjectCard
                         teamName={project.teamName}
                         title={project.name}

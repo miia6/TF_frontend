@@ -1,12 +1,13 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { API_URL } from './config'
+import { getCurrentUser } from '../services/auth'
 import { getCourse, getSelectedCourseCookies } from '../services/course'
 
-// Función para obtener todos los proyectos / get all projects
+// Get all course projects / Función para obtener todos los proyectos 
 export const getProjects = async (courseId) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'))
+		const user = getCurrentUser() //JSON.parse(Cookies.get('user'))
 		const response = await axios.get(`${API_URL}/project/list-projects`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -22,10 +23,10 @@ export const getProjects = async (courseId) => {
 	}
 };
 
-// Función para obtener un proyecto específico / get a spesific project
+// Get a spesific project / Función para obtener un proyecto específico
 export const getProject = async (projectId) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'));
+		const user = getCurrentUser() //JSON.parse(Cookies.get('user'));
 		const response = await axios.get(`${API_URL}/project/get-project/${projectId}`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -38,7 +39,6 @@ export const getProject = async (projectId) => {
 	}
 }
 
-
 /**
  * Function to create a project.
  * @param {Object} projectData - Project data.
@@ -50,18 +50,13 @@ export const getProject = async (projectId) => {
 */
 export const createProject = async (projectData) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'))
+		const user = getCurrentUser() // JSON.parse(Cookies.get('user'))
 		const courseId = getSelectedCourseCookies()
-		//console.log('user', user)
 		const response = await axios.post(`${API_URL}/project/create-project`, projectData, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
 			}
-			/*params: {
-                courseId: courseId // My addition
-            }*/
 		})
-
 		return response.data
 	} catch (error) {
 		console.error(error)
@@ -71,7 +66,7 @@ export const createProject = async (projectData) => {
 
 export const getUserCourseProject = async (courseId) => {
 	try {
-		const user = JSON.parse(Cookies.get('user'))
+		const user = getCurrentUser() //JSON.parse(Cookies.get('user'))
 		const response = await axios.get(`${API_URL}/project/my-course-project`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -80,21 +75,10 @@ export const getUserCourseProject = async (courseId) => {
 				courseId: courseId
 			}
 		})
+		//console.log("project: " + response.data)
 		return response.data
 	} catch (error) {
 		console.error(error)
 		throw new Error('Error al obtener el proyecto')
 	}
 }
-
-/*export const setUserCourseProjectCookies = (project) => {
-    Cookies.set('userCourseProject', project, { expires: 7, secure: true, sameSite: 'Strict' })
-}
-
-export const getUserCourseProjectCookies = () => {
-	return Cookies.get('userCourseProject')
-}
-
-export const removeUserProjectCookies = () => {
-	Cookies.remove('userCourseProject')
-}*/

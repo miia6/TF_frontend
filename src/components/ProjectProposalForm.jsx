@@ -34,11 +34,14 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         }
 
         const description = descriptionInput.replace(/\s+/g, ' ').trim()
+        //const tags = [...new Set(description.match(/#\w+/g))]
+        //console.log("tags " + tags)
   
         const projectData = {
-            teamName,
-            title,
-            description,
+            title: title,
+            description: description,
+            teamName: teamName,
+            //tags,
             teammates: Object.values(teammates).filter(teammate => teammate !== '') 
         }
 

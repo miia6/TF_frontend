@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles/loader.css'
+import '../styles/loginloader.css'
 
-const Loader = ({ message = "Loading...", size = "medium" }) => {
+const LoginLoader = ({ message = "Loading...", size = "medium" }) => {
     return (
         <div className="loader-container">
             <div className={`spinner ${size}`}></div>
@@ -11,9 +11,9 @@ const Loader = ({ message = "Loading...", size = "medium" }) => {
     )
 }
 
-Loader.propTypes = {
+LoginLoader.propTypes = {
     message: PropTypes.string,
     size: PropTypes.oneOf(["small", "medium", "large"])
 }
 
-export default Loader
+export default LoginLoader

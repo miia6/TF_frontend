@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import LoginForm from '../components/LoginForm'
-import Loader from '../components/Loader'
+import LoginLoader from '../components/LoginLoader'
 
 import { login } from '../services/auth'
 import { removeSelectedCourseCookies } from '../services/course'
@@ -49,7 +49,7 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            {isLoading && <Loader message="Logging in..." />}
+            {isLoading && <LoginLoader message="Logging in..." />}
             <LoginForm
                 handleLogin={handleLogin}
                 handleEmailChange={handleEmailChange}

@@ -1,4 +1,4 @@
-import axios from 'axios';
+/*import axios from 'axios';
 import cookies from 'js-cookie';
 
 const API_URL = 'http://localhost:3000/course/list-courses'; // Replace with your actual API URL
@@ -18,5 +18,5 @@ async function getAllCourses() {
   }
 }
 
-export { getAllCourses };
+export { getAllCourses };*/
 
