@@ -107,9 +107,9 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
 
 ProjectProposalForm.propTypes = {
     handleProjectCreation: PropTypes.func.isRequired,
-    teamName: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    descriptionInput: PropTypes.string.isRequired
+    //teamName: PropTypes.string.isRequired,
+    //title: PropTypes.string.isRequired,
+    //descriptionInput: PropTypes.string.isRequired
 }
 
 export default ProjectProposalForm

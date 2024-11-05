@@ -20,3 +20,4 @@ Install to the root: npm install
 - Modify teammates finding page with respect to the type of the user (see your project's teammates, and add search and invitation possibility for the project owner)
 - Fix info (course, visibility of links) in the menu to be always shown (now they reload a moment)
 - Improve visuality of the app (some images etc... ?).
+

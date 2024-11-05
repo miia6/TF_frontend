@@ -12,7 +12,7 @@ const ProjectProposal = () => {
     const [hasProject, setHasProject] = useState(false)
     const selectedCourseId = getSelectedCourseCookies() 
 
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjectData = async () => {
@@ -24,6 +24,7 @@ const ProjectProposal = () => {
                     console.error("Failed to check project existence:", error)
                 }
             } 
+
         }
 
         fetchProjectData()
@@ -41,7 +42,7 @@ const ProjectProposal = () => {
                 teammates: project.teammates,
                 courseId: selectedCourseId,
             })
-
+            
             console.log("Created project response: " + createdProject)
             setHasProject(true)
     
