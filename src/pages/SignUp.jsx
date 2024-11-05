@@ -4,7 +4,6 @@ import SignUpForm from '../components/SignUpForm'
 
 import { signup } from '../services/auth'
 import { removeSelectedCourseCookies } from '../services/course'
-import { removeUserProjectCookies } from '../services/project'
 import LoginLoader from '../components/LoginLoader'
 import '../styles/signup.css'
 
@@ -57,7 +56,6 @@ const SignUp = () => {
         try {
             const response = await signup(email, password, username, '1234567890')
             removeSelectedCourseCookies()
-            removeUserProjectCookies()
             setIsLoading(false)
             navigate('/courseSelection')
         } catch (error) {
@@ -69,7 +67,7 @@ const SignUp = () => {
     return (
         <div className="signup-container">
             {errors.general && <p className="error-text">{errors.general}</p>}
-            {isLoading && <Loader message="Signing up..." />}
+            {isLoading && <LoginLoader message="Signing up..." />}
             <SignUpForm
                 handleSignUp={handleSignUp}
                 handleUsernameChange={handleUsernameChange}
