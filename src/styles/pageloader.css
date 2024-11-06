@@ -4,9 +4,9 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: calc(50% - 8rem) !important;
-    left: calc(50% - 12rem) !important;
-    width: 100vh !important;
+    top: 15rem;
+    left: 50%;
+    width: 10rem;
     height: 10rem !important;
     background-color: #E9EFEC !important;
     z-index: 999;

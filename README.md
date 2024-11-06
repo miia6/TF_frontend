@@ -1,7 +1,7 @@
 # Creating the frontend
 Frontend to TeammatesFinding App
 
-1. Open Node.js command prompt
+1. Open Node.js
 2. Navigate to the frontend: cd TF_frontend
 3. Create frontend with vite: npm create vite@latest frontend -- --template react
 
@@ -12,6 +12,10 @@ Install to the root: npm install react-router-dom
 
 # Packages
 Install to the root: npm install
+
+# CHANGES 
+- menu changes: added courses to the sidebar
+- /courseSelection vs /joinCourses
 
 # TO DO
 

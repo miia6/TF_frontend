@@ -26,7 +26,7 @@
 
 /* selected course in top menu */
 
-.course-section {
+.selected-course-section {
     margin: 1rem;
     margin-left: 15rem;
     width: auto;
@@ -36,7 +36,7 @@
     position: fixed;
 }
 
-.course-section p {
+.selected-course-section p {
     font-size: 0.9rem;
     margin: 0;
 }
@@ -60,6 +60,27 @@
 }
 
 .change-course-button:hover {
+    background-color: #6A9C89;
+    color: white;
+}
+
+.join-course-section {
+    margin: 1rem;
+}
+
+.join-course-button {
+    padding: auto;
+    margin-bottom: 0.5rem;
+    background-color: #C4DAD2;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.join-course-button:hover {
     background-color: #6A9C89;
     color: white;
 }
@@ -135,6 +156,31 @@
 .sidebar-link:focus {
     color: white;
 }
+
+/* course sublinks */
+
+.sublink-course-list {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+.sidebar-course-sublink {
+    display: block;
+    padding: 0.5rem;
+    width: 8rem;
+    font-size: 0.9rem;
+    color: black;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.sidebar-course-sublink:hover {
+    color: white;
+}
+
+/* project sublinks */
+
 
 .sublink-list {
     list-style: none;

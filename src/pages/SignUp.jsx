@@ -5,6 +5,7 @@ import SignUpForm from '../components/SignUpForm'
 import { signup } from '../services/auth'
 import { removeSelectedCourseCookies } from '../services/course'
 import LoginLoader from '../components/LoginLoader'
+
 import '../styles/signup.css'
 
 const SignUp = () => {
@@ -57,7 +58,7 @@ const SignUp = () => {
             const response = await signup(email, password, username, '1234567890')
             removeSelectedCourseCookies()
             setIsLoading(false)
-            navigate('/courseSelection')
+            navigate('/joinCourse')
         } catch (error) {
             setIsLoading(false)
             console.error(error)
@@ -68,6 +69,7 @@ const SignUp = () => {
         <div className="signup-container">
             {errors.general && <p className="error-text">{errors.general}</p>}
             {isLoading && <LoginLoader message="Signing up..." />}
+
             <SignUpForm
                 handleSignUp={handleSignUp}
                 handleUsernameChange={handleUsernameChange}

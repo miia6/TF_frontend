@@ -1,18 +1,10 @@
-import React, { useState } from 'react'
-//import { useNavigate } from 'react-router-dom'
-import '../styles/teammatesfinding.css'
+import React, { useState, useEffect } from 'react'
 
-// TO DO: get users from database
-const users = [
-    { name: 'user 1', },
-    { name: 'user 2', },
-    { name: 'user 3', },
-    { name: 'user 4', },
-    { name: 'user 5', },
-    { name: 'user 6', },
-]
+import { getSelectedCourseCookies } from '../services/course'
+import { getUsersByCourse } from '../services/user'
 
 const TeammatesFindingForm = ({ handleTeammatesFinding }) => {
+    const [users, setUsers] = useState([])
     const [user, setUser] = useState('')
     const [searchTerm, setSearchTerm] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -20,7 +12,30 @@ const TeammatesFindingForm = ({ handleTeammatesFinding }) => {
     const [userInfo, setUserInfo] = useState('')
     const [isUserInfoVisible, setIsUserInfoVisible] = useState(false)
 
-    //const navigate = useNavigate()
+    const selectedCourseId = getSelectedCourseCookies()
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            if (selectedCourseId) {
+                try {
+                    const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
+                    console.log("Users fetched: " + JSON.stringify(fetchedCourseUsers, null, 2))
+                    
+                    if (fetchedCourseUsers) {
+                        setUsers(fetchedCourseUsers)
+                    } else {
+                        setUsers([])
+                        console.log("Failed to fetch course users")
+                    }
+                
+                } catch (error) {
+                    console.error("Error fetching course " + error)
+                } 
+            }
+        }
+
+        fetchUsers()
+    }, [selectedCourseId])
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)

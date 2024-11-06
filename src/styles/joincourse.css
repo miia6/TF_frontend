@@ -1,0 +1,132 @@
+/* container and form */
+
+.join-course-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #E9EFEC;
+    margin-top: 8rem;
+    margin-left: 0;
+    padding: 1rem;
+}
+
+/* When the sidebar is visible, apply a left margin to shift content right */
+.join-course-container.with-sidebar {
+    margin-left: calc(12rem + 2rem); 
+}
+
+/* Center-align the container when there’s no sidebar */
+.join-course-container.without-sidebar {
+    margin-left: 0;
+}
+
+.join-course-form {
+    display: flex;
+    flex-direction: column; 
+    width: 30rem;
+    height: auto; 
+    background-color: #fff; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    padding: 1rem;
+}
+
+/* content of the form */
+
+.join-course-form h2 {
+    font-size: 2rem;
+    margin: 0.5rem;
+    color: black; 
+}
+
+.form-group {
+    display: flex; 
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold; 
+    color: black; 
+    font-size: 1rem; 
+  }
+
+.join-course {
+    padding: auto;
+    background-color: #E9EFEC; 
+    border: 1px solid #C4DAD2; 
+    border-radius: 10px; 
+    font-size: 0.9rem; 
+    font-family: 'Trebuchet MS', sans-serif;
+    color: black;
+    flex: 1;  
+}
+
+.join-course::placeholder {
+    color: #888; 
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.9rem;
+    opacity: 1;
+}
+
+/* dropdown (searching courses) */
+
+.dropdown {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    border: 1px solid #C4DAD2;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative !important;
+    max-height: 10rem !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown-item {
+    padding: auto;
+    cursor: pointer;
+    background-color: #C4DAD2;
+    border-bottom: 1px solid #ddd;
+    color: black;
+    font-size: 0.8rem;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.dropdown-item:hover {
+    background-color: #6A9C89;
+    color: #fff;
+}
+
+/* select button */
+
+.join-course-form button {
+    width: auto;
+    padding: auto;
+    font-size: 1rem;
+    margin: 1rem; 
+    cursor: pointer; 
+    background-color: #C4DAD2; 
+    border: none; 
+    border-radius: 5px;
+    color: black;
+}
+
+.join-course-form button:hover {
+    background-color: #6A9C89;
+}
+
+/* errors */
+
+.error {
+    border: 2px solid red !important; 
+    color: black;
+}
+
+.error-text {
+    color: red; 
+    font-size: 0.875rem; 
+    margin-top: 0.1rem; 
+}

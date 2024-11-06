@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import GroupsIcon from '@mui/icons-material/Groups';
+import React, { useState, useEffect } from 'react'
+import GroupsIcon from '@mui/icons-material/Groups'
 
 const SearchProjectCard = ({ teamName, title, description, teammates, projectMember, maxMembers }) => {
     //console.log("Props received in SearchProjectCard:", { teamName, title, description, teammates })

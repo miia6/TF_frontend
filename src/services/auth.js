@@ -2,12 +2,12 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { API_URL } from './config'
 import { jwtDecode } from 'jwt-decode'
+import { removeSelectedCourseCookies } from './course'
 
 // Login function
 const login = async (email, password) => {
 	try {
 		const response = await axios.post(`${API_URL}/auth/login`, { email: email, password })
-		console.log(response.data)
 		if (response.data.token) {
 			Cookies.set('user', JSON.stringify(response.data), { expires: 7, secure: true, sameSite: 'Strict' })
 			Cookies.set('userEmail', email)
@@ -26,7 +26,7 @@ const signup = async (email, password, username, phoneNumber) => {
 		const response = await axios.post(`${API_URL}/auth/signup`, { email, password, username: username, phone: phoneNumber })
 		if (response.data.email) {
 			await login(email, password)
-			window.location.href = '/courseSelection'
+			window.location.href = '/joinCourse'
 		}
 		console.log('Signup response:', response.data)
 	} catch (error) {
@@ -35,7 +35,7 @@ const signup = async (email, password, username, phoneNumber) => {
 	}
 }
 
-export const isUserLoggedIn = () => {
+const isUserLoggedIn = () => {
 	return !!Cookies.get('user')
 }
 
@@ -43,7 +43,7 @@ export const isUserLoggedIn = () => {
 const logout = () => {
 	Cookies.remove('user')
 	Cookies.remove('userEmail')
-	Cookies.remove('selectedCourse')
+	removeSelectedCourseCookies()
 }
 
 // Get current user
@@ -66,6 +66,6 @@ const isTokenExpired = () => {
 	return decodedToken.exp < currentTime
 }
 
-export { login, signup, logout, getCurrentUser, getCurrentUserEmail, isTokenExpired }
+export { login, signup, isUserLoggedIn, logout, getCurrentUser, getCurrentUserEmail, isTokenExpired }
 
 

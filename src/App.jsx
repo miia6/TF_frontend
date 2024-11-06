@@ -7,6 +7,7 @@ import logo from './assets/TF_app_logo.jpg'
 
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import JoinCourse from './pages/JoinCourse'
 import Dashboard from './pages/Dashboard'
 import CourseSelection from './pages/CourseSelection'
 import ProjectProposal from './pages/ProjectProposal'
@@ -79,7 +80,10 @@ function AppContent() {
                 } />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+
+                <Route path="/JoinCourse" element={<PrivateRoute><JoinCourse /></PrivateRoute>} />
                 <Route path="/courseSelection" element={<PrivateRoute><CourseSelection /></PrivateRoute>} />
+
                 <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                 <Route path="/teammatesFinding" element={<PrivateRoute><TeammatesFinding /></PrivateRoute>} />
                 <Route path="/projectProposal" element={<PrivateRoute><ProjectProposal /></PrivateRoute>} />

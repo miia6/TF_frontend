@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
 import ProjectProposalForm from '../components/ProjectProposalForm'
@@ -11,8 +10,6 @@ import { getSelectedCourseCookies } from '../services/course'
 const ProjectProposal = () => {
     const [hasProject, setHasProject] = useState(false)
     const selectedCourseId = getSelectedCourseCookies() 
-
-    //const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjectData = async () => {

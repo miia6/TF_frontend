@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getUserCourses, getCourses } from '../services/course'
+import { getCourses } from '../services/course'
 
-import '../styles/courseselection.css'
-
-const CourseSelectionForm = ({ handleCourseSelection }) => {
+const JoinCourseForm = ({ handleJoinCourse}) => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -12,18 +10,6 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        const fetchUserCourses = async () => {
-            try {
-                const fetchedCourses = await getUserCourses()
-                setCourses(fetchedCourses)
-            } catch (error) {
-                console.error("Failed to fetch user courses", error)
-            }
-        }
-        fetchUserCourses()
-    }, [])
-    
-    /*useEffect(() => {
         const fetchCourses = async () => {
             try {
                 const coursesList = await getCourses()
@@ -33,7 +19,7 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
             }
         }
         fetchCourses()
-    }, [])*/
+    }, [])
 
 
     const handleSearch = (event) => {
@@ -61,24 +47,24 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
             return
         }
 
-        handleCourseSelection(selectedCourse.id)
+        handleJoinCourse(selectedCourse.id, selectedCourse.name)
     }
 
     return (
-        <div className="course-select-form">
+        <div className="join-course-form">
             <form onSubmit={handleSubmit}>
-                <h2>Select a course</h2>
+                <h2>Join a course</h2>
 
                 <div className="form-group">
-                    <label htmlFor="courseSelect"></label>
+                    <label htmlFor="joinCourse"></label>
                     <input
                         type="text"
-                        id="courseSelect"
+                        id="joinCourse"
                         placeholder="Type or search courses..."
                         value={searchTerm}
                         onChange={handleSearch}
                         onFocus={() => setIsDropdownOpen(true)}
-                        className={`course-select ${errors.selectedCourse ? 'error' : ''}`}
+                        className={`join-course ${errors.selectedCourse ? 'error' : ''}`}
                     />
                     {errors.selectedCourse && <p className="error-text">{errors.selectedCourse}</p>}
                 </div>
@@ -98,15 +84,15 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
                 )}
 
                 <button type="submit" className="submit-button">
-                    Select
+                    Join
                 </button>
             </form>
         </div>
     )
 }
 
-CourseSelectionForm.propTypes = {
-    handleCourseSelection: PropTypes.func.isRequired
+JoinCourseForm.propTypes = {
+    handleJoinCourse: PropTypes.func.isRequired
 }
 
-export default CourseSelectionForm
+export default JoinCourseForm
