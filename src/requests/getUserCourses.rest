@@ -1,0 +1,5 @@
+GET https://velvetlettr.com/tf-backend/course/my-courses
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQxNWFjYWY3LWZhYmQtNDZlMC04MTUxLWI1YTZiNmZmMzkwNiIsImlhdCI6MTczMDk3ODc3OCwiZXhwIjoxNzMwOTgyMzc4fQ.DhGjX_9kqfoy8OcKENxq4sl1yhyS_hHIfZ9yk-PSd7I
+
+

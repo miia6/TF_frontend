@@ -87,6 +87,7 @@ const ProjectSearch = () => {
                             .map((project, index) => (
                                 <Grid item key={index} xs={12} sm={6} md={4}>
                                     <SearchProjectCard
+                                        projectId={project.id}
                                         teamName={project.teamName || " "}
                                         title={project.name || " "}
                                         description={project.description || " "}

@@ -13,7 +13,6 @@ const login = async (email, password) => {
 			Cookies.set('userEmail', email)
 		}
 		console.log('Login successful', response.data)
-		console.log("Cookies set as token and email: " + email)
 	} catch (error) {
 		console.error(error)
 		throw new Error('Login failed')
@@ -35,6 +34,7 @@ const signup = async (email, password, username, phoneNumber) => {
 	}
 }
 
+// See if user is logged in
 const isUserLoggedIn = () => {
 	return !!Cookies.get('user')
 }
@@ -46,7 +46,7 @@ const logout = () => {
 	removeSelectedCourseCookies()
 }
 
-// Get current user
+// Get current user id
 const getCurrentUser = () => {
 	return JSON.parse(Cookies.get('user'))
 }

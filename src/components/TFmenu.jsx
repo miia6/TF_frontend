@@ -28,11 +28,11 @@ const TFmenu = () => {
                     const project = await getUserCourseProject(fetchedCourse.id)
                     setHasProject(!!project)
                     
-                    /*if (project) {
+                    if (project) {
                         console.log('User has an existing project: ' + project.name)  
                     } else {
                         console.log('User has not created any projects')
-                    }*/
+                    }
                     
                 } catch (error) {
                     console.error("Failed to fetch course:", error)
@@ -84,6 +84,10 @@ const TFmenu = () => {
                     <nav className="sidebar-links">
                         <ul className="link-list">
 
+                            <li onClick={() => navigate('/dashboard')} className="sidebar-link">
+                                Frontpage
+                            </li>
+
                             <li className="sidebar-link"
                                 onClick={() => setIsCoursesOpen(!isCoursesOpen)}
                             >
@@ -99,10 +103,6 @@ const TFmenu = () => {
                                     </li>
                                 </ul>
                             )}
-
-                            <li onClick={() => navigate('/dashboard')} className="sidebar-link">
-                                Frontpage
-                            </li>
 
                             <li className="sidebar-link"
                                 onClick={() => setIsProjectsOpen(!isProjectsOpen)}

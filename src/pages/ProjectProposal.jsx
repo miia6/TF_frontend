@@ -34,7 +34,6 @@ const ProjectProposal = () => {
             const createdProject = await createProject({
                 name: project.title,
                 description: project.description,
-                //tags: project.tags,
                 teamName: project.teamName,
                 teammates: project.teammates,
                 courseId: selectedCourseId,

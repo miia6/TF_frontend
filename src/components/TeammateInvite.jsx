@@ -1,19 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-// TO DO: Get users from a certain course
-const users = [
-  { name: 'user 1' },
-  { name: 'user 2' },
-  { name: 'user 3' },
-  { name: 'user 4' },
-  { name: 'user 5' },
-  { name: 'user 6' }
-];
+import { getSelectedCourseCookies } from '../services/course'
+import { getUsersByCourse } from '../services/user'
+import { getCurrentUser } from '../services/auth' 
 
 const TeammateInvite = ({ teammates, setTeammates }) => {
+    const [users, setUsers] = useState([])
     const [searchTerms, setSearchTerms] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
     const [dropdownStates, setDropdownStates] = useState([])
+
+    const selectedCourseId = getSelectedCourseCookies()
+
+    const currentUserName = getCurrentUser()?.name
+    console.log(currentUserName)
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            if (selectedCourseId) {
+                try {
+                    const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
+                    
+                    if (fetchedCourseUsers) {
+                        setUsers(fetchedCourseUsers)
+                    } else {
+                        setUsers([])
+                        console.log("Failed to fetch course users")
+                    }
+                
+                } catch (error) {
+                    console.error("Error fetching course " + error)
+                } 
+            }
+        }
+
+        fetchUsers()
+    }, [selectedCourseId])
 
     const handleAddTeammateClick = () => {
         setTeammates([...teammates, ''])

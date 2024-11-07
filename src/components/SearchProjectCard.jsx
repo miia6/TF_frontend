@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import GroupsIcon from '@mui/icons-material/Groups'
 
-const SearchProjectCard = ({ teamName, title, description, teammates, projectMember, maxMembers }) => {
-    //console.log("Props received in SearchProjectCard:", { teamName, title, description, teammates })
+import { applyToProject } from '../services/project'
+
+const SearchProjectCard = ({ projectId, teamName, title, description, teammates, projectMember, maxMembers }) => {
+    //console.log("Props received in SearchProjectCard:", { projectId, teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
+    
+    const navigate = useNavigate()
 
     const getShortDescription = (desc) => {
         const maxChars = 70
@@ -14,6 +20,17 @@ const SearchProjectCard = ({ teamName, title, description, teammates, projectMem
     const maxChars = 70
 
     const memberCount = maxMembers !== null ? maxMembers : 5
+
+    const handleApply = async () => {
+        try {
+            await applyToProject(projectId)  
+            alert('You have successfully applied to the project!')
+            navigate('/sentApplications')
+        } catch (error) {
+            console.error('Error applying to project:', error)
+            alert('Error applying to project')
+        }
+    }
     
     return (
         <>
@@ -49,7 +66,12 @@ const SearchProjectCard = ({ teamName, title, description, teammates, projectMem
                     <div className='search-project-card-apply-section'>
                         <p className='searching-text'>Searching for {memberCount} members</p>
                         {!projectMember ? (
-                            <button className='search-project-card-apply-button'>Apply</button>
+                            <button 
+                                className='search-project-card-apply-button' 
+                                onClick={handleApply}  
+                            >
+                                Apply
+                            </button>
                         ): null}
                     </div>
                 </div>

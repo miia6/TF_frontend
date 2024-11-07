@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_URL } from './config'
-import { getCurrentUser } from '../services/auth'
-import { getCourse, getSelectedCourseCookies } from '../services/course'
+import { getCurrentUser } from './auth'
+import { getCourse, getSelectedCourseCookies } from './course'
 
 // Get all course projects / Función para obtener todos los proyectos 
 const getProjects = async (courseId) => {
@@ -49,7 +49,7 @@ const getProject = async (projectId) => {
 */
 const createProject = async (projectData) => {
 	try {
-		const user = getCurrentUser() // JSON.parse(Cookies.get('user'))
+		const user = getCurrentUser() 
 		const courseId = getSelectedCourseCookies()
 		const response = await axios.post(`${API_URL}/project/create-project`, projectData, {
 			headers: {
@@ -65,7 +65,7 @@ const createProject = async (projectData) => {
 
 const getUserCourseProject = async (courseId) => {
 	try {
-		const user = getCurrentUser() //JSON.parse(Cookies.get('user'))
+		const user = getCurrentUser() 
 		const response = await axios.get(`${API_URL}/project/my-course-project`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -82,4 +82,37 @@ const getUserCourseProject = async (courseId) => {
 	}
 }
 
-export { getProjects, getProject, createProject, getUserCourseProject }
+const applyToProject = async (projectId) => {
+	try {
+		const user = getCurrentUser()
+        const response = await axios.post(`${API_URL}/project/apply-to-project`, 
+            { projectId },
+            {
+                headers: {
+                    'Authorization': `Bearer ${user.token}` 
+                }
+            }
+        )
+        return response.data
+    } catch (error) {
+        console.error('Error applying to project', error)
+        throw error
+    }
+}
+
+const getSentApplications = async () => {
+    try {
+		const user = getCurrentUser()
+        const response = await axios.get(`${API_URL}/project/projects-applications`, {
+            headers: {
+				'Authorization': `Bearer ${user.token}` 
+			}
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error getting sent applications:', error)
+        throw error
+    }
+}
+
+export { getProjects, getProject, createProject, getUserCourseProject, applyToProject, getSentApplications }

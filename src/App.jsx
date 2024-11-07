@@ -14,7 +14,7 @@ import ProjectProposal from './pages/ProjectProposal'
 
 import ProjectSearch from './pages/ProjectSearch'
 import UserProject from './pages/UserProject'
-//import SentApplications from './pages/SentApplications'
+import SentApplications from './pages/SentApplications'
 //import ProjectApplications from '/pages/ProjectApplications'
 //import ProjectInvitations from '/pages/ProjectInvitations'
 //import SentInvitations from '/pages/SentInvitations'
@@ -90,7 +90,7 @@ function AppContent() {
 
                 <Route path="/projectSearch" element={<PrivateRoute><ProjectSearch /></PrivateRoute>} />
                 <Route path="/yourProject" element={<PrivateRoute><UserProject /></PrivateRoute>} />
-                {/*<Route path="/sentApplications" element={<SentApplications />} />*/}
+                <Route path="/sentApplications" element={<SentApplications />} />
                 {/*<Route path="/projectApplications" element={<projectApplications />} />*/}
                 {/*<Route path="/projectInvitations" element={<projectInvitations />} />*/}
                 {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}

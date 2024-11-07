@@ -18,21 +18,8 @@ const CourseSelection = () => {
         if (courseId) {
             setSelectedCourseCookies(courseId) 
             setSelectedCourse(courseId) 
-            console.log("Selected course id: ", courseId)
-
-            try {
-                const project = await getUserCourseProject(courseId)
-                if (project) {
-                    console.log('User has an existing project: ' + project.name)  
-                } else {
-                    console.log('User has not created any projects')
-                }
-                navigate('/dashboard')
-
-            } catch (error) {
-                console.error('Error fetching user project:', error)
-            }
-
+            console.log("Selected course id: ", courseId) 
+            navigate('/dashboard')
         } else {            
             console.log("No course selected")
         }

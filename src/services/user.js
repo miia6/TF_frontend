@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_URL } from './config'
 import { jwtDecode } from 'jwt-decode'
-import { getCurrentUser } from '../services/auth'
+import { getCurrentUser } from './auth'
 
 const getUsersByCourse = async (courseId) => {
     try {

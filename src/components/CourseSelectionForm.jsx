@@ -22,18 +22,6 @@ const CourseSelectionForm = ({ handleCourseSelection }) => {
         }
         fetchUserCourses()
     }, [])
-    
-    /*useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                const coursesList = await getCourses()
-                setCourses(coursesList)
-            } catch (error) {
-                console.error("Failed to fetch courses", error)
-            }
-        }
-        fetchCourses()
-    }, [])*/
 
 
     const handleSearch = (event) => {

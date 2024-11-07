@@ -21,6 +21,10 @@
     margin-left: 0;
 }
 
+.join-course-container h3 {
+    color: black;
+}
+
 .join-course-form {
     display: flex;
     flex-direction: column; 

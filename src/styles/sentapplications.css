@@ -1,0 +1,23 @@
+/* sentapplications.css */
+
+.sent-applications-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    color: black;
+    flex: 1;
+    margin-top: 8rem !important;
+    margin-left: 15rem;
+    margin-right: 3rem;
+    padding-bottom: 3rem !important;
+}
+
+.sent-applications-form h1 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: black;
+}

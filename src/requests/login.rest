@@ -1,0 +1,7 @@
+POST https://velvetlettr.com/tf-backend/auth/login
+Content-Type: application/json
+
+{
+    "email": "tester@email.com",
+    "password": "lol"
+}

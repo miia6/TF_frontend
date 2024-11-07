@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getCourses } from '../services/course'
+import { getCourses, getUserCourses } from '../services/course'
 
 const JoinCourseForm = ({ handleJoinCourse}) => {
 
@@ -12,8 +12,11 @@ const JoinCourseForm = ({ handleJoinCourse}) => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const coursesList = await getCourses()
-                setCourses(coursesList)
+                const fetchedCourses = await getCourses()
+                const fetchedUserCourses = await getUserCourses()
+                const joinedCourseIds = new Set(fetchedUserCourses.map(course => course.id))
+                const availableCourses = fetchedCourses.filter(course => !joinedCourseIds.has(course.id))
+                setCourses(availableCourses)
             } catch (error) {
                 console.error("Failed to fetch courses", error)
             }

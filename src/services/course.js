@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { API_URL } from './config'
-import { getCurrentUser } from '../services/auth'
+import { getCurrentUser } from './auth'
 
 // Get all courses / Función para obtener todos los cursos
 const getCourses = async () => {
@@ -39,16 +39,14 @@ const getCourse = async (courseId) => {
 const joinCourse = async (courseId) => {
 	try {
 		const user = getCurrentUser() 
-		console.log('user token: ' + user.token)
-		const response = await axios.post(`${API_URL}/course/join-course/${courseId}`, {
-			headers: {
-				'Authorization': `Bearer ${user.token}`
-			},
-			/*params: {
-				courseId: courseId
-			}*/
-		})
-		console.log(response.data)
+		const response = await axios.post(`${API_URL}/course/join-course/${courseId}`,
+			{},
+			{
+				headers: {
+					'Authorization': `Bearer ${user.token}`
+				},
+			}
+		)
 		return response.data
 	} catch (error) {
 		console.error(error)
@@ -65,7 +63,6 @@ const getUserCourses = async () => {
 				'Authorization': `Bearer ${user.token}`
 			}
 		})
-		console.log(response.data)
 		return response.data
 	} catch (error) {
 		console.error(error)
