@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 import { API_URL } from './config'
 import { jwtDecode } from 'jwt-decode'
 import { removeSelectedCourseCookies } from './course'
+import { removeAppliedProjectsCookies } from './project'
 
 // Login function
 const login = async (email, password) => {
@@ -44,6 +45,7 @@ const logout = () => {
 	Cookies.remove('user')
 	Cookies.remove('userEmail')
 	removeSelectedCourseCookies()
+	removeAppliedProjectsCookies()
 }
 
 // Get current user id

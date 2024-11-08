@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { API_URL } from './config'
+import Cookies from 'js-cookie'
+
 import { getCurrentUser } from './auth'
 import { getCourse, getSelectedCourseCookies } from './course'
 
 // Get all course projects / Función para obtener todos los proyectos 
 const getProjects = async (courseId) => {
 	try {
-		const user = getCurrentUser() //JSON.parse(Cookies.get('user'))
+		const user = getCurrentUser() 
 		const response = await axios.get(`${API_URL}/project/list-projects`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -24,16 +26,18 @@ const getProjects = async (courseId) => {
 
 // Get a spesific project / Función para obtener un proyecto específico
 const getProject = async (projectId) => {
+	console.log("received project id " + projectId)
 	try {
-		const user = getCurrentUser() //JSON.parse(Cookies.get('user'));
+		const user = getCurrentUser() 
 		const response = await axios.get(`${API_URL}/project/get-project/${projectId}`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
 			}
 		})
-		return response.data;
+		console.log(response.data)
+		return response.data
 	} catch (error) {
-		console.error(error);
+		console.error(error)
 		throw new Error('Error getting project')
 	}
 }
@@ -100,6 +104,7 @@ const applyToProject = async (projectId) => {
     }
 }
 
+
 const getSentApplications = async () => {
     try {
 		const user = getCurrentUser()
@@ -115,4 +120,72 @@ const getSentApplications = async () => {
     }
 }
 
-export { getProjects, getProject, createProject, getUserCourseProject, applyToProject, getSentApplications }
+const getProjectApplicants = async (projectId) => {
+	try {
+		const user = getCurrentUser()
+        const response = await axios.get(`${API_URL}/project/project-applicants?projectId=${projectId}`, {
+            headers: {
+				'Authorization': `Bearer ${user.token}` 
+			}
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error getting applicants:', error)
+        throw error
+    }
+}
+
+const acceptUserApplication = async (applicationId, projectId) => {
+		const user = getCurrentUser()
+        // TO DO
+
+}
+
+const rejectUserApplication = async (applicationId, projectId) => {
+		const user = getCurrentUser()
+		// TO DO
+}
+
+const setAppliedProjectsCookies = async (projectId) => {
+	//Cookies.set('hasAppliedProjects', 'true', { expires: 7, secure: true, sameSite: 'Strict' })
+	// Get the existing projects from the cookie (if any)
+    const appliedProjectsIDs = Cookies.get('hasAppliedProjects');
+    const projectIds = appliedProjectsIDs  ? JSON.parse(appliedProjectsIDs) : [];
+
+    // Add the new project ID only if it's not already in the array
+    if (!projectIds.includes(projectId)) {
+        projectIds.push(projectId);
+    }
+
+    // Store the updated array back in the cookie as a JSON string
+    Cookies.set('hasAppliedProjects', JSON.stringify(projectIds), {
+        expires: 7,
+        secure: true,
+        sameSite: 'Strict',
+    });
+}
+
+const getAppliedProjectsCookies = () => {
+    //return Cookies.get('hasAppliedProjects')
+	const appliedProjectsIDs = Cookies.get('hasAppliedProjects');
+    return appliedProjectsIDs ? JSON.parse(appliedProjectsIDs) : [];
+}
+
+// Remove current course Id from cookies
+const removeAppliedProjectsCookies = () => {
+    Cookies.remove('hasAppliedProjects')
+}
+
+
+export { getProjects, 
+		getProject, 
+		createProject, 
+		getUserCourseProject, 
+		applyToProject, 
+		getSentApplications,
+		getProjectApplicants,
+		acceptUserApplication,
+		rejectUserApplication,
+		setAppliedProjectsCookies,
+		getAppliedProjectsCookies,
+		removeAppliedProjectsCookies }

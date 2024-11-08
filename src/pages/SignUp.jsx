@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import SignUpForm from '../components/SignUpForm'
+import LoginLoader from '../components/LoginLoader'
 
 import { signup } from '../services/auth'
 import { removeSelectedCourseCookies } from '../services/course'
-import LoginLoader from '../components/LoginLoader'
+import { removeAppliedProjectsCookies } from '../services/project'
 
 import '../styles/signup.css'
 
@@ -57,10 +59,12 @@ const SignUp = () => {
         try {
             const response = await signup(email, password, username, '1234567890')
             removeSelectedCourseCookies()
+            removeAppliedProjectsCookies()
             setIsLoading(false)
             navigate('/joinCourse')
         } catch (error) {
             setIsLoading(false)
+            alert('User already exists. Please choose a different username and email.')
             console.error(error)
         }
     }

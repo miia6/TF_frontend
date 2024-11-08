@@ -3,48 +3,61 @@ import { useNavigate } from 'react-router-dom'
 import logo from '../assets/TF_app_logo.jpg'
 
 import { getCourse, getUserCourses, getSelectedCourseCookies } from '../services/course'
-import { getUserCourseProject } from '../services/project'
+import { getUserCourseProject, getAppliedProjectsCookies } from '../services/project'
 import { logout } from '../services/auth'
 
 import '../styles/tfmenu.css'
 
 const TFmenu = () => {
     const [course, setCourse] = useState(null)
+    const [project, setProject] = useState(null)
     const [hasProject, setHasProject] = useState(false)
+
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
     const [isCoursesOpen, setIsCoursesOpen] = useState(false)
+
     const selectedCourseId = getSelectedCourseCookies() 
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchCourseAndProjectData = async () => {
+        const fetchCourseData = async () => {
             if (selectedCourseId) {
                 try {
                     const fetchedCourse = await getCourse(selectedCourseId)
                     setCourse(fetchedCourse)
                     console.log("Fetched course: ", fetchedCourse.name)
-
-                    const project = await getUserCourseProject(fetchedCourse.id)
-                    setHasProject(!!project)
-                    
-                    if (project) {
-                        console.log('User has an existing project: ' + project.name)  
-                    } else {
-                        console.log('User has not created any projects')
-                    }
-                    
                 } catch (error) {
                     console.error("Failed to fetch course:", error)
                 }
-
             } else {
                 setCourse(null)
             }
         }
 
-        fetchCourseAndProjectData()
+        fetchCourseData()
     }, [selectedCourseId])
+
+    useEffect(() => {
+        const fetchProjectData = async () => {
+            if (course) {
+                try {
+                    const fetchedProject = await getUserCourseProject(course.id)
+                    setHasProject(!!fetchedProject)      
+                    if (fetchedProject) {
+                        setProject(fetchedProject)
+                        console.log('User has an existing project: ' + fetchedProject.name)  
+                    }
+                    
+                } catch (error) {
+                    console.error("Failed to fetch projects:", error)
+                }
+            }
+        }
+
+        fetchProjectData()
+    }, [course])
+
 
     const handleLogout = () => {
         logout() 
@@ -118,16 +131,16 @@ const TFmenu = () => {
                                         Your project
                                     </li>
                                     <li onClick={() => navigate('/sentApplications')} className="sidebar-sublink">
-                                        Sent applications
+                                        Applied projects
                                     </li>
-                                    <li onClick={() => navigate('/projectApplications')} className="sidebar-sublink">
-                                        Project Applications
+                                    <li onClick={() => navigate(`/projectApplications/${project.id}`)} className="sidebar-sublink">
+                                        Received Applications
                                     </li>
                                     <li onClick={() => navigate('/projecInvitations')} className="sidebar-sublink">
-                                        Project invitations
+                                        Project Invitations
                                     </li>
                                     <li onClick={() => navigate('/sentInvitations')} className="sidebar-sublink">
-                                        Sent invitations
+                                        Received Invitations
                                     </li>
                                 </ul>
                             )}

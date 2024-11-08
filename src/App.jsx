@@ -15,7 +15,7 @@ import ProjectProposal from './pages/ProjectProposal'
 import ProjectSearch from './pages/ProjectSearch'
 import UserProject from './pages/UserProject'
 import SentApplications from './pages/SentApplications'
-//import ProjectApplications from '/pages/ProjectApplications'
+import ProjectApplications from './pages/ProjectApplications'
 //import ProjectInvitations from '/pages/ProjectInvitations'
 //import SentInvitations from '/pages/SentInvitations'
 
@@ -81,17 +81,17 @@ function AppContent() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
 
-                <Route path="/JoinCourse" element={<PrivateRoute><JoinCourse /></PrivateRoute>} />
-                <Route path="/courseSelection" element={<PrivateRoute><CourseSelection /></PrivateRoute>} />
+                <Route path="/JoinCourse" element={<PrivateRoute> <JoinCourse /> </PrivateRoute>} />
+                <Route path="/courseSelection" element={<PrivateRoute> <CourseSelection /> </PrivateRoute>} />
 
-                <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="/teammatesFinding" element={<PrivateRoute><TeammatesFinding /></PrivateRoute>} />
-                <Route path="/projectProposal" element={<PrivateRoute><ProjectProposal /></PrivateRoute>} />
+                <Route path="/dashboard" element={<PrivateRoute> <Dashboard /> </PrivateRoute>} />
+                <Route path="/teammatesFinding" element={<PrivateRoute> <TeammatesFinding /> </PrivateRoute>} />
+                <Route path="/projectProposal" element={<PrivateRoute> <ProjectProposal /> </PrivateRoute>} />
 
-                <Route path="/projectSearch" element={<PrivateRoute><ProjectSearch /></PrivateRoute>} />
-                <Route path="/yourProject" element={<PrivateRoute><UserProject /></PrivateRoute>} />
-                <Route path="/sentApplications" element={<SentApplications />} />
-                {/*<Route path="/projectApplications" element={<projectApplications />} />*/}
+                <Route path="/projectSearch" element={<PrivateRoute> <ProjectSearch /> </PrivateRoute>} />
+                <Route path="/yourProject" element={<PrivateRoute> <UserProject /> </PrivateRoute>} />
+                <Route path="/sentApplications" element={<PrivateRoute> <SentApplications /> </PrivateRoute>} />
+                <Route path="/projectApplications/:projectId" element={<PrivateRoute> <ProjectApplications /> </PrivateRoute>} />
                 {/*<Route path="/projectInvitations" element={<projectInvitations />} />*/}
                 {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}
 

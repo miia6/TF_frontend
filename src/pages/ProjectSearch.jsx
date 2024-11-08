@@ -7,50 +7,58 @@ import SearchProjectCard from '../components/SearchProjectCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getProjects, getUserCourseProject } from '../services/project'
+import { getProjects, getUserCourseProject, getAppliedProjectsCookies } from '../services/project'
 
 import '../styles/projectsearch.css'
-import '../styles/searchprojectcard.css'
 
 const ProjectSearch = () => {
-    const [isLoading, setIsLoading] = useState(true)
-    const [projects, setProjects] = useState()
-    const [existingProjects, setExistingProjects] = useState(false) // see if there are any projects in the course yet
+    const [projects, setProjects] = useState([])
+    
     const [projectMember, setProjectMember] = useState(false) // see whether user is already a member of a project or not
+    const [appliedProjects, setAppliedProjects] = useState()
+    
     const [searchTerm, setSearchTerm] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
+
     const selectedCourseId = getSelectedCourseCookies()
+    const appliedProjectsIds = getAppliedProjectsCookies()
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchProjects = async () => {
+        const fetchProjectsData = async () => {
             if (selectedCourseId) {
                 setIsLoading(true)
+
                 try {
                     const fetchedUserProject = await getUserCourseProject(selectedCourseId)
                     const fetchedProjects = await getProjects(selectedCourseId)
-                    //console.log("Projects fetched: " + JSON.stringify(fetchedProjects, null, 2))
-                    setProjectMember(!!fetchedUserProject)
-                    setExistingProjects(!!fetchedProjects)
+                    //console.log(fetchedProjects)
+                    setProjectMember(!!fetchedUserProject) // TO DO
                     
                     if (fetchedProjects) {
-                        setProjects(fetchedProjects)
-                        console.log('Fetched existing projects')
+                        const filteredProjects = fetchedProjects.filter(
+                            project => !appliedProjectsIds.includes(project.id) 
+                                    //&& !fetchedUserProject.some(userProject => userProject.id === project.id)
+                        )
+                        setProjects(filteredProjects)
+                        //console.log('Fetched and filtered existing projects')
                     } else {
                         console.log("Failed to fetch existing projects")
                     }
                 
                 } catch (error) {
                     console.error("Error fetching projects " + error)
+                    setProjects([])
                 } finally {
-                    setIsLoading(false); // Stop loading
+                    setIsLoading(false)
                 }
-
             }
         }
 
-        fetchProjects()
+        fetchProjectsData()
     }, [selectedCourseId])
+
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
@@ -62,7 +70,7 @@ const ProjectSearch = () => {
 
             {isLoading && <PageLoader message="Loading Projects" />}
 
-            {existingProjects ? (
+            {projects.length > 0 ?  (
                 <div className='project-search-form'>
                     <h1>Projects</h1>
 

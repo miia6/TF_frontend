@@ -5,6 +5,8 @@ import GroupsIcon from '@mui/icons-material/Groups'
 
 import { applyToProject } from '../services/project'
 
+import '../styles/searchprojectcard.css'
+
 const SearchProjectCard = ({ projectId, teamName, title, description, teammates, projectMember, maxMembers }) => {
     //console.log("Props received in SearchProjectCard:", { projectId, teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
@@ -12,12 +14,12 @@ const SearchProjectCard = ({ projectId, teamName, title, description, teammates,
     const navigate = useNavigate()
 
     const getShortDescription = (desc) => {
-        const maxChars = 70
+        const maxChars = 50
         return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 
     const descriptionCharCount = description.length
-    const maxChars = 70
+    const maxChars = 50
 
     const memberCount = maxMembers !== null ? maxMembers : 5
 
@@ -53,7 +55,7 @@ const SearchProjectCard = ({ projectId, teamName, title, description, teammates,
                         <button
                             className='search-project-card-read-more'
                             onClick={() => setShowDescription(!showDescription)}
-                            disabled={descriptionCharCount <= 70} 
+                            disabled={descriptionCharCount <= 50} 
                             style={{
                                 opacity: descriptionCharCount <= maxChars ? 0.5 : 1, 
                                 cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'

@@ -7,10 +7,10 @@
     height: auto;
     color: black;
     flex: 1;
-    margin-top: 8rem !important;
+    margin-top: 6rem;
     margin-left: 15rem;
     margin-right: 3rem;
-    padding-bottom: 3rem !important;
+    padding-bottom: 3rem;
 }
 
 .project-search-form h1 {

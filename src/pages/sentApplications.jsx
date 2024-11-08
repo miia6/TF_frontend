@@ -32,6 +32,15 @@ const SentApplications = () => {
         fetchApplications()
     }, [])
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('fi-FI', {
+            year: 'numeric', 
+            month: 'numeric', 
+            day: 'numeric', 
+        })
+    }
+
     return (
         <>
             <TFmenu />
@@ -40,25 +49,25 @@ const SentApplications = () => {
             
             <div className='sent-applications-form'>
                 {!isLoading && applications.length === 0 ? (
-                    <h3>No sent applications found.</h3>
+                    <h3>You have not applied to any projects.</h3>
                 ) : (
                     <>
-                        <h1>Sent Applications</h1>
-                            <Grid container spacing={2}>
-                                {applications.map((application, index) => (
-                                    <Grid item key={index} xs={12} sm={6} md={4}>
-                                        <SentApplicationCard 
-                                            key={application.id}
-                                            projectId={application.projectId}
-                                            teamName={application.Project.teamName}
-                                            title={application.Project.name}
-                                            description={application.Project.description}
-                                            status={application.status}
-                                            createdAt={application.createdAt}
-                                        />
-                                    </Grid>
-                                ))}
-                            </Grid>
+                        <h1>Applied projects</h1>
+                        <Grid container spacing={2}>
+                            {applications.map((application, index) => (
+                                <Grid item key={index} xs={12} sm={6} md={4}>
+                                    <SentApplicationCard 
+                                        key={application.id}
+                                        projectId={application.projectId}
+                                        teamName={application.Project.teamName}
+                                        title={application.Project.name}
+                                        description={application.Project.description}
+                                        status={application.status}
+                                        applieddAt={formatDate(application.createdAt)}
+                                    />
+                                </Grid>
+                            ))}
+                        </Grid>
                     </>
                 )}
             </div>

@@ -70,17 +70,14 @@ const getUserCourses = async () => {
 	}
 }
 
-// Set current course Id to cookies
 const setSelectedCourseCookies = (courseId) => {
     Cookies.set('selectedCourse', courseId, { expires: 7, secure: true, sameSite: 'Strict' })
 }
 
-// Get current course Id from cookies
 const getSelectedCourseCookies = () => {
     return Cookies.get('selectedCourse')
 }
 
-// Remove current course Id from cookies
 const removeSelectedCourseCookies = () => {
     Cookies.remove('selectedCourse')
 }

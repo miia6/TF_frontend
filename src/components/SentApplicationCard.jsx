@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import GroupsIcon from '@mui/icons-material/Groups'
 
-import '../styles/sentapplicationcard.css'
-
-const SentApplicationCard = ({ projectId, teamName, title, description, status, createdDate }) => {
+const SentApplicationCard = ({ projectId, teamName, title, description, status, appliedAt }) => {
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
-        const maxChars = 70
+        const maxChars = 50
         return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 
     const descriptionCharCount = description.length
-    const maxChars = 70
+    const maxChars = 50
 
     return (
         <>
@@ -35,7 +33,7 @@ const SentApplicationCard = ({ projectId, teamName, title, description, status, 
                         <button
                             className='sent-application-read-more'
                             onClick={() => setShowDescription(!showDescription)}
-                            disabled={descriptionCharCount <= 70} 
+                            disabled={descriptionCharCount <= 50} 
                             style={{
                                 opacity: descriptionCharCount <= maxChars ? 0.5 : 1, 
                                 cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'
@@ -47,6 +45,7 @@ const SentApplicationCard = ({ projectId, teamName, title, description, status, 
 
                     <div className='sent-application-info'>
                         <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
+                        <p>Applied at: {appliedAt}</p>
                     </div>
                 </div>
             </div>

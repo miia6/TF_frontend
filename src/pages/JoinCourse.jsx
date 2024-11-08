@@ -5,7 +5,9 @@ import TFmenu from '../components/TFmenu'
 import JoinCourseForm from '../components/JoinCourseForm'
 import PageLoader from '../components/PageLoader'
 
-import { getSelectedCourseCookies, setSelectedCourseCookies, joinCourse, getUserCourses, getCourses } from '../services/course' 
+import { getSelectedCourseCookies, setSelectedCourseCookies, 
+        joinCourse, getUserCourses, getCourses } from '../services/course' 
+import { getSentApplications } from '../services/project'
 
 import '../styles/joincourse.css'
 
@@ -53,6 +55,7 @@ const JoinCourse = () => {
                     navigate('/courseSelection')
                 } else {
                     setSelectedCourseCookies(courseId)
+                    getUserApplications(courseId)
                     navigate('/dashboard')
                 }
                 
@@ -61,6 +64,22 @@ const JoinCourse = () => {
             }
         } else {
             console.log("No course selected")
+        }
+    }
+
+    const getUserApplications = async (selectedCourseId) => {
+        const applications = await getSentApplications()
+        //console.log(applications)
+        if (applications.length > 0) {
+            for (const application of applications) {
+                const applicationCourseId = application.Project.courseId
+                if (applicationCourseId === selectedCourseId) {
+                    console.log(`application in course ${applicationCourseId}, project ${application.projectId}`)
+                    await setAppliedProjectsCookies(application.projectId)
+                } else {
+                    console.log('no applications in course ' + selectedCourseId)
+                }
+            }
         }
     }
 
