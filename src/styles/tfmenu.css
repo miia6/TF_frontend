@@ -11,8 +11,13 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
     background-color: #E9EFEC;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 /* logo */
@@ -31,7 +36,7 @@
     margin-left: 15rem;
     width: auto;
     height: auto;
-    color: black; 
+    color: black;
     text-align: left;
     position: fixed;
 }
@@ -111,7 +116,7 @@
 .sidebar-menu {
     background-color: #16423C;
     position: fixed;
-    top: 0rem; 
+    top: 0rem;
     left: 0;
     height: 100%;
     width: 12rem;
@@ -121,6 +126,7 @@
     flex-direction: column;
     text-align: left;
     color: white;
+    z-index: 1000;
 }
 
 /* sidebar links */

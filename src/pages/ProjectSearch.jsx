@@ -13,10 +13,10 @@ import '../styles/projectsearch.css'
 
 const ProjectSearch = () => {
     const [projects, setProjects] = useState([])
-    
+
     const [projectMember, setProjectMember] = useState(false) // see whether user is already a member of a project or not
     const [appliedProjects, setAppliedProjects] = useState()
-    
+
     const [searchTerm, setSearchTerm] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
@@ -35,18 +35,18 @@ const ProjectSearch = () => {
                     const fetchedProjects = await getProjects(selectedCourseId)
                     //console.log(fetchedProjects)
                     setProjectMember(!!fetchedUserProject) // TO DO
-                    
+
                     if (fetchedProjects) {
                         const filteredProjects = fetchedProjects.filter(
-                            project => !appliedProjectsIds.includes(project.id) 
-                                    //&& !fetchedUserProject.some(userProject => userProject.id === project.id)
+                            project => !appliedProjectsIds.includes(project.id)
+                            //&& !fetchedUserProject.some(userProject => userProject.id === project.id)
                         )
                         setProjects(filteredProjects)
                         //console.log('Fetched and filtered existing projects')
                     } else {
                         console.log("Failed to fetch existing projects")
                     }
-                
+
                 } catch (error) {
                     console.error("Error fetching projects " + error)
                     setProjects([])
@@ -70,7 +70,7 @@ const ProjectSearch = () => {
 
             {isLoading && <PageLoader message="Loading Projects" />}
 
-            {projects.length > 0 ?  (
+            {projects.length > 0 ? (
                 <div className='project-search-form'>
                     <h1>Projects</h1>
 

@@ -16,7 +16,7 @@ const TFmenu = () => {
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
     const [isCoursesOpen, setIsCoursesOpen] = useState(false)
 
-    const selectedCourseId = getSelectedCourseCookies() 
+    const selectedCourseId = getSelectedCourseCookies()
 
     const navigate = useNavigate()
 
@@ -43,12 +43,12 @@ const TFmenu = () => {
             if (course) {
                 try {
                     const fetchedProject = await getUserCourseProject(course.id)
-                    setHasProject(!!fetchedProject)      
+                    setHasProject(!!fetchedProject)
                     if (fetchedProject) {
                         setProject(fetchedProject)
-                        console.log('User has an existing project: ' + fetchedProject.name)  
+                        console.log('User has an existing project: ' + fetchedProject.name)
                     }
-                    
+
                 } catch (error) {
                     console.error("Failed to fetch projects:", error)
                 }
@@ -60,12 +60,12 @@ const TFmenu = () => {
 
 
     const handleLogout = () => {
-        logout() 
+        logout()
         navigate('/')
     }
 
     const logoSectionStyle = {
-        backgroundColor: selectedCourseId ? '#16423C' : '#E9EFEC', 
+        backgroundColor: selectedCourseId ? '#16423C' : '#E9EFEC',
         width: '12rem',
         height: '100%',
     }
@@ -76,7 +76,7 @@ const TFmenu = () => {
                 <div className="logo-section" style={logoSectionStyle}>
                     <img src={logo} alt="TF logo" className="app-logo" />
                 </div>
-                
+
                 {selectedCourseId && (
                     <div className="selected-course-section">
                         <p>Selected course:</p>
@@ -93,7 +93,7 @@ const TFmenu = () => {
 
             {selectedCourseId && (
 
-                <div className="sidebar-menu">                    
+                <div className="sidebar-menu">
                     <nav className="sidebar-links">
                         <ul className="link-list">
 
@@ -136,17 +136,17 @@ const TFmenu = () => {
                                     <li onClick={() => navigate(`/projectApplications/${project.id}`)} className="sidebar-sublink">
                                         Received Applications
                                     </li>
-                                    <li onClick={() => navigate('/projecInvitations')} className="sidebar-sublink">
-                                        Project Invitations
-                                    </li>
                                     <li onClick={() => navigate('/sentInvitations')} className="sidebar-sublink">
+                                        Sent Invitations
+                                    </li>
+                                    <li onClick={() => navigate('/receivedInvitations')} className="sidebar-sublink">
                                         Received Invitations
                                     </li>
                                 </ul>
                             )}
 
                             <li onClick={() => navigate('/teammatesFinding')} className="sidebar-link">
-                                Find teammates
+                                Teammates
                             </li>
 
                             {!hasProject && (
