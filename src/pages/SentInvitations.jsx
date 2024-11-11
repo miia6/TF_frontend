@@ -6,13 +6,14 @@ import SentInvitationCard from '../components/SentInvitationCard'
 import { getUsersByCourse } from '../services/user'
 import { createProject, getUserCourseProject } from '../services/project'
 import { getSelectedCourseCookies } from '../services/course'
-import { getSentInvitations } from '../services/invitation'
+import { getSentInvitations, sendInvitation } from '../services/invitation'
 import Grid from '@mui/material/Grid'
 
 import '../styles/sentinvitations.css'
 
 const SentInvitations = () => {
     const [hasProject, setHasProject] = useState(false)
+    const [projectId, setProjectId] = useState('')
     const [invitations, setInvitations] = useState([])
     const [users, setUsers] = useState([])
     const [potentialInvitees, setPotentialInvitees] = useState([])
@@ -41,6 +42,7 @@ const SentInvitations = () => {
             try {
                 const existingProject = await getUserCourseProject(selectedCourseId)
                 setHasProject(!!existingProject)
+                setProjectId(existingProject.id)
             } catch (error) {
                 console.error("Failed to check project existence:", error)
             }
@@ -63,9 +65,9 @@ const SentInvitations = () => {
         setInvitations(sampleInvitations)
     }
 
-    const handleInvite = async () => {
-        console.log('TEST')
-        await getSentInvitations()
+    const handleSendInvite = async () => {
+        await getSentInvitations(selectedCourseId)
+        await sendInvitation()
     }
 
     useEffect(() => {
@@ -92,7 +94,7 @@ const SentInvitations = () => {
                                     <SentInvitationCard
                                         inviteeName={invitation.inviteeName}
                                         invited={true}
-                                        handleSendInvite={handleInvite}
+                                        handleSendInvite={handleSendInvite}
                                     />
                                 </Grid>
                             ))}
@@ -104,7 +106,7 @@ const SentInvitations = () => {
                                     <SentInvitationCard
                                         inviteeName={user.name}
                                         invited={false}
-                                        handleSendInvite={handleInvite}
+                                        handleSendInvite={handleSendInvite}
                                     />
                                 </Grid>
                             ))}
