@@ -16,7 +16,7 @@ import ProjectSearch from './pages/ProjectSearch'
 import UserProject from './pages/UserProject'
 import SentApplications from './pages/SentApplications'
 import ProjectApplications from './pages/ProjectApplications'
-//import ProjectInvitations from '/pages/ProjectInvitations'
+import SentInvitations from './pages/SentInvitations'
 //import SentInvitations from '/pages/SentInvitations'
 
 import TeammatesFinding from './pages/TeammatesFinding'
@@ -92,7 +92,7 @@ function AppContent() {
                 <Route path="/yourProject" element={<PrivateRoute> <UserProject /> </PrivateRoute>} />
                 <Route path="/sentApplications" element={<PrivateRoute> <SentApplications /> </PrivateRoute>} />
                 <Route path="/projectApplications/:projectId" element={<PrivateRoute> <ProjectApplications /> </PrivateRoute>} />
-                {/*<Route path="/projectInvitations" element={<projectInvitations />} />*/}
+                <Route path="/sentInvitations" element={<PrivateRoute> <SentInvitations /> </PrivateRoute>} />
                 {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}
 
                 {/* You can add more routes for other pages here */}

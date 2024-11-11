@@ -1,0 +1,42 @@
+.sent-invitations-container {
+    display: flex;
+    flex-direction: column;
+    margin: 6rem 2rem 2rem 14rem;
+}
+
+.sent-invitations-list {
+    color: black;
+}
+
+.sent-invitation-card {
+    color: black;
+    height: fit-content;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 1rem 0 1rem 0;
+}
+
+.rejection-message {
+    color: black;
+}
+
+.sent-invitation-button {
+    background-color: #E9EFEC;
+    padding: auto;
+    margin: 0;
+    width: auto;
+    white-space: nowrap;
+    height: auto;
+    align-self: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: black;
+}
+
+.sent-invitation-button:hover {
+    background-color: #C4DAD2;
+    color: white
+}
