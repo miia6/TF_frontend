@@ -92,7 +92,7 @@ function AppContent() {
                 <Route path="/yourProject" element={<PrivateRoute> <UserProject /> </PrivateRoute>} />
                 <Route path="/sentApplications" element={<PrivateRoute> <SentApplications /> </PrivateRoute>} />
                 <Route path="/projectApplications/:projectId" element={<PrivateRoute> <ProjectApplications /> </PrivateRoute>} />
-                <Route path="/sentInvitations" element={<SentInvitations />} />
+                <Route path="/sentInvitations" element={<PrivateRoute> <SentInvitations /> </PrivateRoute>} />
                 {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}
 
                 {/* You can add more routes for other pages here */}

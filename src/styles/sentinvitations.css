@@ -20,3 +20,23 @@
 .rejection-message {
     color: black;
 }
+
+.sent-invitation-button {
+    background-color: #E9EFEC;
+    padding: auto;
+    margin: 0;
+    width: auto;
+    white-space: nowrap;
+    height: auto;
+    align-self: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: black;
+}
+
+.sent-invitation-button:hover {
+    background-color: #C4DAD2;
+    color: white
+}
