@@ -7,7 +7,7 @@ import { applyToProject } from '../services/project'
 
 import '../styles/sentinvitations.css'
 
-const SentInvitationCard = ({ inviteeName, invited, handleInvite }) => {
+const SentInvitationCard = ({ inviteeName, invited, handleSendInvite }) => {
 
     return (
         <div className="sent-invitation-card">
@@ -16,7 +16,7 @@ const SentInvitationCard = ({ inviteeName, invited, handleInvite }) => {
             <p>Skills: JavaScript, HTML, CSS</p>
             {!invited ? <button
                 className="sent-invitation-button"
-                onClick={handleInvite}
+                onClick={handleSendInvite}
             >
                 Invite
             </button> : null}
