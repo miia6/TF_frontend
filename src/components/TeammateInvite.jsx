@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-import { getCurrentUserData } from '../services/auth' 
+import { getCurrentUserData } from '../services/auth'
 import { getSelectedCourseCookies } from '../services/course'
 import { getUsersByCourse } from '../services/user'
-import { inviteUserToProject  } from '../services/project' 
+//import { inviteUserToProject  } from '../services/project' 
 
 import '../styles/teammatesinviting.css'
 
@@ -27,24 +27,24 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite }) 
                     if (currentUser && fetchedCourseUsers) {
                         const invitedUserIds = sentInvitations.map(invite => invite.User.id)
                         const filteredUsers = fetchedCourseUsers.filter(
-                            user => user.id !== currentUser?.id  && 
-                            !invitedUserIds.includes(user.id)
+                            user => user.id !== currentUser?.id &&
+                                !invitedUserIds.includes(user.id)
                         )
                         setUsers(filteredUsers)
                     } else {
                         setUsers([])
                         console.log("Failed to fetch users")
                     }
-                
+
                 } catch (error) {
                     console.error("Error fetching course " + error)
-                } 
+                }
             }
         }
 
         fetchUsers()
     }, [selectedCourseId])
-    
+
 
     const handleAddTeammateClick = () => {
         setTeammates([...teammates, ''])
@@ -55,7 +55,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite }) 
     const filterUsers = (searchValue, teammateIndex) => {
         const filtered = users.filter(user =>
             user.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-            !teammates.includes(user.name) 
+            !teammates.includes(user.name)
         )
 
         setFilteredUsers(filtered)
@@ -102,7 +102,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite }) 
             const usersToInvite = teammates
                 .map(teammateName => users.find(user => user.name === teammateName))
                 .filter(user => user)
-    
+
             await onInvite(usersToInvite)
             console.log(`Invitation sent to: ${usersToInvite.map(user => user.name).join(", ")}`)
         } catch (error) {
@@ -120,8 +120,8 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite }) 
                         type="text"
                         id={`teammate${index + 1}`}
                         placeholder="Search teammate by name"
-                        value={searchTerms[index]} 
-                        onChange={(event) => handleSearch(event, index)} 
+                        value={searchTerms[index]}
+                        onChange={(event) => handleSearch(event, index)}
                         onFocus={() => {
                             const newDropdownStates = [...dropdownStates]
                             newDropdownStates[index] = true
@@ -175,9 +175,9 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite }) 
                             teammate && <li key={index}>{teammate}</li>
                         ))}
                     </ul>
-                    <button 
-                        type="button" 
-                        onClick={handleInvite} 
+                    <button
+                        type="button"
+                        onClick={handleInvite}
                         className="send-invites-button"
                     >
                         Invite

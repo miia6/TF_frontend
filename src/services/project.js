@@ -179,6 +179,57 @@ const removeAppliedProjectsCookies = () => {
 	Cookies.remove('hasAppliedProjects')
 }
 
+const getSentInvitations = async (projectId) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.get(`${API_URL}/project/project-sent-invitations?projectId=${projectId}`, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error('Error getting sended invitations:', error)
+		throw error
+	}
+}
+
+const handleUserApplication = async (applicationId, status) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.post(`${API_URL}/project/update-project-request-status`,
+			{ requestId: applicationId, acceptRequest: status },
+			{
+				headers: {
+					'Authorization': `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			}
+		)
+		return response.data
+	} catch (error) {
+		console.error('Error updating status:', error)
+		throw error
+	}
+}
+
+const inviteUserToProject = async (userToInvite, projectId) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.post(`${API_URL}/project/send-invitation`,
+			{ userId: userToInvite, projectId: projectId },
+			{
+				headers: {
+					'Authorization': `Bearer ${user.token}`,
+				}
+			}
+		)
+		return response.data
+	} catch (error) {
+		console.error('Error updating status:', error)
+		throw error
+	}
+}
 
 export {
 	getProjects,
