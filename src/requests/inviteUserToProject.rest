@@ -1,0 +1,8 @@
+POST https://velvetlettr.com/tf-backend/project/send-invitation
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI3YThkNmNmLTk4ZGQtNGY3Mi1hYTE3LWMyMGM3NDNmYjNjNCIsImlhdCI6MTczMTMzODg5MiwiZXhwIjoxNzMxMzQyNDkyfQ.V976xMge4AZAVvRPrmD0X6IAbujMqNYz-ITHob1phHE
+
+{
+  "userId": "415acaf7-fabd-46e0-8151-b5a6b6ff3906",
+  "projectId":  "16a3ce46-382a-496c-a23d-129eeb026d28"
+}

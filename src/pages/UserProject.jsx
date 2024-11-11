@@ -21,6 +21,7 @@ const UserProject = () => {
             if (selectedCourseId) {
                 try {
                     const fetchedProject = await getUserCourseProject(selectedCourseId)
+                    console.log(fetchedProject)
                     setHasProject(!!fetchedProject)
                     
                     if (fetchedProject) {

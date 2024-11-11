@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
+import { getCurrentUserData } from '../services/auth' 
 import { getSelectedCourseCookies } from '../services/course'
 import { getUsersByCourse } from '../services/user'
-import { getCurrentUser } from '../services/auth' 
+import { inviteUserToProject  } from '../services/project' 
 
-const TeammateInvite = ({ teammates, setTeammates }) => {
+import '../styles/teammatesinviting.css'
+
+
+const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite }) => {
     const [users, setUsers] = useState([])
     const [searchTerms, setSearchTerms] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
@@ -12,20 +16,24 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
 
     const selectedCourseId = getSelectedCourseCookies()
 
-    const currentUserName = getCurrentUser()?.name
-    console.log(currentUserName)
-
     useEffect(() => {
         const fetchUsers = async () => {
             if (selectedCourseId) {
                 try {
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
-                    
-                    if (fetchedCourseUsers) {
-                        setUsers(fetchedCourseUsers)
+                    //console.log("Users fetched: " + JSON.stringify(fetchedCourseUsers, null, 2))
+                    const currentUser = await getCurrentUserData()
+
+                    if (currentUser && fetchedCourseUsers) {
+                        const invitedUserIds = sentInvitations.map(invite => invite.User.id)
+                        const filteredUsers = fetchedCourseUsers.filter(
+                            user => user.id !== currentUser?.id  && 
+                            !invitedUserIds.includes(user.id)
+                        )
+                        setUsers(filteredUsers)
                     } else {
                         setUsers([])
-                        console.log("Failed to fetch course users")
+                        console.log("Failed to fetch users")
                     }
                 
                 } catch (error) {
@@ -36,23 +44,25 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
 
         fetchUsers()
     }, [selectedCourseId])
+    
 
     const handleAddTeammateClick = () => {
         setTeammates([...teammates, ''])
         setSearchTerms([...searchTerms, ''])
         setDropdownStates([...dropdownStates, false])
-    };
+    }
 
     const filterUsers = (searchValue, teammateIndex) => {
         const filtered = users.filter(user =>
             user.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-            !teammates.includes(user.name)
-        );
+            !teammates.includes(user.name) 
+        )
+
         setFilteredUsers(filtered)
         const updatedDropdownStates = [...dropdownStates]
         updatedDropdownStates[teammateIndex] = true
         setDropdownStates(updatedDropdownStates)
-    };
+    }
 
     const handleSearch = (event, teammateIndex) => {
         const searchValue = event.target.value
@@ -60,7 +70,7 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
         updatedSearchTerms[teammateIndex] = searchValue
         setSearchTerms(updatedSearchTerms)
         filterUsers(searchValue, teammateIndex)
-    };
+    }
 
     const handleSelectTeammate = (user, teammateIndex) => {
         const updatedTeammates = [...teammates]
@@ -74,7 +84,7 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
         const updatedSearchTerms = [...searchTerms]
         updatedSearchTerms[teammateIndex] = user.name
         setSearchTerms(updatedSearchTerms)
-    };
+    }
 
     const handleRemoveTeammate = (teammateIndex) => {
         const updatedTeammates = teammates.filter((_, index) => index !== teammateIndex)
@@ -85,12 +95,23 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
 
         const updatedDropdownStates = dropdownStates.filter((_, index) => index !== teammateIndex)
         setDropdownStates(updatedDropdownStates)
-    };
+    }
+
+    const handleInvite = async () => {
+        try {
+            const usersToInvite = teammates
+                .map(teammateName => users.find(user => user.name === teammateName))
+                .filter(user => user)
+    
+            await onInvite(usersToInvite)
+            console.log(`Invitation sent to: ${usersToInvite.map(user => user.name).join(", ")}`)
+        } catch (error) {
+            console.error("Error inviting teammates:", error);
+        }
+    }
 
     return (
         <div className="teammates-section">
-            <h3>Invite teammates</h3>
-            <p>You can invite max. 4 teammates. Not mandatory, teammates can also be invited later. </p>
 
             {teammates.map((_, index) => (
                 <div key={index} className="form-group-proposal">
@@ -109,7 +130,7 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
                             if (!searchTerms[index]) {
                                 const availableUsers = users.filter(
                                     (user) => !teammates.includes(user.name)
-                                );
+                                )
                                 setFilteredUsers(availableUsers)
                             }
                         }}
@@ -154,6 +175,13 @@ const TeammateInvite = ({ teammates, setTeammates }) => {
                             teammate && <li key={index}>{teammate}</li>
                         ))}
                     </ul>
+                    <button 
+                        type="button" 
+                        onClick={handleInvite} 
+                        className="send-invites-button"
+                    >
+                        Invite
+                    </button>
                 </div>
             )}
         </div>

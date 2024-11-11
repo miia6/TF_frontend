@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import TeammateInvite from './TeammateInvite'
 
-import '../styles/projectproposal.css'
-
 const ProjectProposalForm = ({ handleProjectCreation }) => {
 
     const [teamName, setTeamName] = useState('')
@@ -34,9 +32,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         }
 
         const description = descriptionInput.replace(/\s+/g, ' ').trim()
-        //const tags = [...new Set(description.match(/#\w+/g))]
-        //console.log("tags " + tags)
-  
+
         const projectData = {
             title: title,
             description: description,
@@ -92,6 +88,8 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
                 </div>
 
+                <h3>Invite teammates</h3>
+                <p>You can invite max. 4 teammates. Not mandatory, teammates can also be invited later. </p>
                 <TeammateInvite teammates={teammates} setTeammates={setTeammates} />
 
                 <div className="create-button-container">

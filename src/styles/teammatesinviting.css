@@ -1,0 +1,127 @@
+
+/* teammates section */
+
+.teammates-section {
+    padding: 0.5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.project-teammate {
+    padding: auto;
+    margin-top: 0;
+    width: auto;
+    position: relative;
+}
+
+/* dropdown (searching users) */
+
+.dropdown {
+    list-style: none;
+    width: 90% !important;
+    margin-left: 2rem;
+    padding: auto;
+    border: 1px solid #C4DAD2;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative;
+    max-height: 8rem !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown-item {
+    padding: auto;
+    cursor: pointer;
+    height: 2rem;
+    align-content: center;
+    background-color: #C4DAD2;
+    border-bottom: 1px solid #ddd;
+    color: black;
+    font-size: 0.8rem;
+    box-sizing: border-box; 
+}
+
+.dropdown-item:hover {
+    background-color: #6A9C89;
+    color: #fff;
+}
+
+/* list of teammates to be invited*/
+
+.confirmed-teammates-section {
+    color: black;
+    margin-left: 1rem;
+    padding: 0.5rem;
+}
+
+.confirmed-teammates-section p {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    text-align: left;
+}
+
+.confirmed-teammates-section ul {
+    list-style-type:disc;  
+    margin: 0;
+    margin-left: 1rem !important;
+    text-align: left;          
+}
+
+.confirmed-teammates-section li {
+    font-size: 1rem;
+}
+
+/* buttons */
+
+.invite-teammate-button {
+    padding: auto;
+    font-size: 0.8rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    background-color: #C4DAD2;
+    border: none;
+    border-radius: 5px;
+    color: black;
+}
+
+.cancel-teammate-button {
+    padding: auto;
+    font-size: 0.8rem;
+    margin: 0.5rem;
+    align-self: center;
+    cursor: pointer;
+    background-color: #bebcbc;
+    border: none;
+    border-radius: 5px;
+    color: black;
+}
+
+.invite-teammate-button:hover {
+    background-color: #6A9C89;
+    color: white;
+}
+
+.cancel-teammate-button:hover {
+    background-color: #9a9b9a;
+    color: white;
+}
+
+.send-invites-button {
+    padding: auto;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    cursor: pointer;
+    background-color: #C4DAD2;
+    border: none;
+    border-radius: 5px;
+    color: black;
+}
+
+.send-invites-button:hover {
+    background-color: #6A9C89;
+    color: white;
+}

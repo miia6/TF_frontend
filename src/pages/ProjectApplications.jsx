@@ -7,8 +7,7 @@ import ProjectApplicationCard from '../components/ProjectApplicationCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getProjectApplicants, getUserCourseProject, 
-        acceptUserApplication, rejectUserApplication } from '../services/project'
+import { getProjectApplicants, getUserCourseProject, handleUserApplication } from '../services/project'
 
 import '../styles/projectapplications.css'
 
@@ -39,7 +38,7 @@ const ProjectApplications = () => {
     }, [projectId])
 
     useEffect(() => {
-        const fetchProjectData = async () => {
+        const fetchProjectName = async () => {
             if (selectedCourseId) {
                 try {
                     const fetchedProject = await getUserCourseProject(selectedCourseId) 
@@ -53,7 +52,7 @@ const ProjectApplications = () => {
             }
         }
 
-        fetchProjectData()
+        fetchProjectName()
     }, [selectedCourseId])
 
     const formatDate = (dateString) => {
@@ -65,33 +64,29 @@ const ProjectApplications = () => {
         })
     }
 
-    /*const handleUpdate = (applicationId, status) => {
-        setApplications(prevApps =>
-            prevApps.map(application =>
-                application.id === applicationId
-                    ? { ...application, status: status }
-                    : application
-            )
-        )
-    }*/
-
-    // NOTE: acceptUserApplication waiting backend endpoint
     const handleAccept = async (applicationId) => {
         try {
-            const updatedApplication = await acceptUserApplication(applicationId, projectId)
+            const updatedApplication = await handleUserApplication(applicationId, true)
+            console.log(updatedApplication)
+            setApplications((prevApplications) =>
+                prevApplications.map((app) =>
+                    app.id === updatedApplication.id ? updatedApplication : app)
+            )
             alert(`Accepted user to ${projectName}`)
-            //handleUpdate(applicationId, 'ACCEPTED')
         } catch (error) {
             console.error('Error accepting application:', error)
         }
     }
 
-    // NOTE: rejecttUserApplication waiting backend endpoint
     const handleReject = async (applicationId) => {
         try {
-            const updatedApplication = await rejectUserApplication(applicationId, projectId)
+            const updatedApplication = await handleUserApplication(applicationId, false)
             alert('Rejected user application')
-            //handleUpdate(applicationId, 'REJECTED')
+            setApplications((prevApplications) =>
+                prevApplications.map((app) =>
+                    app.id === updatedApplication.id ? updatedApplication : app
+                )
+            )
         } catch (error) {
             console.error('Error rejecting application:', error)
         }
@@ -119,6 +114,7 @@ const ProjectApplications = () => {
                                         userEmail={application.User.email}
                                         status={application.status}
                                         appliedAt={formatDate(application.createdAt)}
+                                        acceptedAt={application.updatedAt ? formatDate(application.updatedAt) : null}
                                         applicationId={application.id}
                                         projectId={projectId}
                                         onAccept={() => handleAccept(application.id)}

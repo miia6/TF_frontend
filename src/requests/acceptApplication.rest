@@ -1,0 +1,8 @@
+POST https://velvetlettr.com/tf-backend/project/update-project-request-status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI3YThkNmNmLTk4ZGQtNGY3Mi1hYTE3LWMyMGM3NDNmYjNjNCIsImlhdCI6MTczMTMyOTcyNiwiZXhwIjoxNzMxMzMzMzI2fQ.MT4H2pGtrRxQiRabgv6qxlCSFoXjVFlvB6AwGXBz2w8
+
+{
+  "requestId": "2a22f205-20fe-4a2e-aaad-52aaabc4800c",
+  "acceptRequest": true
+}

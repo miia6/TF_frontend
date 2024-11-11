@@ -57,6 +57,21 @@ const getCurrentUserEmail = () => {
 	return Cookies.get('userEmail')
 }
 
+const getCurrentUserData = async () => {
+	try {
+		const user = getCurrentUser()
+        const response = await axios.get(`${API_URL}/auth/is-authenticated`, {
+            headers: {
+				'Authorization': `Bearer ${user.token}` 
+			}
+        })
+		return response.data
+	} catch (error) {
+		console.error(error)
+		throw new Error('Login failed')
+	}
+}
+
 const isTokenExpired = () => {
 	const user = Cookies.get('user')
 	if (!user) return true
@@ -68,6 +83,13 @@ const isTokenExpired = () => {
 	return decodedToken.exp < currentTime
 }
 
-export { login, signup, isUserLoggedIn, logout, getCurrentUser, getCurrentUserEmail, isTokenExpired }
+export { login, 
+		 signup, 
+		 isUserLoggedIn, 
+		 logout, 
+		 getCurrentUser, 
+		 getCurrentUserEmail, 
+		 getCurrentUserData,
+		 isTokenExpired }
 
 

@@ -7,6 +7,8 @@ import UserProjectCard from '../components/UserProjectCard'
 import { createProject, getUserCourseProject } from '../services/project'
 import { getSelectedCourseCookies } from '../services/course'
 
+import '../styles/projectproposal.css'
+
 const ProjectProposal = () => {
     const [hasProject, setHasProject] = useState(false)
     const selectedCourseId = getSelectedCourseCookies() 
@@ -21,7 +23,6 @@ const ProjectProposal = () => {
                     console.error("Failed to check project existence:", error)
                 }
             } 
-
         }
 
         fetchProjectData()

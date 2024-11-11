@@ -1,118 +1,76 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+
+import TeammateInvite from './TeammateInvite'
 
 import { getSelectedCourseCookies } from '../services/course'
+import { getUserCourseProject, inviteUserToProject, getSentInvitations } from '../services/project'
 import { getUsersByCourse } from '../services/user'
 
-const TeammatesFindingForm = ({ handleTeammatesFinding }) => {
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState('')
-    const [searchTerm, setSearchTerm] = useState('')
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [selectedUser, setSelectedUser] = useState(null) 
-    const [userInfo, setUserInfo] = useState('')
-    const [isUserInfoVisible, setIsUserInfoVisible] = useState(false)
-
+const TeammatesFindingForm = () => {
+    const [teammates, setTeammates] = useState([])
+    const [sentInvitations, setSentInvitations] = useState([])
+    const [project, setProject] = useState()
     const selectedCourseId = getSelectedCourseCookies()
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchProjectData = async () => {
             if (selectedCourseId) {
                 try {
-                    const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
-                    console.log("Users fetched: " + JSON.stringify(fetchedCourseUsers, null, 2))
-                    
-                    if (fetchedCourseUsers) {
-                        setUsers(fetchedCourseUsers)
-                    } else {
-                        setUsers([])
-                        console.log("Failed to fetch course users")
-                    }
-                
+                    const fetchedProject = await getUserCourseProject(selectedCourseId)     
+                    if (fetchedProject) {
+                        setProject(fetchedProject)
+                    } 
                 } catch (error) {
-                    console.error("Error fetching course " + error)
-                } 
+                    console.error("Failed to fetch projects:", error)
+                }
             }
         }
-
-        fetchUsers()
+        fetchProjectData()
     }, [selectedCourseId])
 
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value)
-        setIsDropdownOpen(event.target.value.length > 0 || selectedUser.length > 0)
-    }
+    useEffect(() => {
+        const fetchSentInvitations = async () => {
+            if (project) {
+                try {
+                    const invitations = await getSentInvitations(project.id)
+                    console.log("invitations fetched: " + JSON.stringify(invitations, null, 2))
+                    setSentInvitations(invitations)
+                } catch (error) {
+                    console.error('Failed to fetch sent invitations:', error)
+                }
+            }
+        }
+        fetchSentInvitations()
+    }, [project])
 
-    const handleSelect = (user) => {
-        setSelectedUser(user)
-        setSearchTerm(user.name)
-        setIsDropdownOpen(false)
-      }
 
-    const filteredUsers = users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    const handleInvite = async (users) => {
+        try {
+            const invitedTeammatesNames = []
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        if (selectedUser) {
-          handleTeammatesFinding(selectedUser)
-          setUserInfo(selectedUser)
-          setIsUserInfoVisible((prev) => !prev)
-        } else {
-          // Add later error handling
-          console.log("No user searched")
+            for (const user of users) {
+                //console.log(`Inviting user ${user.id} to project ${project.id}`)
+                const invitedTeammate = await inviteUserToProject(user.id, project.id)
+                invitedTeammatesNames.push(user.name)
+            }
+            alert(`Invitation sent to: ${invitedTeammatesNames.join(", ")}`)
+        } catch (error) {
+            console.error("Error inviting user:", error)
         }
     }
 
-
     return (
-        <>            
+        <>  
             <div className="teammates-finding-form">
-                <form onSubmit={handleSubmit}>
-                    <h1>Search teammates</h1>
-
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            id="teammatesFinding"
-                            placeholder="Search teammates by name..."
-                            value={searchTerm}
-                            onChange={handleSearch}
-                            onFocus={() => setIsDropdownOpen(true)}
-                            className="teammates-finding"
-                        />
-                    </div>
-
-                    {isDropdownOpen && filteredUsers.length > 0 && (
-                        <ul className="dropdown">
-                            {filteredUsers.map((user, index) => (
-                                <li
-                                    key={index}
-                                    onClick={() => handleSelect(user)}
-                                    className="dropdown-item"
-                                >
-                                    {user.name}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-
-            <button type="submit" className="submit-button">
-            {isUserInfoVisible ? 'Hide' : 'Show'}
-            </button>
-        </form>
-
-        {isUserInfoVisible && userInfo && (
-                <div className="user-info">
-                    <p>Username: {userInfo.name}</p>
-                    <p>Project: {userInfo.project}</p>
-                    {/* Add more user details here as you fetch them from backend */}
-                </div>
-        )}
-
-    </div>
-
-           
+                <h1>Invite teammates</h1>
+                <TeammateInvite 
+                    teammates={teammates} 
+                    setTeammates={setTeammates} 
+                    sentInvitations={sentInvitations}
+                    onInvite={handleInvite}
+                />
+            </div>     
         </>
     )
 }
