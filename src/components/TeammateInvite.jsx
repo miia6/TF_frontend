@@ -10,7 +10,7 @@ import '../styles/teammatesinviting.css'
 
 const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, maxInvitations }) => {
     const [users, setUsers] = useState([])
-    const [searchTerms, setSearchTerms] = useState([''])
+    const [searchTerms, setSearchTerms] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
     const [dropdownStates, setDropdownStates] = useState([false])
     const [isLoading, setIsLoading] = useState(true)
@@ -147,7 +147,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
     }
 
     // TO DO: modify
-    if (users.length === 0) {
+    if (!isLoading && users.length === 0) {
         return (
             <div className="no-users-message">
                 <p>No users can be invited.</p>

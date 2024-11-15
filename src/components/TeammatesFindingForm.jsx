@@ -7,7 +7,7 @@ import { getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCook
 import { inviteUserToProject, getSentInvitations } from '../services/invitation'
 
 const TeammatesFindingForm = ({ onInvitationSuccess }) => {
-    const [teammates, setTeammates] = useState([''])
+    const [teammates, setTeammates] = useState([])
     const [sentInvitations, setSentInvitations] = useState([])
     const [project, setProject] = useState()
     const [maxInvitations, setMaxInvitations] = useState(5)

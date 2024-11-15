@@ -14,19 +14,13 @@ Install to the root: npm install react-router-dom
 Install to the root: npm install
 
 # LATEST CHANGES 
-- menu changes: added courses to the sidebar
-- /courseSelection vs /joinCourses, both working
-- added some rest requests
-- applying to project working
-- viewing the application user has sent working
-- viewing the received application to users' own project working
+- Invitations and applications working
+- TeammatesFinding modified: two different section
+- Added project cookies -> simpler UseEffects 
 
 # TO DO
-
-- handle accepting or declining applications when there is an endpoint
-- Implement invitations 
-- Define the functionalities and links with respect to the type of the user 
-- Modify teammates finding page with respect to the type of the user (see your project's teammates, and add search and invitation possibility for the project owner)
-- Fix info (course, visibility of links) in the menu to be always shown (now they reload a moment)
+- Tags functionality (Binh)
+- Create some visual notification to invitations and applications and frontpage, if user has some PENDING ones. (Maybe cookies for these?) (Miia)
+- (Teammate invite to project creation ?)
 - Improve visuality of the app (some images etc... ?).
 
