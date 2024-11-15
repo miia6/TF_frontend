@@ -17,7 +17,7 @@ import UserProject from './pages/UserProject'
 import SentApplications from './pages/SentApplications'
 import ProjectApplications from './pages/ProjectApplications'
 import SentInvitations from './pages/SentInvitations'
-//import SentInvitations from '/pages/SentInvitations'
+import ReceivedInvitations from './pages/ReceivedInvitations'
 
 import TeammatesFinding from './pages/TeammatesFinding'
 import PrivateRoute from './components/PrivateRoute'
@@ -93,7 +93,7 @@ function AppContent() {
                 <Route path="/sentApplications" element={<PrivateRoute> <SentApplications /> </PrivateRoute>} />
                 <Route path="/projectApplications/:projectId" element={<PrivateRoute> <ProjectApplications /> </PrivateRoute>} />
                 <Route path="/sentInvitations" element={<PrivateRoute> <SentInvitations /> </PrivateRoute>} />
-                {/*<Route path="/sentInvitations" element={<sentInvitations />} />*/}
+                <Route path="/receivedInvitations" element={<PrivateRoute> <ReceivedInvitations /> </PrivateRoute>} />
 
                 {/* You can add more routes for other pages here */}
             </Routes>

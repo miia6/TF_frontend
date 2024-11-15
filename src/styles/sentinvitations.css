@@ -1,42 +1,92 @@
-.sent-invitations-container {
+
+.sent-invitation-form {
     display: flex;
     flex-direction: column;
-    margin: 6rem 2rem 2rem 14rem;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    color: black;
+    flex: 1;
+    margin-top: 6rem;
+    margin-left: 15rem;
+    margin-right: 3rem;
+    padding-bottom: 3rem;
 }
 
-.sent-invitations-list {
+.sent-invitation-form h1 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
     color: black;
+}
+
+/* card */
+
+.sent-invitation-card-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 1rem !important; 
+    margin-top: 1rem !important;
+    margin: 0 auto;
+    width: 90%;
 }
 
 .sent-invitation-card {
     color: black;
-    height: fit-content;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    box-shadow: 0 4px 16px 0 rgba(22, 66, 60, 0.6); /* Dimmer and thinner smaragd green */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 1rem;
     border-radius: 10px;
-    padding: 1rem 0 1rem 0;
-}
-
-.rejection-message {
-    color: black;
-}
-
-.sent-invitation-button {
-    background-color: #E9EFEC;
-    padding: auto;
     margin: 0;
-    width: auto;
-    white-space: nowrap;
+    width: 30rem !important;
     height: auto;
-    align-self: center;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: black;
 }
 
-.sent-invitation-button:hover {
-    background-color: #C4DAD2;
-    color: white
+/* topic */
+
+.sent-invitation-topic-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    border-color: black;
+}
+
+.sent-invitation-topic-container p {
+    font-weight: bold;
+    margin: 0.8rem;
+}
+
+/* user info */
+
+.sent-invitation-user-container {
+    margin: 1rem;
+}
+
+.sent-invitation-user-header {
+    font-weight: bold;
+}
+
+.sent-invitation-user-container p {
+    margin: 0.1rem;
+}
+
+/* applied info */
+
+.sent-invitation-info-container {
+    margin: 1rem;
+}
+
+.sent-invitation-info-header {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.sent-invitation-info-container p{
+    margin: 0.1rem;
 }

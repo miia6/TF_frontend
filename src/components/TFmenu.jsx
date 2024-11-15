@@ -2,62 +2,68 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/TF_app_logo.jpg'
 
+import { getCurrentUserData } from '../services/auth' 
 import { getCourse, getUserCourses, getSelectedCourseCookies } from '../services/course'
-import { getUserCourseProject, getAppliedProjectsCookies } from '../services/project'
+import { getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCookies } from '../services/project'
 import { logout } from '../services/auth'
 
 import '../styles/tfmenu.css'
 
 const TFmenu = () => {
+    const [courseLoader, setCourseLoader] = useState(true)
+    const [linksLoader, setLinksLoader] = useState(true)
+
+    const selectedCourseId = getSelectedCourseCookies()
     const [course, setCourse] = useState(null)
-    const [project, setProject] = useState(null)
-    const [hasProject, setHasProject] = useState(false)
+
+    const projectId = getUserProjectCookies() //const [projectId, setProjectId] = useState(null)
+    const [isProjectOwner, setIsProjectOwner] = useState(false)
 
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
     const [isCoursesOpen, setIsCoursesOpen] = useState(false)
 
-    const selectedCourseId = getSelectedCourseCookies()
-
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchCourseData = async () => {
+        const fetchData = async () => {
             if (selectedCourseId) {
                 try {
                     const fetchedCourse = await getCourse(selectedCourseId)
                     setCourse(fetchedCourse)
-                    console.log("Fetched course: ", fetchedCourse.name)
+
+                    const projectMemberStatus = getProjectMemberStatusCookies()
+                    if (projectMemberStatus  === 'CREATOR') {
+                        setIsProjectOwner(true)
+                    }
+
+                    /*const fetchedProject = await getUserCourseProject(fetchedCourse.id)
+                    if (fetchedProject) {
+                        setProject(fetchedProject)
+                        console.log('Fetched project:', fetchedProject.name)
+                        const currentUser = await getCurrentUserData()
+                        if (fetchedProject.Creator.name === currentUser.name) {
+                            setIsProjectOwner(true)
+                            console.log('User is an owner of the project.')
+                        }
+                    } else {
+                        console.log('User is not a member of a project')
+                    }*/
+
                 } catch (error) {
-                    console.error("Failed to fetch course:", error)
+                    console.error("Error fetching data:", error)
+                } finally {
+                    setCourseLoader(false)
+                    setLinksLoader(false)
                 }
             } else {
                 setCourse(null)
+                setCourseLoader(false)
+                setLinksLoader(false)
             }
         }
 
-        fetchCourseData()
+        fetchData()
     }, [selectedCourseId])
-
-    useEffect(() => {
-        const fetchProjectData = async () => {
-            if (course) {
-                try {
-                    const fetchedProject = await getUserCourseProject(course.id)
-                    setHasProject(!!fetchedProject)
-                    if (fetchedProject) {
-                        setProject(fetchedProject)
-                        console.log('User has an existing project: ' + fetchedProject.name)
-                    }
-
-                } catch (error) {
-                    console.error("Failed to fetch projects:", error)
-                }
-            }
-        }
-
-        fetchProjectData()
-    }, [course])
-
 
     const handleLogout = () => {
         logout()
@@ -80,9 +86,13 @@ const TFmenu = () => {
                 {selectedCourseId && (
                     <div className="selected-course-section">
                         <p>Selected course:</p>
-                        <div className='course-name'>
-                            <p>{course?.name || ' '}</p>
-                        </div>
+                        {courseLoader ? (
+                            <div className="loader"></div>
+                        ) : (
+                            <div className='course-name'>
+                                <p>{course?.name || ' '}</p>
+                            </div>
+                        )}
                     </div>
                 )}
 
@@ -92,70 +102,78 @@ const TFmenu = () => {
             </div>
 
             {selectedCourseId && (
-
                 <div className="sidebar-menu">
-                    <nav className="sidebar-links">
-                        <ul className="link-list">
-
-                            <li onClick={() => navigate('/dashboard')} className="sidebar-link">
-                                Frontpage
-                            </li>
-
-                            <li className="sidebar-link"
-                                onClick={() => setIsCoursesOpen(!isCoursesOpen)}
-                            >
-                                Courses
-                            </li>
-                            {isCoursesOpen && (
-                                <ul className="course-sublink-list">
-                                    <li onClick={() => navigate('/courseSelection')} className="sidebar-course-sublink">
-                                        Change course
-                                    </li>
-                                    <li onClick={() => navigate('/joinCourse')} className="sidebar-course-sublink">
-                                        Join more courses
-                                    </li>
-                                </ul>
-                            )}
-
-                            <li className="sidebar-link"
-                                onClick={() => setIsProjectsOpen(!isProjectsOpen)}
-                            >
-                                Projects
-                            </li>
-                            {isProjectsOpen && (
-                                <ul className="sublink-list">
-                                    <li onClick={() => navigate('/projectSearch')} className="sidebar-sublink">
-                                        Search projects
-                                    </li>
-                                    <li onClick={() => navigate('/yourProject')} className="sidebar-sublink">
-                                        Your project
-                                    </li>
-                                    <li onClick={() => navigate('/sentApplications')} className="sidebar-sublink">
-                                        Applied projects
-                                    </li>
-                                    <li onClick={() => navigate(`/projectApplications/${project.id}`)} className="sidebar-sublink">
-                                        Received Applications
-                                    </li>
-                                    <li onClick={() => navigate('/sentInvitations')} className="sidebar-sublink">
-                                        Sent Invitations
-                                    </li>
-                                    <li onClick={() => navigate('/receivedInvitations')} className="sidebar-sublink">
-                                        Received Invitations
-                                    </li>
-                                </ul>
-                            )}
-
-                            <li onClick={() => navigate('/teammatesFinding')} className="sidebar-link">
-                                Teammates
-                            </li>
-
-                            {!hasProject && (
-                                <li onClick={() => navigate('/projectProposal')} className="sidebar-link">
-                                    Create project
+                    {linksLoader ? (
+                        <div className="sidebar-loader"></div>
+                    ) : (
+                        <nav className="sidebar-links">
+                            <ul className="link-list">
+                                <li onClick={() => navigate('/dashboard')} className="sidebar-link">
+                                    Frontpage
                                 </li>
-                            )}
-                        </ul>
-                    </nav>
+
+                                <li className="sidebar-link" onClick={() => setIsCoursesOpen(!isCoursesOpen)}>
+                                    Courses
+                                </li>
+                                {isCoursesOpen && (
+                                    <ul className="course-sublink-list">
+                                        <li onClick={() => navigate('/courseSelection')} className="sidebar-course-sublink">
+                                            Change course
+                                        </li>
+                                        <li onClick={() => navigate('/joinCourse')} className="sidebar-course-sublink">
+                                            Join more courses
+                                        </li>
+                                    </ul>
+                                )}
+
+                                <li className="sidebar-link" onClick={() => setIsProjectsOpen(!isProjectsOpen)}>
+                                    Projects
+                                </li>
+                                {isProjectsOpen && (
+                                    <ul className="sublink-list">
+                                        <li onClick={() => navigate('/projectSearch')} className="sidebar-sublink">
+                                            Search projects
+                                        </li>
+                                        <li onClick={() => navigate('/yourProject')} className="sidebar-sublink">
+                                            Your project
+                                        </li>
+                                        {!isProjectOwner && (
+                                            <>
+                                                <li onClick={() => navigate('/sentApplications')} className="sidebar-sublink">
+                                                    Applied projects
+                                                </li>
+                                                <li onClick={() => navigate('/receivedInvitations')} className="sidebar-sublink">
+                                                    Received Invitations
+                                                </li>
+                                            </>
+                                        )}
+                                        {projectId && isProjectOwner && (
+                                            <>
+                                                <li onClick={() => navigate(`/projectApplications/${projectId}`)} className="sidebar-sublink">
+                                                    Received Applications
+                                                </li>
+                                                <li onClick={() => navigate('/sentInvitations')} className="sidebar-sublink">
+                                                    Sent Invitations
+                                                </li>
+                                            </>
+                                        )}
+                                    </ul>
+                                )}
+
+                                {projectId && (
+                                    <li onClick={() => navigate('/teammatesFinding')} className="sidebar-link">
+                                        Teammates
+                                    </li>
+                                )}
+
+                                {!projectId && (
+                                    <li onClick={() => navigate('/projectProposal')} className="sidebar-link">
+                                        Create project
+                                    </li>
+                                )}
+                            </ul>
+                        </nav>
+                    )}
                 </div>
             )}
         </>

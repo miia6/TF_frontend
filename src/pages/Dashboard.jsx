@@ -2,43 +2,55 @@ import { useState, useEffect } from 'react'
 import TFmenu from '../components/TFmenu'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getUserCourseProject } from '../services/project'
+import { getUserProjectCookies } from '../services/project'
 
 import '../styles/dashboard.css'
 
 const Dashboard = () => {
+    const projectId = getUserProjectCookies() //[projectId, setProjectId] = useState(null)
+    const selectedCourseId = getSelectedCourseCookies() 
 
-    const [hasProject, setHasProject] = useState(false)
-    const selectedCourse = getSelectedCourseCookies() 
-
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchProjectData = async () => {
-            if (selectedCourse) {
+            if (selectedCourseId, projectId) {
                 try {
-                    const project = await getUserCourseProject(selectedCourse)
-                    setHasProject(!!project)
-                    //console.log("Existing project: ", project)
+                    const fetchedProject = await getUserCourseProject(selectedCourseId)
+                    if (fetchedProject) {
+                        setProject(fetchedProject)
+                        //console.log('User has an existing project: ' + JSON.stringify(fetchedProject, null, 2))
+                    }
                 } catch (error) {
-                    console.error("Failed to check project existence:", error)
+                    console.error("Error fetching project:", error)
+                } finally {
+                setIsLoading(false)
                 }
+            } else {
+                //setProject(null)
+                setIsLoading(false)
             }
         }
 
         fetchProjectData()
-    }, [selectedCourse])
+    }, [selectedCourseId, projectId])*/
+
 
     return (
         <>
             <TFmenu />
 
             <div className="dashboard-container">
-                <h2>Teammates Finding </h2>
-                <p>Search teammates</p>
-                <div className="dashboard-link-container">
-                    <a href="/teammatesFinding">Teammates Finding</a>
-                </div>
 
-                {!hasProject && (
+                {projectId && (
+                    <>
+                        <h2>Teammates Finding </h2>
+                        <p>Search teammates</p>
+                        <div className="dashboard-link-container">
+                            <a href="/teammatesFinding">Teammates Finding</a>
+                        </div>
+                    </>
+                )}
+
+                {!projectId && (
                     <>
                         <h2>Create a new project</h2>
                         <p>Have an idea for project? Create a new project, where you can invite students and students can apply to your project:</p>

@@ -6,7 +6,7 @@ import LoginLoader from '../components/LoginLoader'
 
 import { signup } from '../services/auth'
 import { removeSelectedCourseCookies } from '../services/course'
-import { removeAppliedProjectsCookies } from '../services/project'
+import { removeUserProjectCookies, removeProjectMemberStatusCookies } from '../services/project'
 
 import '../styles/signup.css'
 
@@ -59,7 +59,8 @@ const SignUp = () => {
         try {
             const response = await signup(email, password, username, '1234567890')
             removeSelectedCourseCookies()
-            removeAppliedProjectsCookies()
+            removeProjectMemberStatusCookies()
+            removeUserProjectCookies()
             setIsLoading(false)
             navigate('/joinCourse')
         } catch (error) {

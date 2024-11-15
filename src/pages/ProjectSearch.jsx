@@ -7,21 +7,22 @@ import SearchProjectCard from '../components/SearchProjectCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getProjects, getUserCourseProject, getAppliedProjectsCookies } from '../services/project'
+import { getProjects, getUserCourseProject, getUserProjectCookies } from '../services/project'
+import { getSentApplications } from '../services/application'
 
 import '../styles/projectsearch.css'
 
 const ProjectSearch = () => {
     const [projects, setProjects] = useState([])
 
-    const [projectMember, setProjectMember] = useState(false) // see whether user is already a member of a project or not
+    const [projectMember, setProjectMember] = useState(false) 
     const [appliedProjects, setAppliedProjects] = useState()
 
     const [searchTerm, setSearchTerm] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
     const selectedCourseId = getSelectedCourseCookies()
-    const appliedProjectsIds = getAppliedProjectsCookies()
+    const projectId = getUserProjectCookies()
 
     const navigate = useNavigate()
 
@@ -31,18 +32,21 @@ const ProjectSearch = () => {
                 setIsLoading(true)
 
                 try {
-                    const fetchedUserProject = await getUserCourseProject(selectedCourseId)
                     const fetchedProjects = await getProjects(selectedCourseId)
-                    //console.log(fetchedProjects)
-                    setProjectMember(!!fetchedUserProject) // TO DO
+                    console.log(fetchedProjects)
+
+                    if (projectId) {
+                        setProjectMember(true)
+                    }
+
+                    const fetchedAppliedProjects = await getSentApplications()
+                    const fetchedAppliedProjectsIds = new Set(fetchedAppliedProjects.map(app => app.Project.id))
 
                     if (fetchedProjects) {
                         const filteredProjects = fetchedProjects.filter(
-                            project => !appliedProjectsIds.includes(project.id)
-                            //&& !fetchedUserProject.some(userProject => userProject.id === project.id)
+                            project => !fetchedAppliedProjectsIds.has(project.id)
                         )
                         setProjects(filteredProjects)
-                        //console.log('Fetched and filtered existing projects')
                     } else {
                         console.log("Failed to fetch existing projects")
                     }
@@ -57,7 +61,7 @@ const ProjectSearch = () => {
         }
 
         fetchProjectsData()
-    }, [selectedCourseId])
+    }, [selectedCourseId, projectId])
 
 
     const handleSearch = (event) => {

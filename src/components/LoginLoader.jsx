@@ -4,16 +4,15 @@ import '../styles/loginloader.css'
 
 const LoginLoader = ({ message = "Loading...", size = "medium" }) => {
     return (
-        <div className="loader-container">
-            <div className={`spinner ${size}`}></div>
-            <p className="loader-message">{message}</p>
+        <div className="login-loader-container">
+            <div className={`login-spinner ${size}`}></div>
+            <p className="login-loader-message">{message}</p>
         </div>
     )
 }
 
 LoginLoader.propTypes = {
-    message: PropTypes.string,
-    size: PropTypes.oneOf(["small", "medium", "large"])
+    message: PropTypes.string
 }
 
 export default LoginLoader

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
 import UserProjectCard from '../components/UserProjectCard'
 
-import { getSelectedCourseCookies } from '../services/course'
+import { getCurrentUserData } from '../services/auth' 
+import { getSelectedCourseCookies, getUsersByCourse } from '../services/course'
 import { getUserCourseProject } from '../services/project'
 
-import '../styles/nonexistinguserproject.css'
+import '../styles/userproject.css'
 
 const UserProject = () => {
+    const [isLoading, setIsLoading] = useState(true)
     const [project, setProject] = useState(null) 
-    const [hasProject, setHasProject] = useState(false)
+    const [teammates, setTeammates] = useState(null)
     const selectedCourseId = getSelectedCourseCookies()
 
     const navigate = useNavigate()
@@ -20,54 +23,71 @@ const UserProject = () => {
         const fetchProjectData = async () => {
             if (selectedCourseId) {
                 try {
-                    const fetchedProject = await getUserCourseProject(selectedCourseId)
-                    console.log(fetchedProject)
-                    setHasProject(!!fetchedProject)
-                    
+                    const fetchedProject = await getUserCourseProject(selectedCourseId) 
+                    const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
+                    const currentUser = await getCurrentUserData()                     
                     if (fetchedProject) {
                         setProject(fetchedProject)
-                        console.log('User has an existing project: ' + fetchedProject)
-                    } else {
-                        console.log("User has not created any projects yet")
-                    }
+                        //console.log('User has an existing project: ' + JSON.stringify(fetchedProject, null, 2))
+                        const teammatesNames = getTeammatesNames(fetchedProject.members, fetchedCourseUsers, currentUser.name)
+                        setTeammates(teammatesNames)
+                    } 
                 
                 } catch (error) {
-                    console.error("Error fetching project data " + error)
+                    console.error("Error fetching project: " + error)
+                } finally {
+                    setIsLoading(false)
                 }
-
+            } else {
+                setProject(null)
+                setIsLoading(false)
             }
         }
 
         fetchProjectData()
     }, [selectedCourseId])
 
+    const getTeammatesNames = (teammates, users, currentUserName) => {
+        return teammates.map(teammate => {
+            const user = users.find(user => user.id === teammate.userId)
+            return user ? user.name : 'Unknown'
+        })
+        .filter(name => name !== currentUserName) 
+        .join(', ')
+    }
+
     return (
         <>
             < TFmenu />
 
-            <div className="project-proposal-container">
-                {hasProject ? (
-                    <UserProjectCard
-                        teamName={project.teamName}
-                        title={project.name}
-                        description={project.description}
-                        teammates={project.maxMembers}
-                    />
-                ) : (
-                    <div className="no-project-container">
-                        <h2 className="no-project-header">
-                            You are not a member of a project yet.
-                        </h2>
-                        <div className="no-project-links">
-                            <p>Find new projects:</p>
-                            <a href="/projectSearch">Search projects</a>
-                            <p>... or create a new project:</p>
-                            <a href="/projectProposal">Create a new project</a>
-                        </div>
-                    </div>
-                )}
-            </div>
+            {isLoading ? ( 
+                <PageLoader message="Loading project..." />
 
+            ) : (
+
+                <div className="project-proposal-container">
+                    {project ? (
+                        <UserProjectCard
+                            teamName={project.teamName}
+                            title={project.name}
+                            description={project.description}
+                            teammates={teammates}
+                        />
+                    ) : (
+                        <div className="no-project-container">
+                            <h2 className="no-project-header">
+                                You are not a member of a project yet.
+                            </h2>
+                            <div className="no-project-links">
+                                <p>Find new projects:</p>
+                                <a href="/projectSearch">Search projects</a>
+                                <p>... or create a new project:</p>
+                                <a href="/projectProposal">Create a new project</a>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
         </>
     )
 }

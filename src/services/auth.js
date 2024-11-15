@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import { API_URL } from './config'
 import { jwtDecode } from 'jwt-decode'
 import { removeSelectedCourseCookies } from './course'
-import { removeAppliedProjectsCookies } from './project'
+import { removeUserProjectCookies, removeProjectMemberStatusCookies } from './project'
 
 // Login function
 const login = async (email, password) => {
@@ -13,7 +13,7 @@ const login = async (email, password) => {
 			Cookies.set('user', JSON.stringify(response.data), { expires: 7, secure: true, sameSite: 'Strict' })
 			Cookies.set('userEmail', email)
 		}
-		console.log('Login successful', response.data)
+		//console.log('Login successful', response.data)
 	} catch (error) {
 		console.error(error)
 		throw new Error('Login failed')
@@ -44,8 +44,10 @@ const isUserLoggedIn = () => {
 const logout = () => {
 	Cookies.remove('user')
 	Cookies.remove('userEmail')
+	removeUserProjectCookies()
+	removeProjectMemberStatusCookies()
 	removeSelectedCourseCookies()
-	removeAppliedProjectsCookies()
+	//removeAppliedProjectsCookies()
 }
 
 // Get current user id

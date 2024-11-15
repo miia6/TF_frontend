@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 
 import TeammateInvite from './TeammateInvite'
 
-import { getSelectedCourseCookies } from '../services/course'
-import { getUserCourseProject, inviteUserToProject, getSentInvitations } from '../services/project'
-import { getUsersByCourse } from '../services/user'
+import { getSelectedCourseCookies, getUsersByCourse } from '../services/course'
+import { getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCookies } from '../services/project'
+import { inviteUserToProject, getSentInvitations } from '../services/invitation'
 
-const TeammatesFindingForm = () => {
-    const [teammates, setTeammates] = useState([])
+const TeammatesFindingForm = ({ onInvitationSuccess }) => {
+    const [teammates, setTeammates] = useState([''])
     const [sentInvitations, setSentInvitations] = useState([])
     const [project, setProject] = useState()
+    const [maxInvitations, setMaxInvitations] = useState(5)
+
     const selectedCourseId = getSelectedCourseCookies()
 
     useEffect(() => {
         const fetchProjectData = async () => {
             if (selectedCourseId) {
                 try {
-                    const fetchedProject = await getUserCourseProject(selectedCourseId)     
+                    const fetchedProject = await getUserCourseProject(selectedCourseId)
+                    //console.log("fetched project: " + JSON.stringify(fetchedProject, null, 2))  
+                    const currentMembers = fetchedProject.members?.length || 0
+                    const remainingSlots = Math.max(0, 5 - currentMembers)   
+                    setMaxInvitations(remainingSlots)
                     if (fetchedProject) {
                         setProject(fetchedProject)
                     } 
@@ -34,7 +39,7 @@ const TeammatesFindingForm = () => {
             if (project) {
                 try {
                     const invitations = await getSentInvitations(project.id)
-                    console.log("invitations fetched: " + JSON.stringify(invitations, null, 2))
+                    //console.log("invitations fetched: " + JSON.stringify(invitations, null, 2))
                     setSentInvitations(invitations)
                 } catch (error) {
                     console.error('Failed to fetch sent invitations:', error)
@@ -55,6 +60,7 @@ const TeammatesFindingForm = () => {
                 invitedTeammatesNames.push(user.name)
             }
             alert(`Invitation sent to: ${invitedTeammatesNames.join(", ")}`)
+            onInvitationSuccess()
         } catch (error) {
             console.error("Error inviting user:", error)
         }
@@ -63,12 +69,13 @@ const TeammatesFindingForm = () => {
     return (
         <>  
             <div className="teammates-finding-form">
-                <h1>Invite teammates</h1>
+                <h2>Invite teammates</h2>
                 <TeammateInvite 
                     teammates={teammates} 
                     setTeammates={setTeammates} 
                     sentInvitations={sentInvitations}
                     onInvite={handleInvite}
+                    maxInvitations={maxInvitations}
                 />
             </div>     
         </>

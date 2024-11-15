@@ -1,6 +1,6 @@
 /* sentapplications.css */
 
-.sent-applications-form {
+.received-invitations-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,16 +15,17 @@
     padding-bottom: 3rem;
 }
 
-.sent-applications-form h1 {
+.received-invitations-form h1 {
     font-size: 2rem;
     margin-top: 0;
     margin-bottom: 1rem;
     color: black;
 }
 
+
 /* card */
 
-.sent-application-card-container {
+.received-invitation-card-container {
     display: flex;
     flex-wrap: wrap; 
     justify-content: center;
@@ -34,7 +35,7 @@
     width: 90%;
 }
 
-.sent-application-card {
+.received-invitation-card {
     color: black;
     background-color: white;
     box-shadow: 0 4px 16px 0 rgba(22, 66, 60, 0.6); /* Dimmer and thinner smaragd green */
@@ -43,13 +44,14 @@
     padding: 1rem;
     border-radius: 10px;
     margin: 0;
-    width: 30rem !important;
+    background: rgba(255, 255, 255, 0.7);
+    width: 100rem !important;
     height: auto;
 }
 
-/* team section*/
+/* team section */
 
-.sent-application-card-header {
+.received-invitation-card-header {
     display: flex;
     align-items: flex-start;
     border: 1px solid lightgray;
@@ -58,32 +60,36 @@
     padding: 0.8rem;
 }
 
-.sent-application-group-icon {
+.received-invitation-group-icon {
     align-self: flex-start !important;
     font-size: 1.5rem !important;
-    padding: 0 !important;
+    padding: 0px !important;
     margin: 0.5rem;
     margin-top: 0 !important;
 }
 
-.sent-application-team-name {
+.received-invitation-team-info {
     display: flex;
     flex-direction: column; 
+    width: 90%;
+}
+
+.received-invitation-team-name {
+    margin-left: 0.5rem;
     text-align: start;
     font-size: 1rem;
     width: 90%;
-    margin-left: 0.5rem;
 }
 
 /* topic */
 
-.sent-application-topic-container {
+.received-invitation-topic-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.sent-application-topic {
+.received-invitation-topic {
     padding: 1rem;
     align-self: center;
     font-weight: bold;
@@ -92,7 +98,7 @@
 
 /* description */
 
-.sent-application-description-section {
+.received-invitation-card-section {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -102,22 +108,21 @@
     height: auto;
 }
 
-.sent-application-description {
+.received-invitation-description {
     padding: 1rem;
     padding-top: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
     text-align: left;
-    font-size: 0.9rem;
-    overflow-wrap: break-word;
-    overflow: hidden;
-    white-space: normal;
+    font-size: 1rem;
     width: auto;
-    max-width: 90%;
     height: auto;
 }
 
 /* show more or less buttons */
 
-.sent-application-read-more {
+.received-invitation-card-read-more {
     background-color: #E9EFEC;
     padding: auto;
     margin: 0;
@@ -128,23 +133,79 @@
     border: none;
     border-radius: 5px;
     cursor: pointer; 
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: black;
 }
 
-.sent-application-read-more:hover {
+.received-invitation-card-read-more:hover {
     background-color: #C4DAD2; 
     color: white
 }
 
+
 /* applied info */
 
-.sent-application-info {
+.received-invitation-info-container {
     margin: 1rem;
 }
 
-.sent-application-info p{
-    margin: 0.5rem;
+.received-invitation-info-header {
     font-weight: bold;
+    margin-bottom: 0.3rem;
 }
 
+.received-invitation-info-container p{
+    margin: 0.1rem;
+}
+
+/* buttons */
+
+.received-invitation-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center; 
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+}
+
+.received-invitation-apply-button {
+    background-color: #C4DAD2;
+    padding: auto;
+    width: auto;
+    height: auto;
+    align-self: left;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: black;
+    display: inline-block;
+}
+
+.rreceived-invitation-reject-button {
+    background-color: rgb(146, 145, 145);
+    padding: auto;
+    width: auto;
+    height: auto;
+    align-self: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: black;
+    display: inline-block;
+}
+
+.received-invitation-apply-button:hover {
+    background-color: #6A9C89; 
+    color: white
+}
+
+.received-invitation-reject-button:hover {
+    background-color: rgb(179, 176, 176);
+    color: white
+}

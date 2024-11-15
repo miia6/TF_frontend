@@ -1,117 +1,88 @@
 import React, { useState, useEffect } from 'react'
 
 import TFmenu from '../components/TFmenu'
+import PageLoader from '../components/PageLoader'
+import Grid from '@mui/material/Grid'
 import SentInvitationCard from '../components/SentInvitationCard'
 
-import { getUsersByCourse } from '../services/user'
-import { createProject, getUserCourseProject } from '../services/project'
+import { getUsersByCourse } from '../services/course'
+import { getUserCourseProject, getUserProjectCookies } from '../services/project'
 import { getSelectedCourseCookies } from '../services/course'
 import { getSentInvitations } from '../services/invitation'
-import Grid from '@mui/material/Grid'
 
 import '../styles/sentinvitations.css'
 
 const SentInvitations = () => {
-    const [hasProject, setHasProject] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [invitations, setInvitations] = useState([])
-    const [users, setUsers] = useState([])
-    const [potentialInvitees, setPotentialInvitees] = useState([])
+    const [projectName, setProjectName] = useState()
+
     const selectedCourseId = getSelectedCourseCookies()
+    const projectId = getUserProjectCookies()
 
-    const fetchUsers = async () => {
-        if (selectedCourseId) {
-            try {
-                const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
+    useEffect(() => {
+        const fetchInvitations = async () => {
+            if (selectedCourseId && projectId) {
+                try {
+                    const fetchedInvitations = await getSentInvitations(projectId)
+                    setInvitations(fetchedInvitations)
 
-                if (fetchedCourseUsers) {
-                    setUsers(fetchedCourseUsers)
-                } else {
-                    setUsers([])
-                    console.log("Failed to fetch course users")
+                    const fetchedProject = await getUserCourseProject(selectedCourseId) 
+                    if (fetchedProject) {
+                        setProjectName(fetchedProject.name)
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching invitations:', error)
+                } finally {
+                    setIsLoading(false)
                 }
-
-            } catch (error) {
-                console.error("Error fetching course " + error)
             }
-        }
-    }
-
-    const fetchProjectData = async () => {
-        if (selectedCourseId) {
-            try {
-                const existingProject = await getUserCourseProject(selectedCourseId)
-                setHasProject(!!existingProject)
-            } catch (error) {
-                console.error("Failed to check project existence:", error)
+            else {
+                console.log('Failed to fetch course')
             }
         }
 
+        fetchInvitations()
+    }, [selectedCourseId, projectId])
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('fi-FI', {
+            year: 'numeric', 
+            month: 'numeric', 
+            day: 'numeric', 
+        })
     }
 
-    const fetchSentInvitations = () => {
-        // Call something from service
-        const sampleInvitations = [
-            {
-                inviteeID: "123",
-                inviteeName: "a",
-            },
-            {
-                inviteeID: "456",
-                inviteeName: "b",
-            },
-        ]
-        setInvitations(sampleInvitations)
-    }
-
-    const handleInvite = async () => {
-        console.log('TEST')
-        await getSentInvitations()
-    }
-
-    useEffect(() => {
-        fetchUsers()
-        fetchProjectData()
-        fetchSentInvitations()
-    }, [selectedCourseId])
-
-    useEffect(() => {
-        const uninvitedUsers = users.filter(user => !invitations.map(invitation => invitation.inviteeID).includes(user.id))
-        setPotentialInvitees(uninvitedUsers)
-    }, [users, invitations])
 
     return (
         <>
             < TFmenu />
-            <div className="sent-invitations-container">
-                {hasProject ? (
-                    <div className="sent-invitations-list">
-                        <h2> Your sent invitations:</h2>
-                        <Grid container spacing={2}>
-                            {invitations.map(invitation => (
-                                <Grid item key={invitation.inviteeID} xs={12} sm={6} md={6}>
-                                    <SentInvitationCard
-                                        inviteeName={invitation.inviteeName}
-                                        invited={true}
-                                        handleSendInvite={handleInvite}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                        <h2>Send more invitations:</h2>
-                        <Grid container spacing={2}>
-                            {potentialInvitees.map(user => (
-                                <Grid item key={user.id} xs={12} sm={6} md={6}>
-                                    <SentInvitationCard
-                                        inviteeName={user.name}
-                                        invited={false}
-                                        handleSendInvite={handleInvite}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </div>
+
+            {isLoading && <PageLoader message="Loading Invitations" />}
+
+            <div className='received-invitations-form'>
+                {!isLoading && invitations.length === 0 ? (
+                    <h3>No invitations.</h3>
                 ) : (
-                    <p className='rejection-message'> You need to own a project first. </p>
+                    <>
+                    <h1>Project Invitations</h1>
+                        <Grid container spacing={2}>
+                            {invitations.map((invitation, index) => (
+                                <Grid item key={index} xs={12} sm={6} md={6}>
+                                    <SentInvitationCard 
+                                        key={invitation.id}
+                                        title={projectName}
+                                        userName={invitation.User.name}
+                                        userEmail={invitation.User.email}
+                                        status={invitation.status}
+                                        createdAt={formatDate(invitation.createdAt)}
+                                    />
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </>
                 )}
             </div>
         </>

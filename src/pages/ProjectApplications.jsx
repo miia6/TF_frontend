@@ -7,11 +7,12 @@ import ProjectApplicationCard from '../components/ProjectApplicationCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getProjectApplicants, getUserCourseProject, handleUserApplication } from '../services/project'
+import { getUserCourseProject } from '../services/project'
+import { getProjectApplicants, handleUserApplication } from '../services/application'
 
 import '../styles/projectapplications.css'
 
-const ProjectApplications = () => {
+const ProjectApplications = ()  => {
     const { projectId } = useParams()
 
     const [isLoading, setIsLoading] = useState(true)
@@ -22,7 +23,7 @@ const ProjectApplications = () => {
     useEffect(() => {
         if (projectId) {
             const fetchApplicants = async () => {
-                setIsLoading(true)
+                //setIsLoading(true)
                 try {
                     const fetchedApplications = await getProjectApplicants(projectId)
                     setApplications(fetchedApplications)
@@ -100,13 +101,13 @@ const ProjectApplications = () => {
 
             <div className='received-applications-form'>
                 {!isLoading && applications.length === 0 ? (
-                    <h3>No applications found for this project.</h3>
+                    <h3>No applications.</h3>
                 ) : (
                     <>
                         <h1>Project Applications</h1>
                         <Grid container spacing={2}>
                             {applications.map((application, index) => (
-                                <Grid item key={index} xs={12} sm={6} md={4}>
+                                <Grid item key={index} xs={12} sm={6} md={6}>
                                     <ProjectApplicationCard 
                                         key={application.id}
                                         title={projectName}

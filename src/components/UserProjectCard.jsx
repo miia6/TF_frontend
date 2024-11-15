@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import GroupsIcon from '@mui/icons-material/Groups'
 
-import '../styles/userprojectcard.css'
-
 const UserProjectCard = ({ teamName, title, description, teammates }) => {
-    console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
+    //console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
@@ -14,7 +12,7 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
 
     const descriptionCharCount = description.length
     const maxChars = 100
-    
+
     return (
         <>  
             <div className='user-project-card'>
@@ -24,8 +22,7 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
                     <div className='user-project-team-info'>
                         <div className='user-project-team-name'>Team: {teamName}</div>
                         <div className='user-project-teammates'>
-                            {/* TO DO: see whether teammates are invited or members */}
-                            Teammates: {teammates && teammates.length > 0 ? teammates.join(', ') : 'No teammates yet'}
+                            Teammates: {teammates && teammates.length > 0 ? teammates : 'No teammates yet'}
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,14 @@ import PageLoader from '../components/PageLoader'
 
 import { getSelectedCourseCookies, setSelectedCourseCookies, 
         joinCourse, getUserCourses, getCourses } from '../services/course' 
-import { getSentApplications } from '../services/project'
+        import { getUserCourseProject,
+                setUserProjectCookies, 
+                setProjectMemberStatusCookies,
+                removeUserProjectCookies, 
+                removeProjectMemberStatusCookies,
+                /*getSentApplications, 
+                getAppliedProjectsCookies, 
+                setAppliedProjectsCookies*/ } from '../services/project'
 
 import '../styles/joincourse.css'
 
@@ -54,8 +61,29 @@ const JoinCourse = () => {
                 if (userCourses.length > 1) {
                     navigate('/courseSelection')
                 } else {
+                    removeUserProjectCookies()
+                    removeProjectMemberStatusCookies()
                     setSelectedCourseCookies(courseId)
-                    getUserApplications(courseId)
+
+                    const fetchedProject = await getUserCourseProject(courseId)
+                    if (fetchedProject) {
+                        console.log('Fetched project:', fetchedProject.name)
+                        setUserProjectCookies(fetchedProject.id)
+
+                        const currentUser = await getCurrentUserData()
+                        if (fetchedProject.Creator.name === currentUser.name) {
+                            setProjectMemberStatusCookies('CREATOR') 
+                            console.log('User is an owner of the project.')
+                        } if (fetchedProject.Creator.name !== currentUser.name) {
+                            setProjectMemberStatusCookies('MEMBER') 
+                            console.log('User is a member of the project.')
+                        }
+
+                    } else {
+                        console.log('User is not a member of a project')
+                    }
+                    
+                    //getUserApplications(courseId)
                     navigate('/dashboard')
                 }
                 
@@ -67,7 +95,7 @@ const JoinCourse = () => {
         }
     }
 
-    const getUserApplications = async (selectedCourseId) => {
+    /*const getUserApplications = async (selectedCourseId) => {
         const applications = await getSentApplications()
         //console.log(applications)
         if (applications.length > 0) {
@@ -81,7 +109,7 @@ const JoinCourse = () => {
                 }
             }
         }
-    }
+    }*/
 
     return (
         <>

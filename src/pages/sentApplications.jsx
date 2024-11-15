@@ -6,31 +6,43 @@ import PageLoader from '../components/PageLoader'
 import SentApplicationCard from '../components/SentApplicationCard' 
 import Grid from '@mui/material/Grid'
 
-import { getSentApplications } from '../services/project'
+import { getSelectedCourseCookies } from '../services/course'
+import { getSentApplications } from '../services/application'
 
 import '../styles/sentapplications.css'
 
 const SentApplications = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [applications, setApplications] = useState([])
+    const selectedCourseId = getSelectedCourseCookies()
 
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchApplications = async () => {
-            setIsLoading(true)
-            try {
-                const fetchedApplications = await getSentApplications()
-                setApplications(fetchedApplications)
-            } catch (error) {
-                console.error('Error fetching sent applications:', error)
-            } finally {
-                setIsLoading(false)
+            if (selectedCourseId) {
+                try {
+                    const fetchedApplications = await getSentApplications()
+                    
+                    if (fetchedApplications) {
+                        const filteredApplications = fetchedApplications.filter(
+                            app => app.Project?.CourseId === selectedCourseId)
+                        setApplications(filteredApplications)
+                    }
+                    
+                } catch (error) {
+                    console.error('Error fetching sent applications:', error)
+                } finally {
+                    setIsLoading(false)
+                }
+            }
+            else {
+                console.log('Failed to fetch course')
             }
         }
 
         fetchApplications()
-    }, [])
+    }, [selectedCourseId])
 
     const formatDate = (dateString) => {
         const date = new Date(dateString)
@@ -55,7 +67,7 @@ const SentApplications = () => {
                         <h1>Applied projects</h1>
                         <Grid container spacing={2}>
                             {applications.map((application, index) => (
-                                <Grid item key={index} xs={12} sm={6} md={4}>
+                                <Grid item key={index} xs={12} sm={6} md={6}>
                                     <SentApplicationCard 
                                         key={application.id}
                                         projectId={application.projectId}
@@ -63,7 +75,7 @@ const SentApplications = () => {
                                         title={application.Project.name}
                                         description={application.Project.description}
                                         status={application.status}
-                                        applieddAt={formatDate(application.createdAt)}
+                                        appliedAt={formatDate(application.createdAt)}
                                     />
                                 </Grid>
                             ))}

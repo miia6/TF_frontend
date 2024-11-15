@@ -24,6 +24,40 @@
     border-radius: 50%;
 }
 
+/* loaders */
+
+.loader,
+.spinner,
+.sidebar-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #6A9C89;
+}
+
+.loader::after,
+.spinner::after,
+.sidebar-loader::after {
+    content: '';
+    display: inline-block;
+    width: 1rem; 
+    height: 1rem;
+    border: 2px solid #ccc; 
+    border-top: 2px solid #6A9C89; 
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* selected course in top menu */
 
 .selected-course-section {
@@ -122,7 +156,6 @@
     text-align: left;
     color: white;
     z-index: 10;
-    background: rgba(0, 79, 38, 1);
 }
 
 /* sidebar links */

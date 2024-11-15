@@ -37,7 +37,9 @@
 .received-applications-card {
     color: black;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px 0 rgba(22, 66, 60, 0.6); /* Dimmer and thinner smaragd green */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     padding: 1rem;
     border-radius: 10px;
     margin: 0;

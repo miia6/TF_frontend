@@ -3,24 +3,35 @@ import { useNavigate } from 'react-router-dom'
 
 import GroupsIcon from '@mui/icons-material/Groups'
 
-import { applyToProject } from '../services/project'
-
 import '../styles/sentinvitations.css'
 
-const SentInvitationCard = ({ inviteeName, invited, handleInvite }) => {
+const SentInvitationCard = ({ title, userName, userEmail, status, createdAt }) => {
 
     return (
-        <div className="sent-invitation-card">
-            { /* Feel free to add more details or stylings to the card. */}
-            <p>Name: {inviteeName}</p>
-            <p>Skills: JavaScript, HTML, CSS</p>
-            {!invited ? <button
-                className="sent-invitation-button"
-                onClick={handleInvite}
-            >
-                Invite
-            </button> : null}
-        </div>
+<>
+            <div className="sent-invitation-card-container">
+                <div className="sent-invitation-card">
+
+                    <div className='sent-invitation-topic-container'>
+                        <p>Project: {title}</p>
+                    </div>
+
+                    
+                    <div className='sent-invitation-user-container'>
+                        <div className='sent-invitation-user-header'> Invited user:</div>
+                        <p>{userName} | {userEmail}</p>
+                    </div>
+
+                    <div className='sent-invitation-info-container'>
+                        <div className='sent-invitation-info-header'> Application info: </div>
+                        <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
+                        <p>Created at: {createdAt}</p>
+                        {/*acceptedAt && <p>Accepted at: {acceptedAt}</p>*/}
+                    </div>
+
+                </div>
+            </div>
+        </>
     )
 }
 

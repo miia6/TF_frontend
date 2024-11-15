@@ -9,6 +9,7 @@
     width: 30rem;
     height: auto;
 }
+
 .user-project-card h2 {
     font-size: 2rem;
     color: black; 
@@ -116,4 +117,40 @@
 .user-project-card-read-more:hover {
     background-color: #C4DAD2; 
     color: white
+}
+
+/* no project */
+
+.no-project-container {
+    width: 100%;
+    height: auto;
+    justify-content: left !important;
+    align-items: left;
+    position: relative;
+    text-align: left;
+    margin-top: 0;
+}
+
+.no-project-header {
+    margin-left: 3rem;
+    color: black;
+}
+
+.no-project-links p {
+    margin-left: 4rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: black;
+}
+
+.no-project-links a {
+    margin-left: 4rem;
+    color: #16423C;
+    text-decoration: underline;
+    font-size: 1rem;
+}
+
+.no-project-links a:hover {
+    text-decoration: underline;
+    color: #6A9C89;
 }

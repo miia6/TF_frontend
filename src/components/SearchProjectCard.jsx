@@ -5,8 +5,6 @@ import GroupsIcon from '@mui/icons-material/Groups'
 
 import { applyToProject } from '../services/project'
 
-import '../styles/searchprojectcard.css'
-
 const SearchProjectCard = ({ projectId, teamName, title, description, teammates, projectMember, maxMembers }) => {
     //console.log("Props received in SearchProjectCard:", { projectId, teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)

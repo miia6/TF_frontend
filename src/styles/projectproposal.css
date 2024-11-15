@@ -84,6 +84,15 @@
     flex: 1;
 }
 
+.teammate-invite-form {
+    padding: 1rem;
+}
+
+.teammate-invite-form p {
+    color: black;
+    text-align: center;
+}
+
 /* create button */
 
 .create-button-container {

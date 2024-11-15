@@ -1,4 +1,4 @@
-.loader-container {
+.login-loader-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,32 +8,26 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color: rgba(255, 255, 255, 0.8) !important; /* semi-transparent overlay */
+    background-color: rgba(255, 255, 255, 0.8) !important; 
     z-index: 999;
 }
 
-.spinner {
+.login-spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #6A9C89; /* color of the spinner */
+    border-top: 4px solid #6A9C89; 
     border-radius: 50%;
     width: 40px;
     height: 40px;
     animation: spin 1s linear infinite;
 }
 
-.spinner.medium {
+.login-spinner.medium {
     width: 60px;
     height: 60px;
     border-width: 6px;
 }
 
-.spinner.large {
-    width: 80px;
-    height: 80px;
-    border-width: 8px;
-}
-
-.loader-message {
+.login-loader-message {
     margin-top: 1rem;
     font-size: 1.2rem;
     color: #333;

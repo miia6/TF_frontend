@@ -70,6 +70,22 @@ const getUserCourses = async () => {
 	}
 }
 
+const getUsersByCourse = async (courseId) => {
+    try {
+		const user = getCurrentUser()
+		const response = await axios.get(`${API_URL}/course/get-users-by-course/${courseId}`, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error(error)
+		throw new Error("Error getting course's users")
+	}
+}
+
+
 const setSelectedCourseCookies = (courseId) => {
     Cookies.set('selectedCourse', courseId, { expires: 7, secure: true, sameSite: 'Strict' })
 }
@@ -82,4 +98,11 @@ const removeSelectedCourseCookies = () => {
     Cookies.remove('selectedCourse')
 }
 
-export { getCourses, getCourse, joinCourse, getUserCourses, setSelectedCourseCookies, getSelectedCourseCookies, removeSelectedCourseCookies }
+export { getCourses, 
+		 getCourse, 
+		 joinCourse, 
+		 getUserCourses, 
+		 getUsersByCourse,
+		 setSelectedCourseCookies, 
+		 getSelectedCourseCookies, 
+		 removeSelectedCourseCookies }

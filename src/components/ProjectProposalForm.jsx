@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import TeammateInvite from './TeammateInvite'
+//import TeammateInvite from './TeammateInvite'
 
 const ProjectProposalForm = ({ handleProjectCreation }) => {
 
@@ -88,9 +88,11 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
                 </div>
 
-                <h3>Invite teammates</h3>
-                <p>You can invite max. 4 teammates. Not mandatory, teammates can also be invited later. </p>
-                <TeammateInvite teammates={teammates} setTeammates={setTeammates} />
+                <div className="teammate-invite-form">
+                    <p>After project creation, you can invite teammates in Teammates page.</p>
+                </div>
+
+                {/*<TeammateInvite teammates={teammates} setTeammates={setTeammates} />*/}
 
                 <div className="create-button-container">
                     <button type="submit" className="submit-button">
@@ -105,9 +107,9 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
 
 ProjectProposalForm.propTypes = {
     handleProjectCreation: PropTypes.func.isRequired,
-    //teamName: PropTypes.string.isRequired,
-    //title: PropTypes.string.isRequired,
-    //descriptionInput: PropTypes.string.isRequired
+    teamName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    descriptionInput: PropTypes.string.isRequired
 }
 
 export default ProjectProposalForm

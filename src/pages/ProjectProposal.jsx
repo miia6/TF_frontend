@@ -28,6 +28,7 @@ const ProjectProposal = () => {
         fetchProjectData()
     }, [selectedCourseId])
 
+    // TO DO: add to cookies
     const handleProjectCreation = async (project) => {
         if (project) {
             console.log(`Creating project in course ${selectedCourseId}`)

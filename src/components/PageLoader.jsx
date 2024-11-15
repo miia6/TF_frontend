@@ -5,7 +5,7 @@ import '../styles/pageloader.css'
 const PageLoader = ({ message = "Loading...", size = "medium" }) => {
     return (
         <div className="page-loader-container">
-            <div className={`spinner ${size}`}></div>
+            <div className={`page-spinner ${size}`}></div>
             <p className="page-loader-message">{message}</p>
         </div>
     )
@@ -13,7 +13,6 @@ const PageLoader = ({ message = "Loading...", size = "medium" }) => {
 
 PageLoader.propTypes = {
     message: PropTypes.string,
-    size: PropTypes.oneOf(["small", "medium", "large"])
 }
 
 export default PageLoader
