@@ -85,7 +85,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
     const filterUsers = (searchValue, teammateIndex) => {
         const filtered = users.filter(user =>
             user.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-            !teammates.includes(user.name) 
+            !teammates.includes(user.name)
         )
 
         setFilteredUsers(filtered)
@@ -132,7 +132,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
             const usersToInvite = teammates
                 .map(teammateName => users.find(user => user.name === teammateName))
                 .filter(user => user)
-    
+
             await onInvite(usersToInvite)
             console.log(`Invitation sent to: ${usersToInvite.map(user => user.name).join(", ")}`)
         } catch (error) {

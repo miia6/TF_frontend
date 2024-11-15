@@ -8,7 +8,7 @@ import '../styles/sentinvitations.css'
 const SentInvitationCard = ({ title, userName, userEmail, status, createdAt }) => {
 
     return (
-<>
+        <>
             <div className="sent-invitation-card-container">
                 <div className="sent-invitation-card">
 

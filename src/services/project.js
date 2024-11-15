@@ -8,7 +8,7 @@ import { getCourse, getSelectedCourseCookies } from './course'
 // Get all course projects / Función para obtener todos los proyectos 
 const getProjects = async (courseId) => {
 	try {
-		const user = getCurrentUser() 
+		const user = getCurrentUser()
 		const response = await axios.get(`${API_URL}/project/list-projects`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -17,6 +17,7 @@ const getProjects = async (courseId) => {
 				courseId: courseId
 			}
 		})
+		console.log(response.data)
 		return response.data
 	} catch (error) {
 		console.error(error)
@@ -28,7 +29,7 @@ const getProjects = async (courseId) => {
 const getProject = async (projectId) => {
 	console.log("received project id " + projectId)
 	try {
-		const user = getCurrentUser() 
+		const user = getCurrentUser()
 		const response = await axios.get(`${API_URL}/project/get-project/${projectId}`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -53,7 +54,7 @@ const getProject = async (projectId) => {
 */
 const createProject = async (projectData) => {
 	try {
-		const user = getCurrentUser() 
+		const user = getCurrentUser()
 		const courseId = getSelectedCourseCookies()
 		const response = await axios.post(`${API_URL}/project/create-project`, projectData, {
 			headers: {
@@ -70,7 +71,7 @@ const createProject = async (projectData) => {
 
 const getUserCourseProject = async (courseId) => {
 	try {
-		const user = getCurrentUser() 
+		const user = getCurrentUser()
 		const response = await axios.get(`${API_URL}/project/my-course-project`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -108,21 +109,22 @@ const getProjectMembers = async (projectId) => {
 const applyToProject = async (projectId) => {
 	try {
 		const user = getCurrentUser()
-        const response = await axios.post(`${API_URL}/project/apply-to-project`, 
-            { projectId },
-            {
-                headers: {
-                    'Authorization': `Bearer ${user.token}` 
-                }
-            }
-        )
-        return response.data
-    } catch (error) {
-        console.error('Error applying to project', error)
-        throw error
-    }
+		const response = await axios.post(`${API_URL}/project/apply-to-project`,
+			{ projectId },
+			{
+				headers: {
+					'Authorization': `Bearer ${user.token}`
+				}
+			}
+		)
+		return response.data
+	} catch (error) {
+		console.error('Error applying to project', error)
+		throw error
+	}
 }
 
+<<<<<<< HEAD
 const setUserProjectCookies = async (projectId) => {
 	Cookies.set('projectId', projectId, { expires: 7, secure: true, sameSite: 'Strict' })
 }
@@ -162,13 +164,133 @@ const setAppliedProjectsCookies = async (projectId) => {
         secure: true,
         sameSite: 'Strict',
     })
+=======
+
+const getSentApplications = async () => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.get(`${API_URL}/project/projects-applications`, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error('Error getting sent applications:', error)
+		throw error
+	}
+}
+
+const getProjectApplicants = async (projectId) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.get(`${API_URL}/project/project-applicants?projectId=${projectId}`, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error('Error getting applicants:', error)
+		throw error
+	}
+}
+
+const acceptUserApplication = async (applicationId, projectId) => {
+	const user = getCurrentUser()
+	// TO DO
+
+}
+
+const rejectUserApplication = async (applicationId, projectId) => {
+	const user = getCurrentUser()
+	// TO DO
+}
+
+
+const setAppliedProjectsCookies = async (projectId) => {
+	//Cookies.set('hasAppliedProjects', 'true', { expires: 7, secure: true, sameSite: 'Strict' })
+	// Get the existing projects from the cookie (if any)
+	const appliedProjectsIDs = Cookies.get('hasAppliedProjects');
+	const projectIds = appliedProjectsIDs ? JSON.parse(appliedProjectsIDs) : [];
+
+	// Add the new project ID only if it's not already in the array
+	if (!projectIds.includes(projectId)) {
+		projectIds.push(projectId);
+	}
+
+	// Store the updated array back in the cookie as a JSON string
+	Cookies.set('hasAppliedProjects', JSON.stringify(projectIds), {
+		expires: 7,
+		secure: true,
+		sameSite: 'Strict',
+	});
 }
 
 const getAppliedProjectsCookies = () => {
-	const appliedProjectsIDs = Cookies.get('hasAppliedProjects')
-    return appliedProjectsIDs ? JSON.parse(appliedProjectsIDs) : []
+	//return Cookies.get('hasAppliedProjects')
+	const appliedProjectsIDs = Cookies.get('hasAppliedProjects');
+	return appliedProjectsIDs ? JSON.parse(appliedProjectsIDs) : [];
 }
 
+const removeAppliedProjectsCookies = () => {
+	Cookies.remove('hasAppliedProjects')
+}
+
+const getSentInvitations = async (projectId) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.get(`${API_URL}/project/project-sent-invitations?projectId=${projectId}`, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error('Error getting sended invitations:', error)
+		throw error
+	}
+}
+
+const handleUserApplication = async (applicationId, status) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.post(`${API_URL}/project/update-project-request-status`,
+			{ requestId: applicationId, acceptRequest: status },
+			{
+				headers: {
+					'Authorization': `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			}
+		)
+		return response.data
+	} catch (error) {
+		console.error('Error updating status:', error)
+		throw error
+	}
+>>>>>>> 3d0e1d8cab95a0ed974bd133266ba664be0fb7b9
+}
+
+const inviteUserToProject = async (userToInvite, projectId) => {
+	try {
+		const user = getCurrentUser()
+		const response = await axios.post(`${API_URL}/project/send-invitation`,
+			{ userId: userToInvite, projectId: projectId },
+			{
+				headers: {
+					'Authorization': `Bearer ${user.token}`,
+				}
+			}
+		)
+		return response.data
+	} catch (error) {
+		console.error('Error updating status:', error)
+		throw error
+	}
+}
+
+<<<<<<< HEAD
 const removeAppliedProjectsCookies = () => {
     Cookies.remove('hasAppliedProjects')
 }*/
@@ -186,3 +308,20 @@ export { getProjects,
 		 setProjectMemberStatusCookies,
 		 getProjectMemberStatusCookies,
 		 removeProjectMemberStatusCookies }
+=======
+export {
+	getProjects,
+	getProject,
+	createProject,
+	getUserCourseProject,
+	applyToProject,
+	getSentApplications,
+	getProjectApplicants,
+	handleUserApplication,
+	inviteUserToProject,
+	getSentInvitations,
+	setAppliedProjectsCookies,
+	getAppliedProjectsCookies,
+	removeAppliedProjectsCookies
+}
+>>>>>>> 3d0e1d8cab95a0ed974bd133266ba664be0fb7b9

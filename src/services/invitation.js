@@ -6,9 +6,17 @@ import { getCurrentUser } from './auth'
 
 /*const getSentInvitations = async (courseId) => {
     try {
-        const projects = await getUserCourseProject(courseId)
-        const project = projects[0]
-        console.log(`TEST: ${project}`)
+        const user = await getCurrentUser()
+        const project = await getUserCourseProject(courseId)
+        const response = await axios.get(`${API_URL}/project/sent-invitations`, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            },
+            params: {
+                projectId: project.id
+            }
+        })
+        console.log(response.data)
     } catch (error) {
         console.error(error)
         throw new Error('Error getting sent invitations.')
@@ -87,3 +95,4 @@ const respondToInvitation = async (invitationId, status) => {
 
 
 export { inviteUserToProject, getSentInvitations, getReceivedInvitations, respondToInvitation }
+

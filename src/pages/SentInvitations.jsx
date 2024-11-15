@@ -37,8 +37,7 @@ const SentInvitations = () => {
                 } finally {
                     setIsLoading(false)
                 }
-            }
-            else {
+            } else {
                 console.log('Failed to fetch course')
             }
         }
@@ -54,7 +53,6 @@ const SentInvitations = () => {
             day: 'numeric', 
         })
     }
-
 
     return (
         <>
