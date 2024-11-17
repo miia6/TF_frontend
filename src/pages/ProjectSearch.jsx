@@ -83,7 +83,7 @@ const ProjectSearch = () => {
                         <input
                             type="text"
                             id="projectSearch"
-                            placeholder="Search by project titles, or description words or #tags."
+                            placeholder="Search by project titles, or description words or keywords."
                             value={searchTerm}
                             onChange={handleSearch}
                             className="input"

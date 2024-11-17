@@ -14,7 +14,7 @@ const SearchProjectCard = ({
     const navigate = useNavigate()
 
     const getShortDescription = (desc) => {
-        const maxChars = 20
+        const maxChars = 50
         return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 
@@ -53,7 +53,7 @@ const SearchProjectCard = ({
                             <span className='search-project-card-subsection'>Description:</span> {showDescription ? description : getShortDescription(description)}
                         </div>
                         <div className='search-project-description'>
-                            <span className='search-project-card-subsection'>Keywords:</span> {skills || <span className='unspecified-info'>No keyword specified.</span>}
+                            <span className='search-project-card-subsection'>Keywords:</span> {keywords || <span className='unspecified-info'>No keyword specified.</span>}
                         </div>
                         <div className='search-project-description'>
                             <span className='search-project-card-subsection'>Skills:</span> {skills || <span className='unspecified-info'>No required skill specified.</span>}
