@@ -99,7 +99,7 @@ const ProjectSearch = () => {
                                 (project.skills && project.skills.toLowerCase().includes(searchTerm.toLowerCase()))
                             )
                             .map((project, index) => (
-                                <Grid item key={index} xs={12} sm={6} md={4}>
+                                <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
                                     <SearchProjectCard
                                         projectId={project.id}
                                         teamName={project.teamName || " "}

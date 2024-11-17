@@ -14,7 +14,7 @@ const SearchProjectCard = ({
     const navigate = useNavigate()
 
     const getShortDescription = (desc) => {
-        const maxChars = 50
+        const maxChars = 20
         return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
 
