@@ -5,7 +5,7 @@ import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
 import UserProjectCard from '../components/UserProjectCard'
 
-import { getCurrentUserData } from '../services/auth' 
+import { getCurrentUserData } from '../services/auth'
 import { getSelectedCourseCookies, getUsersByCourse } from '../services/course'
 import { getUserCourseProject } from '../services/project'
 
@@ -13,7 +13,7 @@ import '../styles/userproject.css'
 
 const UserProject = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const [project, setProject] = useState(null) 
+    const [project, setProject] = useState(null)
     const [teammates, setTeammates] = useState(null)
     const selectedCourseId = getSelectedCourseCookies()
 
@@ -23,16 +23,16 @@ const UserProject = () => {
         const fetchProjectData = async () => {
             if (selectedCourseId) {
                 try {
-                    const fetchedProject = await getUserCourseProject(selectedCourseId) 
+                    const fetchedProject = await getUserCourseProject(selectedCourseId)
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
-                    const currentUser = await getCurrentUserData()                     
+                    const currentUser = await getCurrentUserData()
                     if (fetchedProject) {
                         setProject(fetchedProject)
                         //console.log('User has an existing project: ' + JSON.stringify(fetchedProject, null, 2))
                         const teammatesNames = getTeammatesNames(fetchedProject.members, fetchedCourseUsers, currentUser.name)
                         setTeammates(teammatesNames)
-                    } 
-                
+                    }
+
                 } catch (error) {
                     console.error("Error fetching project: " + error)
                 } finally {
@@ -52,15 +52,15 @@ const UserProject = () => {
             const user = users.find(user => user.id === teammate.userId)
             return user ? user.name : 'Unknown'
         })
-        .filter(name => name !== currentUserName) 
-        .join(', ')
+            .filter(name => name !== currentUserName)
+            .join(', ')
     }
 
     return (
         <>
             < TFmenu />
 
-            {isLoading ? ( 
+            {isLoading ? (
                 <PageLoader message="Loading project..." />
 
             ) : (
@@ -71,6 +71,8 @@ const UserProject = () => {
                             teamName={project.teamName}
                             title={project.name}
                             description={project.description}
+                            keywords={project.keywords}
+                            skills={project.skills}
                             teammates={teammates}
                         />
                     ) : (

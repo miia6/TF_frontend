@@ -23,8 +23,8 @@
 /* search */
 
 .project-search {
-    display: flex; 
-    flex-direction: row; 
+    display: flex;
+    flex-direction: row;
     align-items: center;
     margin-bottom: 2rem;
 }
@@ -38,20 +38,20 @@
 
 .input {
     padding: 0.6rem;
-    background-color: white; 
-    border: 1px solid #C4DAD2; 
-    border-radius: 10px; 
-    font-size: 1rem; 
+    background-color: white;
+    border: 1px solid #C4DAD2;
+    border-radius: 10px;
+    font-size: 1rem;
     color: black;
-    flex: 1;  
+    flex: 1;
     width: 30rem;
 
 }
 
 .input::placeholder {
-    color: #888; 
+    color: #888;
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1rem; 
+    font-size: 1rem;
     opacity: 1;
 }
 
@@ -83,7 +83,8 @@
     border-radius: 10px;
     margin: 0;
     background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 16px 0 rgba(22, 66, 60, 0.6); /* Dimmer and thinner smaragd green */
+    box-shadow: 0 4px 16px 0 rgba(22, 66, 60, 0.6);
+    /* Dimmer and thinner smaragd green */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     width: 30rem !important;
@@ -214,4 +215,8 @@
 .search-project-card-apply-button:hover {
     background-color: #6A9C89;
     color: white
+}
+
+.search-project-card-subsection {
+    font-weight: bold;
 }

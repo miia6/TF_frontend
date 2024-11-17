@@ -21,6 +21,8 @@ Install to the root: npm install
 # TO DO
 - Tags functionality (Binh)
 - Create some visual notification to invitations and applications and frontpage, if user has some PENDING ones. (Maybe cookies for these?) (Miia)
-- (Teammate invite to project creation ?)
+- (Teammate invite to project creation ?) (I don't think this is not needed - Binh)
 - Improve visuality of the app (some images etc... ?).
+- Edit and delete projects (?) 
+- Let's also start documenting our features in this README.md as we proceed, would probably save time later on.
 

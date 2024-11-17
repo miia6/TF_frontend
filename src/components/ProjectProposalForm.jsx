@@ -7,6 +7,8 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
     const [teamName, setTeamName] = useState('')
     const [title, setTitle] = useState('')
     const [descriptionInput, setDescriptionInput] = useState('')
+    const [keywords, setKeywords] = useState('')
+    const [skills, setSkills] = useState('')
     const [teammates, setTeammates] = useState([])
 
     const [errors, setErrors] = useState({})
@@ -34,13 +36,10 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         const description = descriptionInput.replace(/\s+/g, ' ').trim()
 
         const projectData = {
-            title: title,
-            description: description,
-            teamName: teamName,
-            //tags,
-            teammates: Object.values(teammates).filter(teammate => teammate !== '') 
+            title, description, teamName, keywords, skills,
+            teammates: Object.values(teammates).filter(teammate => teammate !== '')
         }
-
+        console.log(projectData)
         handleProjectCreation(projectData)
     }
 
@@ -56,7 +55,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                         id="teamName"
                         value={teamName}
                         onChange={(event) => setTeamName(event.target.value)}
-                        placeholder="max. 20 marks."
+                        placeholder="Pick a team name (max. 20 marks)."
                         className={`team-name ${errors.teamName ? 'error' : ''}`}
                     />
                     {errors.teamName && <p className="error-text">{errors.teamName}</p>}
@@ -69,7 +68,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                         id="title"
                         value={title}
                         onChange={(event) => setTitle(event.target.value)}
-                        placeholder="max. 100 marks."
+                        placeholder="Pick a project title (max. 100 marks)."
                         className={`project-title ${errors.title ? 'error' : ''}`}
                     />
                     {errors.title && <p className="error-text">{errors.title}</p>}
@@ -81,9 +80,37 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                         id="description"
                         value={descriptionInput}
                         onChange={(event) => setDescriptionInput(event.target.value)}
-                        placeholder="max. 100 words. You may use #tags."
+                        placeholder="Describe your proposed project (max. 100 words)."
                         className={`project-description ${errors.descriptionInput ? 'error' : ''}`}
                         rows="6"
+                    />
+                    {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
+                </div>
+
+                <div className="form-group-proposal">
+                    <label htmlFor="keywords"> <span className="required">*</span> Keywords:</label>
+                    <input
+                        type="text"
+                        id="keywords"
+                        value={keywords}
+                        onChange={(event) => setKeywords(event.target.value)}
+                        placeholder="Pick some crucial keywords about your project (max. 50 marks)."
+                        className={`project-keywords ${errors.descriptionInput ? 'error' : ''}`}
+                        maxLength={50}
+                    />
+                    {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
+                </div>
+
+                <div className="form-group-proposal">
+                    <label htmlFor="skills"> <span className="required">*</span> Required skills:</label>
+                    <input
+                        type="text"
+                        id="skills"
+                        value={skills}
+                        onChange={(event) => setSkills(event.target.value)}
+                        placeholder="Specify required skills to join your project (max. 50 marks)."
+                        className={`project-skills ${errors.descriptionInput ? 'error' : ''}`}
+                        maxLength={50}
                     />
                     {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
                 </div>

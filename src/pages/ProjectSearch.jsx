@@ -15,7 +15,7 @@ import '../styles/projectsearch.css'
 const ProjectSearch = () => {
     const [projects, setProjects] = useState([])
 
-    const [projectMember, setProjectMember] = useState(false) 
+    const [projectMember, setProjectMember] = useState(false)
     const [appliedProjects, setAppliedProjects] = useState()
 
     const [searchTerm, setSearchTerm] = useState('')
@@ -94,7 +94,9 @@ const ProjectSearch = () => {
                         {projects
                             .filter(project =>
                                 project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                (project.description && project.description.toLowerCase().includes(searchTerm.toLowerCase()))
+                                (project.description && project.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                                (project.keywords && project.keywords.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                                (project.skills && project.skills.toLowerCase().includes(searchTerm.toLowerCase()))
                             )
                             .map((project, index) => (
                                 <Grid item key={index} xs={12} sm={6} md={4}>
@@ -103,6 +105,8 @@ const ProjectSearch = () => {
                                         teamName={project.teamName || " "}
                                         title={project.name || " "}
                                         description={project.description || " "}
+                                        keywords={project.keywords}
+                                        skills={project.skills}
                                         teammates={project.teammates || []}
                                         projectMember={projectMember}
                                         maxMembers={project.maxMembers}

@@ -5,10 +5,12 @@ import GroupsIcon from '@mui/icons-material/Groups'
 
 import { applyToProject } from '../services/project'
 
-const SearchProjectCard = ({ projectId, teamName, title, description, teammates, projectMember, maxMembers }) => {
+const SearchProjectCard = ({
+    projectId, teamName, title, description, keywords, skills, teammates, projectMember, maxMembers
+}) => {
     //console.log("Props received in SearchProjectCard:", { projectId, teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
-    
+
     const navigate = useNavigate()
 
     const getShortDescription = (desc) => {
@@ -23,7 +25,7 @@ const SearchProjectCard = ({ projectId, teamName, title, description, teammates,
 
     const handleApply = async () => {
         try {
-            await applyToProject(projectId)  
+            await applyToProject(projectId)
             alert('You have successfully applied to the project!')
             navigate('/sentApplications')
         } catch (error) {
@@ -31,14 +33,14 @@ const SearchProjectCard = ({ projectId, teamName, title, description, teammates,
             alert('Error applying to project')
         }
     }
-    
+
     return (
         <>
             <div className="search-project-card-container">
                 <div className='search-project-card'>
 
                     <div className='search-project-card-header'>
-                        <GroupsIcon className="search-project-group-icon"/>
+                        <GroupsIcon className="search-project-group-icon" />
                         <div className='search-project-team-name'>Team: {teamName}</div>
                     </div>
 
@@ -48,14 +50,20 @@ const SearchProjectCard = ({ projectId, teamName, title, description, teammates,
 
                     <div className='search-project-card-description-section'>
                         <div className='search-project-description'>
-                            {showDescription ? description : getShortDescription(description)}
+                            <span className='search-project-card-subsection'>Description:</span> {showDescription ? description : getShortDescription(description)}
+                        </div>
+                        <div className='search-project-description'>
+                            <span className='search-project-card-subsection'>Keywords:</span> {skills || <span className='unspecified-info'>No keyword specified.</span>}
+                        </div>
+                        <div className='search-project-description'>
+                            <span className='search-project-card-subsection'>Skills:</span> {skills || <span className='unspecified-info'>No required skill specified.</span>}
                         </div>
                         <button
                             className='search-project-card-read-more'
                             onClick={() => setShowDescription(!showDescription)}
-                            disabled={descriptionCharCount <= 50} 
+                            disabled={descriptionCharCount <= 50}
                             style={{
-                                opacity: descriptionCharCount <= maxChars ? 0.5 : 1, 
+                                opacity: descriptionCharCount <= maxChars ? 0.5 : 1,
                                 cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'
                             }}
                         >
@@ -66,18 +74,18 @@ const SearchProjectCard = ({ projectId, teamName, title, description, teammates,
                     <div className='search-project-card-apply-section'>
                         <p className='searching-text'>Searching for {memberCount} members</p>
                         {!projectMember ? (
-                            <button 
-                                className='search-project-card-apply-button' 
-                                onClick={handleApply}  
+                            <button
+                                className='search-project-card-apply-button'
+                                onClick={handleApply}
                             >
                                 Apply
                             </button>
-                        ): null}
+                        ) : null}
                     </div>
                 </div>
             </div>
         </>
     )
-  }
+}
 
 export default SearchProjectCard

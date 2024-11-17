@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import GroupsIcon from '@mui/icons-material/Groups'
 
-const UserProjectCard = ({ teamName, title, description, teammates }) => {
+const UserProjectCard = (
+    { teamName, title, description, keywords, skills, teammates }
+) => {
     //console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
 
@@ -14,11 +16,11 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
     const maxChars = 100
 
     return (
-        <>  
+        <>
             <div className='user-project-card'>
                 <h2>Your project</h2>
                 <div className='user-project-card-header'>
-                    <GroupsIcon className="user-project-group-icon"/>
+                    <GroupsIcon className="user-project-group-icon" />
                     <div className='user-project-team-info'>
                         <div className='user-project-team-name'>Team: {teamName}</div>
                         <div className='user-project-teammates'>
@@ -33,24 +35,29 @@ const UserProjectCard = ({ teamName, title, description, teammates }) => {
 
                 <div className='user-project-card-section'>
                     <div className='user-project-description'>
-                        {showDescription ? description : getShortDescription(description)}
+                        <span className='user-project-card-subsection'>Description:</span> {showDescription ? description : getShortDescription(description)}
+                    </div>
+                    <div className='user-project-description'>
+                        <span className='user-project-card-subsection'>Keywords: </span>{keywords || <span className='unspecified-info'>No keyword specified.</span>}
+                    </div>
+                    <div className='user-project-description'>
+                        <span className='user-project-card-subsection'>Skills: </span>{skills || <span className='unspecified-info'>No required skills specified.</span>}
                     </div>
                     <button
                         className='user-project-card-read-more'
                         onClick={() => setShowDescription(!showDescription)}
-                        disabled={descriptionCharCount <= 100} 
+                        disabled={descriptionCharCount <= 100}
                         style={{
-                            opacity: descriptionCharCount <= maxChars ? 0.5 : 1, 
+                            opacity: descriptionCharCount <= maxChars ? 0.5 : 1,
                             cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'
                         }}
                     >
                         {showDescription ? 'Show less' : 'Show more'}
                     </button>
                 </div>
-
             </div>
         </>
     )
-  }
+}
 
 export default UserProjectCard
