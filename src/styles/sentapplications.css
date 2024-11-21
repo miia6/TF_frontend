@@ -143,8 +143,12 @@
     margin: 1rem;
 }
 
-.sent-application-info p{
+.sent-application-info-header{
     margin: 0.5rem;
     font-weight: bold;
+}
+
+.sent-application-info p{
+    margin: 0;
 }
 

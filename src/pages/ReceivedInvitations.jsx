@@ -7,7 +7,8 @@ import ProjectInvitationCard from '../components/ProjectInvitationCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getReceivedInvitations, respondToInvitation } from '../services/invitation'
+import { getUserCourseProject, setUserProjectCookies, setProjectMemberStatusCookies } from '../services/project'
+import { getReceivedInvitations, respondToInvitation, getInvitationsAmountCookies, removeInvitationsAmountCookies } from '../services/invitation'
 
 import '../styles/projectinvitations.css'
 
@@ -53,10 +54,18 @@ const ReceivedInvitations = () => {
         try {
             const updatedInvitation = await respondToInvitation(invitationId, true)
             console.log(updatedInvitation)
-            setCourseInvitations((prevInvitations) =>
+            /*setCourseInvitations((prevInvitations) =>
                 prevInvitations.filter((inv) => inv.id !== invitationId)
-            )
-            alert(`Invitation accepted`)
+            )*/
+            alert(`Invitation accepted!`)
+
+            const userProject = await getUserCourseProject(selectedCourseId)
+            setUserProjectCookies(userProject.id)
+            setProjectMemberStatusCookies('MEMBER')
+            removeInvitationsAmountCookies()
+
+            window.location.reload()
+
         } catch (error) {
             console.error('Error accepting invitation:', error)
         }
@@ -66,10 +75,18 @@ const ReceivedInvitations = () => {
         try {
             const updatedInvitation = await respondToInvitation(invitationId, false)
             console.log(updatedInvitation)
-            setCourseInvitations((prevInvitations) =>
+            /*setCourseInvitations((prevInvitations) =>
                 prevInvitations.filter((inv) => inv.id !== invitationId)
-            )
+            )*/
             alert(`Invitation rejected`)
+
+            const currentAmount = parseInt(getInvitationsAmountCookies(), 10)
+            if (currentAmount && currentAmount > 0) {
+                const newAmount = currentAmount - 1
+                setInvitationsAmountCookies(newAmount)
+            }
+            window.location.reload()
+
         } catch (error) {
             console.error('Error accepting invitation:', error)
         }
@@ -83,7 +100,7 @@ const ReceivedInvitations = () => {
             {isLoading && <PageLoader message="Loading Invitations" />}
 
             <div className='received-invitations-form'>
-                {!isLoading && courseInvitations.length === 0 ? (
+                {courseInvitations.length === 0 ? (
                     <h3>No invitations.</h3>
                 ) : (
                     <>

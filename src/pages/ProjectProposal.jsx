@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
 import ProjectProposalForm from '../components/ProjectProposalForm'
 import UserProjectCard from '../components/UserProjectCard'
 
-import { createProject, getUserCourseProject } from '../services/project'
+import { createProject, getUserCourseProject, setUserProjectCookies, setProjectMemberStatusCookies } from '../services/project'
 import { getSelectedCourseCookies } from '../services/course'
 
 import '../styles/projectproposal.css'
@@ -12,6 +13,8 @@ import '../styles/projectproposal.css'
 const ProjectProposal = () => {
     const [hasProject, setHasProject] = useState(false)
     const selectedCourseId = getSelectedCourseCookies() 
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjectData = async () => {
@@ -28,7 +31,6 @@ const ProjectProposal = () => {
         fetchProjectData()
     }, [selectedCourseId])
 
-    // TO DO: add to cookies
     const handleProjectCreation = async (project) => {
         if (project) {
             console.log(`Creating project in course ${selectedCourseId}`)
@@ -40,11 +42,15 @@ const ProjectProposal = () => {
                 teammates: project.teammates,
                 courseId: selectedCourseId,
             })
-            
-            console.log("Created project response: " + createdProject)
-            setHasProject(true)
-    
+                
             alert("Project has been created successfully!")
+            //console.log("Created project response: " + createdProject)
+            setHasProject(true)
+
+            const fetchedCreatedProject = await getUserCourseProject(selectedCourseId)
+            setUserProjectCookies(fetchedCreatedProject.id)
+            setProjectMemberStatusCookies('CREATOR')
+
             navigate("/yourProject")
         } else {
             alert("Error creating a project")

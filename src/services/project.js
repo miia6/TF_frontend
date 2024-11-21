@@ -17,7 +17,6 @@ const getProjects = async (courseId) => {
 				courseId: courseId
 			}
 		})
-		console.log(response.data)
 		return response.data
 	} catch (error) {
 		console.error(error)
@@ -35,7 +34,6 @@ const getProject = async (projectId) => {
 				'Authorization': `Bearer ${user.token}`
 			}
 		})
-		console.log(response.data)
 		return response.data
 	} catch (error) {
 		console.error(error)
@@ -124,7 +122,7 @@ const applyToProject = async (projectId) => {
 	}
 }
 
-const setUserProjectCookies = async (projectId) => {
+const setUserProjectCookies = (projectId) => {
 	Cookies.set('projectId', projectId, { expires: 7, secure: true, sameSite: 'Strict' })
 }
 
@@ -137,7 +135,7 @@ const removeUserProjectCookies = () => {
 }
 
 
-const setProjectMemberStatusCookies = async (status) => {
+const setProjectMemberStatusCookies = (status) => {
 	Cookies.set('projectMemberStatus', status, { expires: 7, secure: true, sameSite: 'Strict' })
 }
 
@@ -148,45 +146,6 @@ const getProjectMemberStatusCookies = () => {
 const removeProjectMemberStatusCookies = () => {
     Cookies.remove('projectMemberStatus')
 }
-
-/*
-const setAppliedProjectsCookies = async (projectId) => {
-    const appliedProjectsIDs = Cookies.get('hasAppliedProjects')
-    const projectIds = appliedProjectsIDs  ? JSON.parse(appliedProjectsIDs) : []
-
-    if (!projectIds.includes(projectId)) {
-        projectIds.push(projectId)
-    }
-
-    Cookies.set('hasAppliedProjects', JSON.stringify(projectIds), {
-        expires: 7,
-        secure: true,
-        sameSite: 'Strict',
-    })
-}
-
-const inviteUserToProject = async (userToInvite, projectId) => {
-	try {
-		const user = getCurrentUser()
-		const response = await axios.post(`${API_URL}/project/send-invitation`,
-			{ userId: userToInvite, projectId: projectId },
-			{
-				headers: {
-					'Authorization': `Bearer ${user.token}`,
-				}
-			}
-		)
-		return response.data
-	} catch (error) {
-		console.error('Error updating status:', error)
-		throw error
-	}
-}
-
-const removeAppliedProjectsCookies = () => {
-    Cookies.remove('hasAppliedProjects')
-}*/
-
 
 export { getProjects, 
 		 getProject, 

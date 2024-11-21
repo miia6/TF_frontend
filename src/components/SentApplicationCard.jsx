@@ -44,6 +44,7 @@ const SentApplicationCard = ({ projectId, teamName, title, description, status, 
                     </div>
 
                     <div className='sent-application-info'>
+                        <div className='sent-application-info-header'> Application info: </div>
                         <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
                         <p>Applied at: {appliedAt}</p>
                     </div>

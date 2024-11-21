@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
 import { getUserCourseProject } from '../services/project'
-import { getProjectApplicants, handleUserApplication } from '../services/application'
+import { getProjectApplicants, handleUserApplication, getApplicationsAmountCookies, setApplicationsAmountCookies, removeApplicationsAmountCookies } from '../services/application'
 
 import '../styles/projectapplications.css'
 
@@ -26,6 +26,7 @@ const ProjectApplications = ()  => {
                 //setIsLoading(true)
                 try {
                     const fetchedApplications = await getProjectApplicants(projectId)
+                    //console.log(fetchedApplications)
                     setApplications(fetchedApplications)
                 } catch (error) {
                     console.error('Error fetching applicants:', error)
@@ -43,6 +44,7 @@ const ProjectApplications = ()  => {
             if (selectedCourseId) {
                 try {
                     const fetchedProject = await getUserCourseProject(selectedCourseId) 
+                    //console.log(fetchedProject)
                     if (fetchedProject) {
                         setProjectName(fetchedProject.name) 
                     }
@@ -69,11 +71,18 @@ const ProjectApplications = ()  => {
         try {
             const updatedApplication = await handleUserApplication(applicationId, true)
             console.log(updatedApplication)
-            setApplications((prevApplications) =>
+            /*setApplications((prevApplications) =>
                 prevApplications.map((app) =>
                     app.id === updatedApplication.id ? updatedApplication : app)
-            )
-            alert(`Accepted user to ${projectName}`)
+            )*/
+            alert(`Application accepted!`)
+            const currentAmount = parseInt(getApplicationsAmountCookies(), 10)
+            if (currentAmount && currentAmount > 0) {
+                const newAmount = currentAmount - 1;
+                setApplicationsAmountCookies(newAmount)
+            }
+            window.location.reload()
+            
         } catch (error) {
             console.error('Error accepting application:', error)
         }
@@ -82,12 +91,20 @@ const ProjectApplications = ()  => {
     const handleReject = async (applicationId) => {
         try {
             const updatedApplication = await handleUserApplication(applicationId, false)
-            alert('Rejected user application')
-            setApplications((prevApplications) =>
+            /*setApplications((prevApplications) =>
                 prevApplications.map((app) =>
                     app.id === updatedApplication.id ? updatedApplication : app
                 )
-            )
+            )*/
+            alert('Application rejected')
+
+            const currentAmount = parseInt(getApplicationsAmountCookies(), 10)
+            if (currentAmount && currentAmount > 0) {
+                const newAmount = currentAmount - 1;
+                setApplicationsAmountCookies(newAmount)
+            }
+            window.location.reload()
+            
         } catch (error) {
             console.error('Error rejecting application:', error)
         }
@@ -100,7 +117,7 @@ const ProjectApplications = ()  => {
             {isLoading && <PageLoader message="Loading Applications" />}
 
             <div className='received-applications-form'>
-                {!isLoading && applications.length === 0 ? (
+                {applications.length === 0 ? (
                     <h3>No applications.</h3>
                 ) : (
                     <>
@@ -110,12 +127,11 @@ const ProjectApplications = ()  => {
                                 <Grid item key={index} xs={12} sm={6} md={6}>
                                     <ProjectApplicationCard 
                                         key={application.id}
-                                        title={projectName}
+                                        title={projectName ? projectName : ''}
                                         userName={application.User.name}
                                         userEmail={application.User.email}
                                         status={application.status}
                                         appliedAt={formatDate(application.createdAt)}
-                                        acceptedAt={application.updatedAt ? formatDate(application.updatedAt) : null}
                                         applicationId={application.id}
                                         projectId={projectId}
                                         onAccept={() => handleAccept(application.id)}

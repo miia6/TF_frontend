@@ -5,8 +5,10 @@ import LoginForm from '../components/LoginForm'
 import LoginLoader from '../components/LoginLoader'
 
 import { login } from '../services/auth'
-import { removeSelectedCourseCookies } from '../services/course'
+import { removeSelectedCourseCookies, getUserCourses } from '../services/course'
 import { removeUserProjectCookies, removeProjectMemberStatusCookies } from '../services/project'
+import { removeApplicationsAmountCookies } from '../services/application'
+import { removeInvitationsAmountCookies } from '../services/invitation'
 
 import '../styles/login.css'
 
@@ -37,11 +39,21 @@ const Login = () => {
 
         try {
             await login(email, password)
+
             removeSelectedCourseCookies()
-            //removeAppliedProjectsCookies()
             removeUserProjectCookies()
             removeProjectMemberStatusCookies()
-            navigate('/courseSelection')
+            removeApplicationsAmountCookies()
+            removeInvitationsAmountCookies()
+
+            const fetchedCourses = await getUserCourses()
+            if (fetchedCourses.length === 0) {
+                console.log("user doesn't have yet joined any courses")
+                navigate('/joinCourse')
+            } else {
+                console.log('user have joined courses')
+                navigate('/courseSelection')
+            }
 
         } catch (error) {
             console.error(error)

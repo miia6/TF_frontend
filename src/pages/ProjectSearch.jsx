@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid'
 import { getSelectedCourseCookies } from '../services/course'
 import { getProjects, getUserCourseProject, getUserProjectCookies } from '../services/project'
 import { getSentApplications } from '../services/application'
+import { getReceivedInvitations } from '../services/invitation'
 
 import '../styles/projectsearch.css'
 
@@ -33,7 +34,6 @@ const ProjectSearch = () => {
 
                 try {
                     const fetchedProjects = await getProjects(selectedCourseId)
-                    console.log(fetchedProjects)
 
                     if (projectId) {
                         setProjectMember(true)
@@ -42,11 +42,17 @@ const ProjectSearch = () => {
                     const fetchedAppliedProjects = await getSentApplications()
                     const fetchedAppliedProjectsIds = new Set(fetchedAppliedProjects.map(app => app.Project.id))
 
+                    const fetchedReceivedInvitations = await getReceivedInvitations()
+                    const fetchedReceivedInvitationsIds = new Set(fetchedReceivedInvitations.map(inv => inv.Project.id))
+
                     if (fetchedProjects) {
                         const filteredProjects = fetchedProjects.filter(
-                            project => !fetchedAppliedProjectsIds.has(project.id)
+                            project => !fetchedAppliedProjectsIds.has(project.id) && 
+                            !fetchedReceivedInvitationsIds.has(project.id)
                         )
                         setProjects(filteredProjects)
+                        //console.log(filteredProjects)
+
                     } else {
                         console.log("Failed to fetch existing projects")
                     }
@@ -74,7 +80,7 @@ const ProjectSearch = () => {
 
             {isLoading && <PageLoader message="Loading Projects" />}
 
-            {projects.length > 0 ? (
+            {projects.length > 0 && (
                 <div className='project-search-form'>
                     <h1>Projects</h1>
 
@@ -107,7 +113,6 @@ const ProjectSearch = () => {
                                         description={project.description || " "}
                                         keywords={project.keywords}
                                         skills={project.skills}
-                                        teammates={project.teammates || []}
                                         projectMember={projectMember}
                                         maxMembers={project.maxMembers}
                                     />
@@ -116,9 +121,10 @@ const ProjectSearch = () => {
                     </Grid>
 
                 </div>
-            ) : (
+            )}
+            {!isLoading && projects.length === 0 && (
                 <div className="no-projects">
-                    <p> </p>
+                    <h3>No projects in the course.</h3>
                 </div>
             )}
         </>

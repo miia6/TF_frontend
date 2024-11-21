@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
-const ProjectApplicationCard = ({ title, userName, userEmail, status, appliedAt, acceptedAt, applicationId, projectId, onAccept, onReject }) => {
+const ProjectApplicationCard = ({ title, userName, userEmail, status, appliedAt, applicationId, projectId, onAccept, onReject }) => {
 
     return (
         <>
@@ -23,7 +23,6 @@ const ProjectApplicationCard = ({ title, userName, userEmail, status, appliedAt,
                         <div className='received-applications-info-header'> Application info: </div>
                         <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
                         <p>Applied at: {appliedAt}</p>
-                        {acceptedAt && <p>Accepted at: {acceptedAt}</p>}
                     </div>
 
                     <div className="received-applications-action-buttons">

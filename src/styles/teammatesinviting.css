@@ -14,10 +14,15 @@
     position: relative;
 }
 
+.no-users-message h3 {
+    color: black;
+    margin: 0.5rem;
+}
 
-.no-users-message {
+.no-users-message p {
     color: black;
     font-size: 1rem;
+    margin: 0;
 }
 
 .loading-form {

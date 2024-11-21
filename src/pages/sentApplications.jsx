@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
 import { getSentApplications } from '../services/application'
+import { getUserCourseProject } from '../services/project'
 
 import '../styles/sentapplications.css'
 
@@ -15,6 +16,7 @@ const SentApplications = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [applications, setApplications] = useState([])
     const selectedCourseId = getSelectedCourseCookies()
+    //const projectId = getUserCourseProject()
 
     const navigate = useNavigate()
 
@@ -22,11 +24,10 @@ const SentApplications = () => {
         const fetchApplications = async () => {
             if (selectedCourseId) {
                 try {
-                    const fetchedApplications = await getSentApplications()
-                    
+                    const fetchedApplications = await getSentApplications()                    
                     if (fetchedApplications) {
                         const filteredApplications = fetchedApplications.filter(
-                            app => app.Project?.CourseId === selectedCourseId)
+                            app => app.Project.courseId === selectedCourseId)
                         setApplications(filteredApplications)
                     }
                     

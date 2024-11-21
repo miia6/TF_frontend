@@ -10,10 +10,10 @@ import { getUserCourseProject,
          setUserProjectCookies, 
          setProjectMemberStatusCookies,
          removeUserProjectCookies, 
-         removeProjectMemberStatusCookies,
-         /*getSentApplications, 
-         getAppliedProjectsCookies, 
-         setAppliedProjectsCookies*/ } from '../services/project'
+         removeProjectMemberStatusCookies } from '../services/project'
+
+import { getProjectApplicants, setApplicationsAmountCookies, removeApplicationsAmountCookies } from '../services/application'
+import { getReceivedInvitations, setInvitationsAmountCookies, removeInvitationsAmountCookies } from '../services/invitation'
 
 import '../styles/courseselection.css'
 
@@ -25,8 +25,12 @@ const CourseSelection = () => {
         if (courseId) {
             removeUserProjectCookies()
             removeProjectMemberStatusCookies()
+            removeApplicationsAmountCookies()
+            removeInvitationsAmountCookies()
+
             setSelectedCourseCookies(courseId) 
             setSelectedCourse(courseId) 
+
             const fetchedProject = await getUserCourseProject(courseId)
             if (fetchedProject) {
                 console.log('Fetched project:', fetchedProject.name)
@@ -36,37 +40,54 @@ const CourseSelection = () => {
                 if (fetchedProject.Creator.name === currentUser.name) {
                     setProjectMemberStatusCookies('CREATOR') 
                     console.log('User is an owner of the project.')
+                    await receivedApplications(fetchedProject)
                 } if (fetchedProject.Creator.name !== currentUser.name) {
                     setProjectMemberStatusCookies('MEMBER') 
                     console.log('User is a member of the project.')
-                }
+                } 
 
             } else {
+                await receivedInvitations(courseId)
                 console.log('User is not a member of a project')
             }
             //console.log("Selected course id: ", courseId) 
-            //getUserApplications(courseId)
             navigate('/dashboard')
         } else {            
             console.log("No course selected")
         }
     }
 
-    /*const getUserApplications = async (selectedCourseId) => {
-        const applications = await getSentApplications()
-        //console.log(applications)
+    const receivedApplications = async (fetchedProject) => {
+        const applications = await getProjectApplicants(fetchedProject.id)
+        let applicationsAmount = 0
         if (applications.length > 0) {
             for (const application of applications) {
-                const applicationCourseId = application.Project.courseId
-                if (applicationCourseId === selectedCourseId) {
-                    console.log(`application in course ${applicationCourseId}, project ${application.projectId}`)
-                    await setAppliedProjectsCookies(application.projectId)
-                } else {
-                    console.log('no applications in course ' + selectedCourseId)
+                if (application.status === 'PENDING') {
+                    applicationsAmount += 1
                 }
             }
+            setApplicationsAmountCookies(applicationsAmount)
+            console.log('received applications amount: ' + applicationsAmount)
+        } else {
+            console.log('no applications')
         }
-    }*/
+    }
+
+    const receivedInvitations = async (courseId) => {
+        const invitations = await getReceivedInvitations()
+        let invitationsAmount = 0
+        if (invitations.length > 0) {
+            for (const invitation of invitations) {
+                if (invitation.status === 'PENDING' && invitation.Project.courseId === courseId) {
+                    invitationsAmount += 1
+                }
+            }
+            setInvitationsAmountCookies(invitationsAmount)
+            console.log('received invitations amount: ' + invitationsAmount)
+        } else {
+            console.log('no invitations')
+        }
+    }
 
     return (
         <>

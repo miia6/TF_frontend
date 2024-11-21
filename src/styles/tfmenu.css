@@ -195,9 +195,9 @@
 
 /* course sublinks */
 
-.sublink-course-list {
+.course-sublink-list {
     list-style: none;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
     margin-top: 0.3rem;
 }
 
@@ -217,23 +217,43 @@
 
 /* project sublinks */
 
-
 .sublink-list {
     list-style: none;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
     margin-top: 0.3rem;
 }
 
 .sidebar-sublink {
-    display: block;
+    display: flex; 
+    align-items: center; 
+    /*display: block;*/
     padding: 0.5rem;
-    width: 8rem;
+    width: 9rem;
     font-size: 0.9rem;
     color: black;
     cursor: pointer;
     text-decoration: underline;
+    position: relative;
 }
 
 .sidebar-sublink:hover {
     color: white;
+}
+
+/* notification icons */
+
+.notification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(98, 176, 224);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    position: absolute;
+    left: -1.2rem;
+    top: 0.5rem;
 }

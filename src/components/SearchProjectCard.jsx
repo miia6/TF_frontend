@@ -3,15 +3,28 @@ import { useNavigate } from 'react-router-dom'
 
 import GroupsIcon from '@mui/icons-material/Groups'
 
-import { applyToProject } from '../services/project'
+import { getProjectMembers, applyToProject } from '../services/project'
 
-const SearchProjectCard = ({
-    projectId, teamName, title, description, keywords, skills, teammates, projectMember, maxMembers
-}) => {
-    //console.log("Props received in SearchProjectCard:", { projectId, teamName, title, description, teammates })
+const SearchProjectCard = ({ projectId, teamName, title, description, keywords, skills, projectMember, maxMembers }) => {
     const [showDescription, setShowDescription] = useState(false)
+    const [teammates, setTeammates] = useState([])
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchTeammates = async () => {
+            try {
+                const fetchedTeammates = await getProjectMembers(projectId)
+                setTeammates(fetchedTeammates)
+
+            } catch (error) {
+                console.error("Error fetching teammayes:", error)
+            } 
+        } 
+        fetchTeammates()
+    }, [])
+
+    const memberCount = maxMembers - teammates.length
 
     const getShortDescription = (desc) => {
         const maxChars = 50
@@ -20,8 +33,6 @@ const SearchProjectCard = ({
 
     const descriptionCharCount = description.length
     const maxChars = 50
-
-    const memberCount = maxMembers !== null ? maxMembers : 5
 
     const handleApply = async () => {
         try {

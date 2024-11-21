@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { API_URL } from './config'
+import Cookies from 'js-cookie'
 
 import { getCurrentUser } from './auth'
 
@@ -52,4 +53,21 @@ const handleUserApplication = async (applicationId, status) => {
     }
 }
 
-export { getSentApplications, getProjectApplicants, handleUserApplication,}
+const setApplicationsAmountCookies = (amount) => {
+	Cookies.set('applicationsAmount', amount, { expires: 7, secure: true, sameSite: 'Strict' })
+}
+
+const getApplicationsAmountCookies = () => {
+    return Cookies.get('applicationsAmount')
+}
+
+const removeApplicationsAmountCookies = () => {
+    Cookies.remove('applicationsAmount')
+}
+
+export { getSentApplications, 
+         getProjectApplicants, 
+         handleUserApplication,
+         setApplicationsAmountCookies,
+         getApplicationsAmountCookies,
+         removeApplicationsAmountCookies }

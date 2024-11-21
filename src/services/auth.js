@@ -4,6 +4,8 @@ import { API_URL } from './config'
 import { jwtDecode } from 'jwt-decode'
 import { removeSelectedCourseCookies } from './course'
 import { removeUserProjectCookies, removeProjectMemberStatusCookies } from './project'
+import { removeApplicationsAmountCookies } from '../services/application'
+import { removeInvitationsAmountCookies } from '../services/invitation'
 
 // Login function
 const login = async (email, password) => {
@@ -47,7 +49,8 @@ const logout = () => {
 	removeUserProjectCookies()
 	removeProjectMemberStatusCookies()
 	removeSelectedCourseCookies()
-	//removeAppliedProjectsCookies()
+	removeApplicationsAmountCookies()
+	removeInvitationsAmountCookies()
 }
 
 // Get current user id

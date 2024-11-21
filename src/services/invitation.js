@@ -93,6 +93,24 @@ const respondToInvitation = async (invitationId, status) => {
     }
 }
 
+const setInvitationsAmountCookies = (amount) => {
+	Cookies.set('invitationsAmount', amount, { expires: 7, secure: true, sameSite: 'Strict' })
+}
 
-export { inviteUserToProject, getSentInvitations, getReceivedInvitations, respondToInvitation }
+const getInvitationsAmountCookies = () => {
+    return Cookies.get('invitationsAmount')
+}
+
+const removeInvitationsAmountCookies = () => {
+    Cookies.remove('invitationsAmount')
+}
+
+
+export { inviteUserToProject, 
+         getSentInvitations, 
+         getReceivedInvitations, 
+         respondToInvitation,
+         setInvitationsAmountCookies,
+         getInvitationsAmountCookies,
+         removeInvitationsAmountCookies }
 

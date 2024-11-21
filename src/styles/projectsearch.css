@@ -59,9 +59,15 @@
 
 .no-projects {
     margin-top: 10rem;
-    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-projects h3{
     color: black;
-    text-align: center;
+    margin-left: calc(12rem);
 }
 
 /* card */

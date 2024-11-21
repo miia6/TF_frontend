@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/TF_app_logo.jpg'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell } from '@fortawesome/free-solid-svg-icons'
+
 import { getCurrentUserData } from '../services/auth' 
 import { getCourse, getUserCourses, getSelectedCourseCookies } from '../services/course'
 import { getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCookies } from '../services/project'
+import { getApplicationsAmountCookies } from '../services/application'
+import { getInvitationsAmountCookies } from '../services/invitation'
+
 import { logout } from '../services/auth'
 
 import '../styles/tfmenu.css'
@@ -18,6 +24,9 @@ const TFmenu = () => {
 
     const projectId = getUserProjectCookies() //const [projectId, setProjectId] = useState(null)
     const [isProjectOwner, setIsProjectOwner] = useState(false)
+
+    const invitationsAmount = getInvitationsAmountCookies()
+    const applicationsAmount = getApplicationsAmountCookies()
 
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
     const [isCoursesOpen, setIsCoursesOpen] = useState(false)
@@ -35,19 +44,6 @@ const TFmenu = () => {
                     if (projectMemberStatus  === 'CREATOR') {
                         setIsProjectOwner(true)
                     }
-
-                    /*const fetchedProject = await getUserCourseProject(fetchedCourse.id)
-                    if (fetchedProject) {
-                        setProject(fetchedProject)
-                        console.log('Fetched project:', fetchedProject.name)
-                        const currentUser = await getCurrentUserData()
-                        if (fetchedProject.Creator.name === currentUser.name) {
-                            setIsProjectOwner(true)
-                            console.log('User is an owner of the project.')
-                        }
-                    } else {
-                        console.log('User is not a member of a project')
-                    }*/
 
                 } catch (error) {
                     console.error("Error fetching data:", error)
@@ -144,6 +140,12 @@ const TFmenu = () => {
                                                 </li>
                                                 <li onClick={() => navigate('/receivedInvitations')} className="sidebar-sublink">
                                                     Received Invitations
+                                                    {invitationsAmount && parseInt(invitationsAmount, 10) > 0 && (
+                                                        <span className="notification-badge">
+                                                            <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
+                                                        {invitationsAmount}
+                                                        </span>
+                                                    )}
                                                 </li>
                                             </>
                                         )}
@@ -151,6 +153,12 @@ const TFmenu = () => {
                                             <>
                                                 <li onClick={() => navigate(`/projectApplications/${projectId}`)} className="sidebar-sublink">
                                                     Received Applications
+                                                    {applicationsAmount && parseInt(applicationsAmount, 10) > 0 && (
+                                                        <span className="notification-badge">
+                                                            <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
+                                                        {applicationsAmount}
+                                                        </span>
+                                                    )}
                                                 </li>
                                                 <li onClick={() => navigate('/sentInvitations')} className="sidebar-sublink">
                                                     Sent Invitations

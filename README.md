@@ -9,6 +9,7 @@ The application is started with npm run dev -command.
 
 # Routing 
 Install to the root: npm install react-router-dom
+INSTALL: npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 # Packages
 Install to the root: npm install
@@ -17,12 +18,12 @@ Install to the root: npm install
 - Invitations and applications working
 - TeammatesFinding modified: two different section
 - Added project cookies -> simpler UseEffects 
+- Notifications for users who have received invitations, and for users who have received applications (cookies)
 
 # TO DO
+- Modify project search to include all of the projects (without filtering invitations and applications) for users who are project members (Miia)
 - Tags functionality (Binh)
-- Create some visual notification to invitations and applications and frontpage, if user has some PENDING ones. (Maybe cookies for these?) (Miia)
-- (Teammate invite to project creation ?) (I don't think this is not needed - Binh)
 - Improve visuality of the app (some images etc... ?).
-- Edit and delete projects (?) 
+- Edit and delete projects (?) NOTE: remember to update project cookies if deleting projects
 - Let's also start documenting our features in this README.md as we proceed, would probably save time later on.
 

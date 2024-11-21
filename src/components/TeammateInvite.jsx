@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 import { getCurrentUserData } from '../services/auth' 
 import { getSelectedCourseCookies, getUsersByCourse } from '../services/course'
-import { getProjects, getUserCourseProject, getProjectMembers } from '../services/project'
-import { inviteUserToProject, getSentInvitations } from '../services/invitation'
+import { getProjects, getUserCourseProject, getProjectMembers, getUserProjectCookies } from '../services/project'
+import { inviteUserToProject } from '../services/invitation'
+import { getProjectApplicants } from '../services/application'
 
 import '../styles/teammatesinviting.css'
 
@@ -16,21 +17,26 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
     const [isLoading, setIsLoading] = useState(true)
 
     const selectedCourseId = getSelectedCourseCookies()
+    const projectId = getUserProjectCookies() 
 
     useEffect(() => {
         const fetchUsers = async () => {
-            if (selectedCourseId) {
+            if (selectedCourseId && projectId) {
                 try {
                     const currentUser = await getCurrentUserData()
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
                     const projectMemberIds = await membersOfCourseProjects(selectedCourseId)
+                    const projectApplicants = await getProjectApplicants(projectId)
+                    //console.log("applicants: " + JSON.stringify(projectApplicants, null, 2))
                     const invitedUserIds = sentInvitations.length > 0 ? invitedUsers(sentInvitations) : []
 
                     const filteredUsers = fetchedCourseUsers.filter( user => {
                         const isNotCurrentUser = user.id !== currentUser?.id
                         const isNotProjectMember = !projectMemberIds.includes(user.id)
                         const isNotInvited = !invitedUserIds.includes(user.id)
-                        return isNotCurrentUser && isNotProjectMember && isNotInvited
+                        const isNotApplicant = !projectApplicants.some(applicant => applicant.userId === user.id)
+
+                        return isNotCurrentUser && isNotProjectMember && isNotInvited && isNotApplicant
                     })
 
                     //console.log('Filtered users after applying filters:', filteredUsers)
@@ -46,7 +52,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
         }
 
         fetchUsers()
-    }, [selectedCourseId, sentInvitations])
+    }, [selectedCourseId, sentInvitations, projectId])
 
     useEffect(() => {
         if (sentInvitations.length > 0) {
@@ -146,11 +152,14 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
         return <div className="loading-form">Loading...</div> // Or a loader component
     }
 
-    // TO DO: modify
     if (!isLoading && users.length === 0) {
         return (
             <div className="no-users-message">
-                <p>No users can be invited.</p>
+                <h3>No users left to invite due to some of the following reasons:</h3>
+                <p>All course users are already project members / </p>
+                <p>You have already invited all users who are not members of projects / </p>
+                <p>Users who have applied to your project can not be invited / </p>
+                <p>You're project has a maximum amount of members </p>
             </div>
         )
     }

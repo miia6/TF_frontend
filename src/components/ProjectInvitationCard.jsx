@@ -44,7 +44,7 @@ const ProjectInvitationCard = ({ title, teamName, description, status, createdAt
                     </div>
 
                     <div className='received-invitation-info-container'>
-                        <div className='received-invitation-info-header'> Application info: </div>
+                        <div className='received-invitation-info-header'> Invitation info: </div>
                         <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
                         <p>Created at: {createdAt}</p>
                         {/*acceptedAt && <p>Accepted at: {acceptedAt}</p>*/}

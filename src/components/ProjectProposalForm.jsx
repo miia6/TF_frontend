@@ -88,31 +88,29 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                 </div>
 
                 <div className="form-group-proposal">
-                    <label htmlFor="keywords"> <span className="required">*</span> Keywords:</label>
+                    <label htmlFor="keywords"> {/*<span className="required">*</span>*/} Keywords: </label>
                     <input
                         type="text"
                         id="keywords"
                         value={keywords}
                         onChange={(event) => setKeywords(event.target.value)}
                         placeholder="Pick some crucial keywords about your project (max. 50 marks)."
-                        className={`project-keywords ${errors.descriptionInput ? 'error' : ''}`}
+                        className={`project-keywords`}
                         maxLength={50}
                     />
-                    {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
                 </div>
 
                 <div className="form-group-proposal">
-                    <label htmlFor="skills"> <span className="required">*</span> Required skills:</label>
+                    <label htmlFor="skills"> {/*<span className="required">*</span>*/} Required skills:  </label>
                     <input
                         type="text"
                         id="skills"
                         value={skills}
                         onChange={(event) => setSkills(event.target.value)}
                         placeholder="Specify required skills to join your project (max. 50 marks)."
-                        className={`project-skills ${errors.descriptionInput ? 'error' : ''}`}
+                        className={`project-skills`}
                         maxLength={50}
                     />
-                    {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
                 </div>
 
                 <div className="teammate-invite-form">
