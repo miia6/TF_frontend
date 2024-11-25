@@ -24,6 +24,6 @@ Install to the root: npm install
 - Modify project search to include all of the projects (without filtering invitations and applications) for users who are project members (Miia)
 - Tags functionality (Binh)
 - Improve visuality of the app (some images etc... ?).
-- Edit and delete projects (?) NOTE: remember to update project cookies if deleting projects
+- Edit and delete projects (?) !NOTE: remember to update project cookies if deleting projects!
 - Let's also start documenting our features in this README.md as we proceed, would probably save time later on.
 

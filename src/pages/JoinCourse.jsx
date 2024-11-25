@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
 import JoinCourseForm from '../components/JoinCourseForm'
 
@@ -9,6 +10,7 @@ import { getSelectedCourseCookies, setSelectedCourseCookies, joinCourse, getUser
 import '../styles/joincourse.css'
 
 const JoinCourse = () => {
+    const [isLoading, setIsLoading] = useState(true)
     const [selectedCourse, setSelectedCourse] = useState(getSelectedCourseCookies()) //useState(null)
     const [allCourses, setAllCourses] = useState([])
     const [userCourses, setUserCourses] = useState([])
@@ -29,10 +31,12 @@ const JoinCourse = () => {
                     setIsAllJoined(true)
                 } else {
                     setIsAllJoined(false)
-                }
+                }          
             } catch (error) {
                 console.error("Error fetching course data", error)
-            } 
+            } finally {
+                setIsLoading(false)
+            }  
         }
 
         fetchCoursesData()
@@ -63,17 +67,24 @@ const JoinCourse = () => {
     return (
         <>
             <TFmenu />
-            <div className={`join-course-container ${selectedCourse ? 'with-sidebar' : 'without-sidebar'}`}>
 
-                {isAllJoined ? (
-                        <h3>You have already joined all courses available.</h3>
-                ) : (
-                    <JoinCourseForm
-                        handleJoinCourse={(courseId, courseName) => handleJoinCourse(courseId, courseName)}
-                    />
-                )}
+            {isLoading ? (
+                <PageLoader message="Loading courses..." />
 
-            </div>
+            ) : (
+
+                <div className={`join-course-container ${selectedCourse ? 'with-sidebar' : 'without-sidebar'}`}>
+
+                    {isAllJoined ? (
+                            <h3>You have already joined all courses available.</h3>
+                    ) : (
+                        <JoinCourseForm
+                            handleJoinCourse={(courseId, courseName) => handleJoinCourse(courseId, courseName)}
+                        />
+                    )}
+
+                </div>
+            )}
         </>
     )
 }

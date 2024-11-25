@@ -7,7 +7,7 @@ import SearchProjectCard from '../components/SearchProjectCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getProjects, getUserCourseProject, getUserProjectCookies } from '../services/project'
+import { getProjects, getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCookies } from '../services/project'
 import { getSentApplications } from '../services/application'
 import { getReceivedInvitations } from '../services/invitation'
 
@@ -16,13 +16,13 @@ import '../styles/projectsearch.css'
 const ProjectSearch = () => {
     const [projects, setProjects] = useState([])
 
-    const [projectMember, setProjectMember] = useState(false)
     const [appliedProjects, setAppliedProjects] = useState()
 
     const [searchTerm, setSearchTerm] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
     const selectedCourseId = getSelectedCourseCookies()
+    const memberStatus = getProjectMemberStatusCookies()
     const projectId = getUserProjectCookies()
 
     const navigate = useNavigate()
@@ -35,26 +35,22 @@ const ProjectSearch = () => {
                 try {
                     const fetchedProjects = await getProjects(selectedCourseId)
 
-                    if (projectId) {
-                        setProjectMember(true)
-                    }
+                    if (projectId && memberStatus === 'MEMBER') {
+                        setProjects(fetchedProjects)
+                        //console.log("not filtered")
+                    } else {
+                        const fetchedAppliedProjects = await getSentApplications()
+                        const fetchedAppliedProjectsIds = new Set(fetchedAppliedProjects.map(app => app.Project.id))
 
-                    const fetchedAppliedProjects = await getSentApplications()
-                    const fetchedAppliedProjectsIds = new Set(fetchedAppliedProjects.map(app => app.Project.id))
-
-                    const fetchedReceivedInvitations = await getReceivedInvitations()
-                    const fetchedReceivedInvitationsIds = new Set(fetchedReceivedInvitations.map(inv => inv.Project.id))
-
-                    if (fetchedProjects) {
+                        const fetchedReceivedInvitations = await getReceivedInvitations()
+                        const fetchedReceivedInvitationsIds = new Set(fetchedReceivedInvitations.map(inv => inv.Project.id))
+                        
                         const filteredProjects = fetchedProjects.filter(
                             project => !fetchedAppliedProjectsIds.has(project.id) && 
                             !fetchedReceivedInvitationsIds.has(project.id)
                         )
-                        setProjects(filteredProjects)
-                        //console.log(filteredProjects)
-
-                    } else {
-                        console.log("Failed to fetch existing projects")
+                        setProjects(filteredProjects) 
+                        //console.log("filtered")
                     }
 
                 } catch (error) {
@@ -113,7 +109,7 @@ const ProjectSearch = () => {
                                         description={project.description || " "}
                                         keywords={project.keywords}
                                         skills={project.skills}
-                                        projectMember={projectMember}
+                                        projectMember={memberStatus}
                                         maxMembers={project.maxMembers}
                                     />
                                 </Grid>

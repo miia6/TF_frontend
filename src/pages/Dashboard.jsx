@@ -20,7 +20,7 @@ const Dashboard = () => {
     const invitationsAmount = getInvitationsAmountCookies()
     const applicationsAmount = getApplicationsAmountCookies()
 
-    console.log(invitationsAmount, applicationsAmount)
+    //console.log(invitationsAmount, applicationsAmount)
 
     return (
         <>
@@ -28,9 +28,26 @@ const Dashboard = () => {
 
             <div className="notification-container">
                 <div className="notification-form">
-                    {invitationsAmount && parseInt(invitationsAmount, 10) > 0 && (
+
+                    {/* non-members */}
+                    {!projectId && !invitationsAmount && (
                         <>
-                            <h3>New invitations</h3>
+                            <h3>You're not a member of a project yet</h3>
+                            <p>Create your own project or apply to existing projects</p>
+                        </>
+                    )}
+
+                    {!projectId && invitationsAmount && parseInt(invitationsAmount, 10) === 0 && (
+                        <>
+                            <h3>You're not a member of a project yet</h3>
+                            <p>Create your own project or apply to existing projects</p>
+                        </>
+                    )}
+
+                    {!projectId && invitationsAmount && parseInt(invitationsAmount, 10) > 0 && (
+                        <>
+                            <h3>You're not a member of a project yet</h3>
+                            <p>Create your own project or apply to existing projects</p>
                             <p>
                                 <span className="notification-dashboard-badge">
                                     <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
@@ -44,13 +61,18 @@ const Dashboard = () => {
                         </>
                     )}
 
-                    {invitationsAmount && parseInt(invitationsAmount, 10) === 0 && (
-                        <h3>No new invitations</h3>
-                    )}
-                    
-                    {projectId && applicationsAmount && parseInt(applicationsAmount, 10) > 0 && (
+
+                    {/* project owners */}
+                    {projectId && !invitationsAmount && parseInt(applicationsAmount, 10) === 0 && (
                         <>
-                            <h3>New applications</h3>
+                            <h3>Personal status: project owner</h3>
+                            <p>No new applications</p>
+                        </>
+                    )}
+
+                    {projectId && !invitationsAmount && applicationsAmount && parseInt(applicationsAmount, 10) > 0 && (
+                        <>
+                            <h3>Personal status: project owner</h3>
                             <p>
                                 <span className="notification-dashboard-badge">
                                     <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
@@ -64,16 +86,9 @@ const Dashboard = () => {
                         </>
                     )}
 
-                    {projectId && applicationsAmount && parseInt(applicationsAmount, 10) === 0 && (
-                        <h3>No new applications</h3>
-                    )}     
-
-                    {!invitationsAmount && !applicationsAmount && projectId && (
-                        <h3>You're a member of a project</h3>
-                    )}
-
-                    {!invitationsAmount && !applicationsAmount && !projectId && (
-                        <h3>You're not a member of a project</h3>
+                    {/* project members */}
+                    {projectId && !invitationsAmount && !applicationsAmount && (
+                        <h3>Personal status: project member</h3>
                     )}
 
                 </div>
@@ -82,39 +97,45 @@ const Dashboard = () => {
             <div className="dashboard-container">
                 {projectId && projectStatus === 'CREATOR' && (
                     <>
-                        <h2>Teammates Finding </h2>
-                        <p>Search teammates</p>
+                        <h3>Find teammates</h3>
+                        <p>Search and invite teammates</p>
                         <div className="dashboard-link-container">
-                            <a href="/teammatesFinding">Teammates Finding</a>
+                            <a href="/teammatesFinding">Find teammates</a>
                         </div>
                     </>
                 )}
 
                 {projectId && (
                     <>
-                        <h2>Your project </h2>
+                        <h3>Your project </h3>
                         <p>View your project</p>
                         <div className="dashboard-link-container">
                             <a href="/yourProject">Your project</a>
+                        </div>
+
+                        <h3>View projects</h3>
+                        <p>Search and view existing projects</p>
+                        <div className="dashboard-link-container">
+                            <a href="/projectSearch">View projects</a>
                         </div>
                     </>
                 )}
 
                 {!projectId && (
                     <>
-                        <h2>Create a new project</h2>
+                        <h3>Create a new project</h3>
                         <p>Have an idea for project? Create a new project, where you can invite students and students can apply to your project:</p>
                         <div className="dashboard-link-container">
                             <a href="/projectProposal">Create Project</a>
                         </div>
+
+                        <h3>Search projects</h3>
+                        <p>Search and apply existing projects</p>
+                        <div className="dashboard-link-container">
+                            <a href="/projectSearch">Search projects</a>
+                        </div>
                     </>
                 )}
-
-                <h2>Search projects</h2>
-                <p>Search existing projects</p>
-                <div className="dashboard-link-container">
-                    <a href="/projectSearch">Search projects</a>
-                </div>
 
             </div>
         </>

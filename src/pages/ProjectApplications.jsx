@@ -18,45 +18,32 @@ const ProjectApplications = ()  => {
     const [isLoading, setIsLoading] = useState(true)
     const [applications, setApplications] = useState([])
     const [projectName, setProjectName] = useState()
+    
     const selectedCourseId = getSelectedCourseCookies() 
 
     useEffect(() => {
-        if (projectId) {
-            const fetchApplicants = async () => {
-                //setIsLoading(true)
+        const fetchApplicants = async () => {
+            if (selectedCourseId && projectId) {
                 try {
                     const fetchedApplications = await getProjectApplicants(projectId)
-                    //console.log(fetchedApplications)
                     setApplications(fetchedApplications)
+
+                    const fetchedProject = await getUserCourseProject(selectedCourseId) 
+                    if (fetchedProject) {
+                        setProjectName(fetchedProject.name) 
+                    }
+
                 } catch (error) {
                     console.error('Error fetching applicants:', error)
                 } finally {
                     setIsLoading(false)
                 }
-            }
-
-            fetchApplicants()
-        }
-    }, [projectId])
-
-    useEffect(() => {
-        const fetchProjectName = async () => {
-            if (selectedCourseId) {
-                try {
-                    const fetchedProject = await getUserCourseProject(selectedCourseId) 
-                    //console.log(fetchedProject)
-                    if (fetchedProject) {
-                        setProjectName(fetchedProject.name) 
-                    }
-                    
-                } catch (error) {
-                    console.error("Failed to fetch projects:", error)
-                }
+            } else {
+            console.log('Failed to fetch course or project')
             }
         }
-
-        fetchProjectName()
-    }, [selectedCourseId])
+        fetchApplicants()
+    }, [selectedCourseId, projectId])
 
     const formatDate = (dateString) => {
         const date = new Date(dateString)
@@ -117,7 +104,7 @@ const ProjectApplications = ()  => {
             {isLoading && <PageLoader message="Loading Applications" />}
 
             <div className='received-applications-form'>
-                {applications.length === 0 ? (
+                {!isLoading && applications.length === 0 ? (
                     <h3>No applications.</h3>
                 ) : (
                     <>

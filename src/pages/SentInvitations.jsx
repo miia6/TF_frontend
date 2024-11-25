@@ -38,7 +38,7 @@ const SentInvitations = () => {
                     setIsLoading(false)
                 }
             } else {
-                console.log('Failed to fetch course')
+                console.log('Failed to fetch course or project')
             }
         }
 
