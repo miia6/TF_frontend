@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
 import { getUserCourseProject, setUserProjectCookies, setProjectMemberStatusCookies } from '../services/project'
-import { getReceivedInvitations, respondToInvitation, getInvitationsAmountCookies, removeInvitationsAmountCookies } from '../services/invitation'
+import { getReceivedInvitations, respondToInvitation } from '../services/invitation'
 
 import '../styles/projectinvitations.css'
 
@@ -53,17 +53,11 @@ const ReceivedInvitations = () => {
     const handleAccept = async (invitationId) => {
         try {
             const updatedInvitation = await respondToInvitation(invitationId, true)
-            console.log(updatedInvitation)
-            /*setCourseInvitations((prevInvitations) =>
-                prevInvitations.filter((inv) => inv.id !== invitationId)
-            )*/
             alert(`Invitation accepted!`)
 
             const userProject = await getUserCourseProject(selectedCourseId)
             setUserProjectCookies(userProject.id)
             setProjectMemberStatusCookies('MEMBER')
-            removeInvitationsAmountCookies()
-
             window.location.reload()
 
         } catch (error) {
@@ -74,17 +68,7 @@ const ReceivedInvitations = () => {
     const handleReject = async (invitationId) => {
         try {
             const updatedInvitation = await respondToInvitation(invitationId, false)
-            console.log(updatedInvitation)
-            /*setCourseInvitations((prevInvitations) =>
-                prevInvitations.filter((inv) => inv.id !== invitationId)
-            )*/
             alert(`Invitation rejected`)
-
-            const currentAmount = parseInt(getInvitationsAmountCookies(), 10)
-            if (currentAmount && currentAmount > 0) {
-                const newAmount = currentAmount - 1
-                setInvitationsAmountCookies(newAmount)
-            }
             window.location.reload()
 
         } catch (error) {

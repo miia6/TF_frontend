@@ -32,18 +32,11 @@ function AppContent() {
     const showAppLogoAndHeader = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup'
     const appLogoAndHeaderLoginAndSignup = location.pathname === '/login' || location.pathname === '/signup'
 
-    /*useEffect(() => {
-        isTokenExpired() && navigate('/login')
-    }, [navigate])*/
-
     useEffect(() => {
         const publicPaths = ['/', '/login', '/signup']
         if (!publicPaths.includes(location.pathname) && isTokenExpired()) {
             navigate('/login')
         }
-        /*if (location.pathname !== '/signup' && isTokenExpired()) {
-            navigate('/login');
-        }*/
     }, [navigate, location.pathname])
 
     return (
@@ -55,7 +48,7 @@ function AppContent() {
                             <img src={logo} alt="TF Logo" />
                         </div>
                         <header className="App-header">
-                            <h1>TeammatesFinding</h1>
+                            <h2>TeammatesFinding</h2>
                             <nav>
                                 <a href="/login">Login</a>
                                 <a href="/signup">Sign up</a>
@@ -68,7 +61,7 @@ function AppContent() {
             <Routes>
                 <Route path="/" element={
                     <section className="App-intro">
-                        <h2>Welcome to TeammatesFinding App</h2>
+                        <h3>Welcome to TeammatesFinding App!</h3>
                         <p>
                             TeammatesFinding helps students find project teammates. Propose new projects or join existing teams easily.
                         </p>

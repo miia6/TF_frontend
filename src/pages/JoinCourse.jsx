@@ -11,7 +11,7 @@ import '../styles/joincourse.css'
 
 const JoinCourse = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const [selectedCourse, setSelectedCourse] = useState(getSelectedCourseCookies()) //useState(null)
+    const [selectedCourse, setSelectedCourse] = useState(getSelectedCourseCookies())
     const [allCourses, setAllCourses] = useState([])
     const [userCourses, setUserCourses] = useState([])
     const [isAllJoined, setIsAllJoined] = useState(false)

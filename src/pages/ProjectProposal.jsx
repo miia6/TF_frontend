@@ -33,7 +33,7 @@ const ProjectProposal = () => {
 
     const handleProjectCreation = async (project) => {
         if (project) {
-            console.log(`Creating project in course ${selectedCourseId}`)
+            //console.log(`Creating project in course ${selectedCourseId}`)
 
             const createdProject = await createProject({
                 name: project.title,
@@ -44,7 +44,6 @@ const ProjectProposal = () => {
             })
                 
             alert("Project has been created successfully!")
-            //console.log("Created project response: " + createdProject)
             setHasProject(true)
 
             const fetchedCreatedProject = await getUserCourseProject(selectedCourseId)

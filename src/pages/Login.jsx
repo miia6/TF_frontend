@@ -7,8 +7,6 @@ import LoginLoader from '../components/LoginLoader'
 import { login } from '../services/auth'
 import { removeSelectedCourseCookies, getUserCourses } from '../services/course'
 import { removeUserProjectCookies, removeProjectMemberStatusCookies } from '../services/project'
-import { removeApplicationsAmountCookies } from '../services/application'
-import { removeInvitationsAmountCookies } from '../services/invitation'
 
 import '../styles/login.css'
 
@@ -43,8 +41,6 @@ const Login = () => {
             removeSelectedCourseCookies()
             removeUserProjectCookies()
             removeProjectMemberStatusCookies()
-            removeApplicationsAmountCookies()
-            removeInvitationsAmountCookies()
 
             const fetchedCourses = await getUserCourses()
             if (fetchedCourses.length === 0) {

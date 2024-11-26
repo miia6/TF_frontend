@@ -27,19 +27,18 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
                     const projectMemberIds = await membersOfCourseProjects(selectedCourseId)
                     const projectApplicants = await getProjectApplicants(projectId)
-                    //console.log("applicants: " + JSON.stringify(projectApplicants, null, 2))
                     const invitedUserIds = sentInvitations.length > 0 ? invitedUsers(sentInvitations) : []
-
+                    const appliedUserIds = projectApplicants.length > 0 ? appliedUsers(projectApplicants) : []
+                    
                     const filteredUsers = fetchedCourseUsers.filter( user => {
                         const isNotCurrentUser = user.id !== currentUser?.id
                         const isNotProjectMember = !projectMemberIds.includes(user.id)
                         const isNotInvited = !invitedUserIds.includes(user.id)
-                        const isNotApplicant = !projectApplicants.some(applicant => applicant.userId === user.id)
+                        const isNotApplicant = !appliedUserIds.includes(user.id) //!projectApplicants.some(applicant => applicant.userId === user.id)
 
                         return isNotCurrentUser && isNotProjectMember && isNotInvited && isNotApplicant
                     })
 
-                    //console.log('Filtered users after applying filters:', filteredUsers)
                     setUsers(filteredUsers)
                     setFilteredUsers(filteredUsers)
           
@@ -73,14 +72,21 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
         return projectMemberIds
     }
 
-     // Get users who are already invited to this project
+    // Get users who have PENDING invitations
     const invitedUsers = (invitations) => {
         const invitedUserIds = invitations
             .filter(invite => invite.status === "PENDING") 
             .map(invite => invite.User.id)
         return invitedUserIds
     }
-    
+
+    // Get users who have PENDING applications
+    const appliedUsers = (applications) => {
+        const appliedUserIds = applications
+            .filter(application => application.status === "PENDING") 
+            .map(application  => application.User.id)
+        return appliedUserIds
+    }
 
     const handleAddTeammateClick = () => {
         setTeammates([...teammates, ''])
@@ -140,7 +146,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
                 .filter(user => user)
 
             await onInvite(usersToInvite)
-            console.log(`Invitation sent to: ${usersToInvite.map(user => user.name).join(", ")}`)
+            //console.log(`Invitation sent to: ${usersToInvite.map(user => user.name).join(", ")}`)
         } catch (error) {
             console.error("Error inviting teammates:", error);
         }
@@ -159,6 +165,14 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
                 <p>All course users are already project members / </p>
                 <p>You have already invited all users who are not members of projects / </p>
                 <p>Users who have applied to your project can not be invited / </p>
+            </div>
+        )
+    }
+
+    if (!isLoading && availableSlots === 0) {
+        return (
+            <div className="no-users-message">
+                <h3>You can't invite more teammates</h3>
                 <p>You're project has a maximum amount of members </p>
             </div>
         )
@@ -176,15 +190,15 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
                         value={searchTerms[index]}
                         onChange={(event) => handleSearch(event, index)}
                         onFocus={() => {
-                            const newDropdownStates = [...dropdownStates];
-                            newDropdownStates[index] = true;
-                            setDropdownStates(newDropdownStates);
+                            const newDropdownStates = [...dropdownStates]
+                            newDropdownStates[index] = true
+                            setDropdownStates(newDropdownStates)
     
                             if (!searchTerms[index]) {
                                 const availableUsers = users.filter(
                                     (user) => !teammates.includes(user.name)
-                                );
-                                setFilteredUsers(availableUsers);
+                                )
+                                setFilteredUsers(availableUsers)
                             }
                         }}
                         className="project-teammate"

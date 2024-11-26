@@ -28,7 +28,6 @@ const UserProject = () => {
                     const currentUser = await getCurrentUserData()
                     if (fetchedProject) {
                         setProject(fetchedProject)
-                        //console.log('User has an existing project: ' + JSON.stringify(fetchedProject, null, 2))
                         const teammatesNames = getTeammatesNames(fetchedProject.members, fetchedCourseUsers, currentUser.name)
                         setTeammates(teammatesNames)
                     }

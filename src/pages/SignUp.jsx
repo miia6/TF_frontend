@@ -7,8 +7,6 @@ import LoginLoader from '../components/LoginLoader'
 import { signup } from '../services/auth'
 import { removeSelectedCourseCookies } from '../services/course'
 import { removeUserProjectCookies, removeProjectMemberStatusCookies } from '../services/project'
-import { removeApplicationsAmountCookies } from '../services/application'
-import { removeInvitationsAmountCookies } from '../services/invitation'
 
 import '../styles/signup.css'
 
@@ -64,8 +62,6 @@ const SignUp = () => {
             removeSelectedCourseCookies()
             removeProjectMemberStatusCookies()
             removeUserProjectCookies()
-            removeApplicationsAmountCookies()
-            removeInvitationsAmountCookies()
 
             setIsLoading(false)
             navigate('/joinCourse')

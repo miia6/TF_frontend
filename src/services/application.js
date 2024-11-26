@@ -53,7 +53,7 @@ const handleUserApplication = async (applicationId, status) => {
     }
 }
 
-const setApplicationsAmountCookies = (amount) => {
+/*const setApplicationsAmountCookies = (amount) => {
 	Cookies.set('applicationsAmount', amount, { expires: 7, secure: true, sameSite: 'Strict' })
 }
 
@@ -63,11 +63,11 @@ const getApplicationsAmountCookies = () => {
 
 const removeApplicationsAmountCookies = () => {
     Cookies.remove('applicationsAmount')
-}
+}*/
 
 export { getSentApplications, 
          getProjectApplicants, 
          handleUserApplication,
-         setApplicationsAmountCookies,
+         /*setApplicationsAmountCookies,
          getApplicationsAmountCookies,
-         removeApplicationsAmountCookies }
+         removeApplicationsAmountCookies*/ }

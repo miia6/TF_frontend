@@ -15,29 +15,25 @@ import '../styles/projectsearch.css'
 
 const ProjectSearch = () => {
     const [projects, setProjects] = useState([])
-
-    const [appliedProjects, setAppliedProjects] = useState()
-
+    const [projectId, setProjectId] = useState(getUserProjectCookies())
+    const [memberStatus, setMemberStatus] = useState(getProjectMemberStatusCookies())
+    const selectedCourseId = getSelectedCourseCookies()
     const [searchTerm, setSearchTerm] = useState('')
     const [isLoading, setIsLoading] = useState(true)
-
-    const selectedCourseId = getSelectedCourseCookies()
-    const memberStatus = getProjectMemberStatusCookies()
-    const projectId = getUserProjectCookies()
 
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjectsData = async () => {
             if (selectedCourseId) {
-                setIsLoading(true)
-
                 try {
                     const fetchedProjects = await getProjects(selectedCourseId)
-
-                    if (projectId && memberStatus === 'MEMBER') {
+                    const userProject = await getUserCourseProject(selectedCourseId)
+                    if (userProject) {
+                        setMemberStatus(true)
+                        setProjectId(userProject.id)
                         setProjects(fetchedProjects)
-                        //console.log("not filtered")
+
                     } else {
                         const fetchedAppliedProjects = await getSentApplications()
                         const fetchedAppliedProjectsIds = new Set(fetchedAppliedProjects.map(app => app.Project.id))
@@ -50,7 +46,6 @@ const ProjectSearch = () => {
                             !fetchedReceivedInvitationsIds.has(project.id)
                         )
                         setProjects(filteredProjects) 
-                        //console.log("filtered")
                     }
 
                 } catch (error) {

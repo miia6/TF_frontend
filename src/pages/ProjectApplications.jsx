@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
 import { getUserCourseProject } from '../services/project'
-import { getProjectApplicants, handleUserApplication, getApplicationsAmountCookies, setApplicationsAmountCookies, removeApplicationsAmountCookies } from '../services/application'
+import { getProjectApplicants, handleUserApplication } from '../services/application'
 
 import '../styles/projectapplications.css'
 
@@ -57,17 +57,7 @@ const ProjectApplications = ()  => {
     const handleAccept = async (applicationId) => {
         try {
             const updatedApplication = await handleUserApplication(applicationId, true)
-            console.log(updatedApplication)
-            /*setApplications((prevApplications) =>
-                prevApplications.map((app) =>
-                    app.id === updatedApplication.id ? updatedApplication : app)
-            )*/
             alert(`Application accepted!`)
-            const currentAmount = parseInt(getApplicationsAmountCookies(), 10)
-            if (currentAmount && currentAmount > 0) {
-                const newAmount = currentAmount - 1;
-                setApplicationsAmountCookies(newAmount)
-            }
             window.location.reload()
             
         } catch (error) {
@@ -78,18 +68,7 @@ const ProjectApplications = ()  => {
     const handleReject = async (applicationId) => {
         try {
             const updatedApplication = await handleUserApplication(applicationId, false)
-            /*setApplications((prevApplications) =>
-                prevApplications.map((app) =>
-                    app.id === updatedApplication.id ? updatedApplication : app
-                )
-            )*/
             alert('Application rejected')
-
-            const currentAmount = parseInt(getApplicationsAmountCookies(), 10)
-            if (currentAmount && currentAmount > 0) {
-                const newAmount = currentAmount - 1;
-                setApplicationsAmountCookies(newAmount)
-            }
             window.location.reload()
             
         } catch (error) {

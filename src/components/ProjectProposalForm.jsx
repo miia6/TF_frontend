@@ -39,7 +39,6 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
             title, description, teamName, keywords, skills,
             teammates: Object.values(teammates).filter(teammate => teammate !== '')
         }
-        console.log(projectData)
         handleProjectCreation(projectData)
     }
 

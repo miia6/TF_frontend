@@ -7,9 +7,9 @@ import { faBell } from '@fortawesome/free-solid-svg-icons'
 
 import { getCurrentUserData } from '../services/auth' 
 import { getCourse, getUserCourses, getSelectedCourseCookies } from '../services/course'
-import { getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCookies } from '../services/project'
-import { getApplicationsAmountCookies } from '../services/application'
-import { getInvitationsAmountCookies } from '../services/invitation'
+import { getProjects, getUserCourseProject, getUserProjectCookies, getProjectMemberStatusCookies } from '../services/project'
+import { getProjectApplicants, getSentApplications } from '../services/application'
+import { getReceivedInvitations, getSentInvitations } from '../services/invitation'
 
 import { logout } from '../services/auth'
 
@@ -22,11 +22,13 @@ const TFmenu = () => {
     const selectedCourseId = getSelectedCourseCookies()
     const [course, setCourse] = useState(null)
 
-    const projectId = getUserProjectCookies() //const [projectId, setProjectId] = useState(null)
-    const [isProjectOwner, setIsProjectOwner] = useState(false)
+    const [projectId, setProjectId] = useState(getUserProjectCookies()) 
+    const projectMemberStatus = getProjectMemberStatusCookies()
 
-    const invitationsAmount = getInvitationsAmountCookies()
-    const applicationsAmount = getApplicationsAmountCookies()
+    const [receivedInvitations, setReceivedInvitations] = useState()
+    const [receivedApplications, setReceivedApplications] = useState()
+    const [pendingApplications, setPendingApplications] = useState(0)
+    const [pendingInvitations, setPendingInvitations] = useState(0)
 
     const [isProjectsOpen, setIsProjectsOpen] = useState(false)
     const [isCoursesOpen, setIsCoursesOpen] = useState(false)
@@ -40,9 +42,24 @@ const TFmenu = () => {
                     const fetchedCourse = await getCourse(selectedCourseId)
                     setCourse(fetchedCourse)
 
-                    const projectMemberStatus = getProjectMemberStatusCookies()
+                    const projects = await getProjects(selectedCourseId)
+                    const userProject = await getUserCourseProject(selectedCourseId)
+                    if (userProject) {
+                        setProjectId(userProject.id)
+                    }
+
                     if (projectMemberStatus  === 'CREATOR') {
-                        setIsProjectOwner(true)
+                        const pendingInvsAmount = await pendingInvitationsAmount(projects)
+                        setPendingInvitations(pendingInvsAmount)
+                        const receivedAppsAmount = await receivedApplicationsAmount()
+                        setReceivedApplications(receivedAppsAmount)
+                    }
+
+                    if (!projectId) {
+                        const pendingAppsAmount = await pendingApplicationsAmount(projects)
+                        setPendingApplications(pendingAppsAmount)
+                        const receivedInvsAmount = await receivedInvitationsAmount()
+                        setReceivedInvitations(receivedInvsAmount)
                     }
 
                 } catch (error) {
@@ -60,6 +77,57 @@ const TFmenu = () => {
 
         fetchData()
     }, [selectedCourseId])
+
+    const pendingApplicationsAmount = async (projects) => {
+        const applications = await getSentApplications()
+        const pendingApps = applications.filter(
+            (a) =>
+            a.status === "PENDING" &&
+            projects.some((project) => project.id === a.projectId)
+        )
+        return pendingApps.length
+    }
+
+    const pendingInvitationsAmount = async (projects) => {
+        const userProject = await getUserCourseProject(selectedCourseId)
+        const invitations = await getSentInvitations(userProject.id)
+        const pendingInvs = invitations.filter(
+            (i) =>
+                i.status === "PENDING" &&
+                projects.some((project) => project.id === i.projectId)
+        )
+        return pendingInvs.length
+    }
+
+    const receivedApplicationsAmount = async () => {
+        const applications = await getProjectApplicants(projectId)
+        let applicationsAmount = 0
+        if (applications.length > 0) {
+            for (const application of applications) {
+                if (application.status === 'PENDING') {
+                    applicationsAmount += 1
+                }
+            }
+            return applicationsAmount
+        } else {
+            return 0
+        }
+    }
+
+    const receivedInvitationsAmount  = async () => {
+        const invitations = await getReceivedInvitations()
+        let invitationsAmount = 0
+        if (invitations.length > 0) {
+            for (const invitation of invitations) {
+                if (invitation.status === 'PENDING' && invitation.Project.courseId === selectedCourseId) {
+                    invitationsAmount += 1
+                }
+            }
+            return invitationsAmount
+        } else {
+            return 0
+        }
+    }
 
     const handleLogout = () => {
         logout()
@@ -133,35 +201,47 @@ const TFmenu = () => {
                                         <li onClick={() => navigate('/yourProject')} className="sidebar-sublink">
                                             Your project
                                         </li>
-                                        {!isProjectOwner && (
+                                        {(!projectMemberStatus || projectMemberStatus === 'MEMBER') && (
                                             <>
                                                 <li onClick={() => navigate('/sentApplications')} className="sidebar-sublink">
                                                     Applied projects
+                                                    {pendingApplications > 0 && (
+                                                        <span className="notification-badge-pending">
+                                                            <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
+                                                        {pendingApplications}
+                                                        </span>
+                                                    )}
                                                 </li>
                                                 <li onClick={() => navigate('/receivedInvitations')} className="sidebar-sublink">
                                                     Received Invitations
-                                                    {invitationsAmount && parseInt(invitationsAmount, 10) > 0 && (
+                                                    {receivedInvitations > 0 && (
                                                         <span className="notification-badge">
                                                             <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
-                                                        {invitationsAmount}
+                                                        {receivedInvitations}
                                                         </span>
                                                     )}
                                                 </li>
                                             </>
                                         )}
-                                        {projectId && isProjectOwner && (
+                                        {projectId && projectMemberStatus === 'CREATOR' && (
                                             <>
                                                 <li onClick={() => navigate(`/projectApplications/${projectId}`)} className="sidebar-sublink">
                                                     Received Applications
-                                                    {applicationsAmount && parseInt(applicationsAmount, 10) > 0 && (
+                                                    {receivedApplications > 0 && (
                                                         <span className="notification-badge">
                                                             <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
-                                                        {applicationsAmount}
+                                                        {receivedApplications}
                                                         </span>
                                                     )}
                                                 </li>
                                                 <li onClick={() => navigate('/sentInvitations')} className="sidebar-sublink">
                                                     Sent Invitations
+                                                    {pendingInvitations > 0 && (
+                                                        <span className="notification-badge-pending">
+                                                            <FontAwesomeIcon icon={faBell} style={{ marginRight: '0.3rem' }} />
+                                                        {pendingInvitations}
+                                                        </span>
+                                                    )}
                                                 </li>
                                             </>
                                         )}

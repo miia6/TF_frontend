@@ -18,8 +18,8 @@
 /* logo */
 
 .app-logo {
-    height: 5rem;
-    width: 5rem;
+    height: 4.5rem;
+    width: 4.5rem;
     padding: 0.5rem;
     border-radius: 50%;
 }
@@ -247,6 +247,22 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(98, 176, 224);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    position: absolute;
+    left: -1.2rem;
+    top: 0.5rem;
+}
+
+.notification-badge-pending {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(224, 98, 98);
     color: white;
     font-size: 0.6rem;
     font-weight: bold;
