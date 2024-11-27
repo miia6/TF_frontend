@@ -165,7 +165,6 @@ const removeUserProjectCookies = () => {
 	Cookies.remove('projectId')
 }
 
-
 const setProjectMemberStatusCookies = (status) => {
 	Cookies.set('projectMemberStatus', status, { expires: 7, secure: true, sameSite: 'Strict' })
 }
