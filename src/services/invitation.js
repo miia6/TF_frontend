@@ -2,26 +2,6 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { API_URL } from './config'
 import { getCurrentUser } from './auth'
-// import { getUserCourseProject } from './project'
-
-/*const getSentInvitations = async (courseId) => {
-    try {
-        const user = await getCurrentUser()
-        const project = await getUserCourseProject(courseId)
-        const response = await axios.get(`${API_URL}/project/sent-invitations`, {
-            headers: {
-                'Authorization': `Bearer ${user.token}`
-            },
-            params: {
-                projectId: project.id
-            }
-        })
-        console.log(response.data)
-    } catch (error) {
-        console.error(error)
-        throw new Error('Error getting sent invitations.')
-    }
-}*/
 
 const inviteUserToProject = async (userToInvite, projectId) => {
 	try {
@@ -93,24 +73,8 @@ const respondToInvitation = async (invitationId, status) => {
     }
 }
 
-/*const setInvitationsAmountCookies = (amount) => {
-	Cookies.set('invitationsAmount', amount, { expires: 7, secure: true, sameSite: 'Strict' })
-}
-
-const getInvitationsAmountCookies = () => {
-    return Cookies.get('invitationsAmount')
-}
-
-const removeInvitationsAmountCookies = () => {
-    Cookies.remove('invitationsAmount')
-}*/
-
-
 export { inviteUserToProject, 
          getSentInvitations, 
          getReceivedInvitations, 
-         respondToInvitation,
-         /*setInvitationsAmountCookies,
-         getInvitationsAmountCookies,
-         removeInvitationsAmountCookies*/ }
+         respondToInvitation }
 

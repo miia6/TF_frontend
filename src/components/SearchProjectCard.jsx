@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import GroupsIcon from '@mui/icons-material/Groups'
 
@@ -8,8 +7,6 @@ import { getProjectMembers, applyToProject } from '../services/project'
 const SearchProjectCard = ({ projectId, teamName, title, description, keywords, skills, projectMember, maxMembers }) => {
     const [showDescription, setShowDescription] = useState(false)
     const [teammates, setTeammates] = useState([])
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchTeammates = async () => {
@@ -23,22 +20,29 @@ const SearchProjectCard = ({ projectId, teamName, title, description, keywords, 
         } 
         fetchTeammates()
     }, [])
-
+    
     const memberCount = maxMembers - teammates.length
 
     const getShortDescription = (desc) => {
-        const maxChars = 50
+        const maxChars = 80
         return desc.length > maxChars ? desc.slice(0, maxChars) + '...' : desc
     }
-
     const descriptionCharCount = description.length
-    const maxChars = 50
+    const maxChars = 80
+
 
     const handleApply = async () => {
+        const userConfirmed = window.confirm("Are you sure you want to apply to this project?")
+    
+        if (!userConfirmed) {
+            return
+        }
+
         try {
             await applyToProject(projectId)
             alert('You have successfully applied to the project!')
-            navigate('/sentApplications')
+            window.location.reload() 
+            
         } catch (error) {
             console.error('Error applying to project:', error)
             alert('Error applying to project')
@@ -72,7 +76,7 @@ const SearchProjectCard = ({ projectId, teamName, title, description, keywords, 
                         <button
                             className='search-project-card-read-more'
                             onClick={() => setShowDescription(!showDescription)}
-                            disabled={descriptionCharCount <= 50}
+                            disabled={descriptionCharCount <= 80}
                             style={{
                                 opacity: descriptionCharCount <= maxChars ? 0.5 : 1,
                                 cursor: descriptionCharCount <= maxChars ? 'not-allowed' : 'pointer'

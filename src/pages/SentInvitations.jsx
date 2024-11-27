@@ -58,31 +58,34 @@ const SentInvitations = () => {
         <>
             < TFmenu />
 
-            {isLoading && <PageLoader message="Loading Invitations" />}
+            {isLoading ? (
+                <PageLoader message="Loading Invitations..." />
+            ) : (
 
-            <div className='received-invitations-form'>
-                {!isLoading && invitations.length === 0 ? (
-                    <h3>No invitations.</h3>
-                ) : (
-                    <>
-                    <h1>Project Invitations</h1>
-                        <Grid container spacing={2}>
-                            {invitations.map((invitation, index) => (
-                                <Grid item key={index} xs={12} sm={6} md={6}>
-                                    <SentInvitationCard 
-                                        key={invitation.id}
-                                        title={projectName}
-                                        userName={invitation.User.name}
-                                        userEmail={invitation.User.email}
-                                        status={invitation.status}
-                                        createdAt={formatDate(invitation.createdAt)}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </>
-                )}
-            </div>
+                <div className='received-invitations-form'>
+                    {invitations.length === 0 ? (
+                        <h3>No invitations.</h3>
+                    ) : (
+                        <>
+                        <h1>Project Invitations</h1>
+                            <Grid container spacing={2}>
+                                {invitations.map((invitation, index) => (
+                                    <Grid item key={index} xs={12} sm={6} md={6}>
+                                        <SentInvitationCard 
+                                            key={invitation.id}
+                                            title={projectName}
+                                            userName={invitation.User.name}
+                                            userEmail={invitation.User.email}
+                                            status={invitation.status}
+                                            createdAt={formatDate(invitation.createdAt)}
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </>
+                    )}
+                </div>
+            )}
         </>
     )
 }

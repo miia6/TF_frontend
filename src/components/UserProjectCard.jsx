@@ -7,7 +7,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 const UserProjectCard = (
     { teamName, title, description, keywords, skills, teammates, setEditting, userIsProjectOwner, handleDeleteProject }
 ) => {
-    //console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
+    
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {

@@ -52,17 +52,34 @@ const TeammatesFindingForm = ({ onInvitationSuccess }) => {
 
     const handleInvite = async (users) => {
         try {
+            if (users.length === 0) {
+                alert("No teammates selected for invitation.")
+                return
+            }
+
+            const confirmation = window.confirm(
+                `Are you sure you want to invite the following teammates?\n\n${users
+                    .map(user => user.name)
+                    .join(", ")}`
+            )
+
+            if (!confirmation) {
+                return
+            }
+
             const invitedTeammatesNames = []
 
             for (const user of users) {
-                //console.log(`Inviting user ${user.id} to project ${project.id}`)
+                console.log(`Inviting user ${user.id} to project ${project.id}`)
                 const invitedTeammate = await inviteUserToProject(user.id, project.id)
                 invitedTeammatesNames.push(user.name)
             }
+
             alert(`Invitation sent to: ${invitedTeammatesNames.join(", ")}`)
             onInvitationSuccess()
         } catch (error) {
             console.error("Error inviting user:", error)
+            alert("Failed to send invitations. Please try again.")
         }
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
@@ -32,9 +32,20 @@ const ProjectProposal = () => {
     }, [selectedCourseId])
 
     const handleProjectCreation = async (project) => {
-        if (project) {
-            //console.log(`Creating project in course ${selectedCourseId}`)
+        if (!project) {
+            alert("Error creating a project")
+            return
+        }
 
+        const userConfirmed = window.confirm(
+            "Are you sure you want to create this project?"
+        )
+
+        if (!userConfirmed) {
+            return
+        }
+
+        try {
             const createdProject = await createProject({
                 name: project.title,
                 description: project.description,
@@ -46,15 +57,17 @@ const ProjectProposal = () => {
             })
 
             alert("Project has been created successfully!")
-            setHasProject(true)
+            console.log(`Creating project in course ${selectedCourseId}`)
 
             const fetchedCreatedProject = await getUserCourseProject(selectedCourseId)
             setUserProjectCookies(fetchedCreatedProject.id)
             setProjectMemberStatusCookies('CREATOR')
-
+            setHasProject(true)
+            
             navigate("/yourProject")
-        } else {
-            alert("Error creating a project")
+        } catch (error) {
+            console.error("Error creating a project:", error)
+            alert("An error occurred while creating the project.")
         }
     }
 

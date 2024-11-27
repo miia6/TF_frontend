@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-
 
 const ProjectApplicationCard = ({ title, userName, userEmail, status, appliedAt, applicationId, projectId, onAccept, onReject }) => {
 

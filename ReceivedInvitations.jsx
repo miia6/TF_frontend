@@ -15,7 +15,6 @@ import '../styles/projectinvitations.css'
 const ReceivedInvitations = () => {
     const [isLoading, setIsLoading] = useState(true)
     const selectedCourseId = getSelectedCourseCookies() 
-
     const [invitations, setInvitations] = useState([])
     const [courseInvitations, setCourseInvitations] = useState([])
 
@@ -82,38 +81,35 @@ const ReceivedInvitations = () => {
         <>
             <TFmenu />
 
-            {isLoading ? (
-                <PageLoader message="Loading Invitations..." />
-            ) : (
-                
-                <div className='received-invitations-form'>
-                    {courseInvitations.length === 0 ? (
-                        <h3>No invitations.</h3>
-                    ) : (
-                        <>
-                        <h1>Project Invitations</h1>
-                            <Grid container spacing={2}>
-                                {courseInvitations.map((invitation, index) => (
-                                    <Grid item key={index} xs={12} sm={6} md={6}>
-                                        <ProjectInvitationCard 
-                                            key={invitation.id}
-                                            title={invitation.Project.name}
-                                            teamName={invitation.Project.teamName}
-                                            description={invitation.Project.description}
-                                            status={invitation.status}
-                                            createdAt={formatDate(invitation.createdAt)}
-                                            invitationId={invitation.id}
-                                            projectId={invitation.Project.id}
-                                            onAccept={() => handleAccept(invitation.id)}
-                                            onReject={() => handleReject(invitation.id)}
-                                        />
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </>
-                    )}
-                </div>
-            )}
+            {isLoading && <PageLoader message="Loading Invitations" />}
+
+            <div className='received-invitations-form'>
+                {courseInvitations.length === 0 ? (
+                    <h3>No invitations.</h3>
+                ) : (
+                    <>
+                    <h1>Project Invitations</h1>
+                        <Grid container spacing={2}>
+                            {courseInvitations.map((invitation, index) => (
+                                <Grid item key={index} xs={12} sm={6} md={6}>
+                                    <ProjectInvitationCard 
+                                        key={invitation.id}
+                                        title={invitation.Project.name}
+                                        teamName={invitation.Project.teamName}
+                                        description={invitation.Project.description}
+                                        status={invitation.status}
+                                        createdAt={formatDate(invitation.createdAt)}
+                                        invitationId={invitation.id}
+                                        projectId={invitation.Project.id}
+                                        onAccept={() => handleAccept(invitation.id)}
+                                        onReject={() => handleReject(invitation.id)}
+                                    />
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </>
+                )}
+            </div>
         </>
     )
 }

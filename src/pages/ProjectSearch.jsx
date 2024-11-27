@@ -14,11 +14,13 @@ import { getReceivedInvitations } from '../services/invitation'
 import '../styles/projectsearch.css'
 
 const ProjectSearch = () => {
-    const [projects, setProjects] = useState([])
     const [projectId, setProjectId] = useState(getUserProjectCookies())
     const [memberStatus, setMemberStatus] = useState(getProjectMemberStatusCookies())
     const selectedCourseId = getSelectedCourseCookies()
+
+    const [projects, setProjects] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
+    
     const [isLoading, setIsLoading] = useState(true)
 
     const navigate = useNavigate()
@@ -69,7 +71,7 @@ const ProjectSearch = () => {
         <>
             < TFmenu />
 
-            {isLoading && <PageLoader message="Loading Projects" />}
+            {isLoading && <PageLoader message="Loading Projects..." />}
 
             {projects.length > 0 && (
                 <div className='project-search-form'>
@@ -115,7 +117,7 @@ const ProjectSearch = () => {
             )}
             {!isLoading && projects.length === 0 && (
                 <div className="no-projects">
-                    <h3>No projects in the course.</h3>
+                    <h3>No projects yet in the course.</h3>
                 </div>
             )}
         </>

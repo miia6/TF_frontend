@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 
 import TFmenu from '../components/TFmenu'
-import PageLoader from '../components/PageLoader'
 
 import { getSelectedCourseCookies } from '../services/course'
 import { getUserProjectCookies, getProjectMemberStatusCookies, getProjects, getUserCourseProject } from '../services/project'
@@ -223,7 +222,7 @@ const Dashboard = () => {
                         <h3>Find teammates</h3>
                         <p>Search and invite teammates</p>
                         <div className="dashboard-link-container">
-                            <a href="/teammatesFinding">Find teammates</a>
+                            <a href="/teammatesFinding">Teammates</a>
                         </div>
                     </>
                 )}

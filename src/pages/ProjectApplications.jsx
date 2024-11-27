@@ -55,6 +55,12 @@ const ProjectApplications = ()  => {
     }
 
     const handleAccept = async (applicationId) => {
+        const userConfirmed = window.confirm("Are you sure you want to accept this application?")
+
+        if (!userConfirmed) {
+            return
+        }
+
         try {
             const updatedApplication = await handleUserApplication(applicationId, true)
             alert(`Application accepted!`)
@@ -66,6 +72,11 @@ const ProjectApplications = ()  => {
     }
 
     const handleReject = async (applicationId) => {
+        const userConfirmed = window.confirm("Are you sure you want to reject this application?")
+        if (!userConfirmed) {
+            return
+        }
+
         try {
             const updatedApplication = await handleUserApplication(applicationId, false)
             alert('Application rejected')
@@ -80,35 +91,38 @@ const ProjectApplications = ()  => {
         <>
             < TFmenu />
 
-            {isLoading && <PageLoader message="Loading Applications" />}
+            {isLoading ? (
+                 <PageLoader message="Loading Applications..." />
+            ) : (
 
-            <div className='received-applications-form'>
-                {!isLoading && applications.length === 0 ? (
-                    <h3>No applications.</h3>
-                ) : (
-                    <>
-                        <h1>Project Applications</h1>
-                        <Grid container spacing={2}>
-                            {applications.map((application, index) => (
-                                <Grid item key={index} xs={12} sm={6} md={6}>
-                                    <ProjectApplicationCard 
-                                        key={application.id}
-                                        title={projectName ? projectName : ''}
-                                        userName={application.User.name}
-                                        userEmail={application.User.email}
-                                        status={application.status}
-                                        appliedAt={formatDate(application.createdAt)}
-                                        applicationId={application.id}
-                                        projectId={projectId}
-                                        onAccept={() => handleAccept(application.id)}
-                                        onReject={() => handleReject(application.id)}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </>
-                )}
-            </div>
+                <div className='received-applications-form'>
+                    {!isLoading && applications.length === 0 ? (
+                        <h3>No applications.</h3>
+                    ) : (
+                        <>
+                            <h1>Project Applications</h1>
+                            <Grid container spacing={2}>
+                                {applications.map((application, index) => (
+                                    <Grid item key={index} xs={12} sm={6} md={6}>
+                                        <ProjectApplicationCard 
+                                            key={application.id}
+                                            title={projectName ? projectName : ''}
+                                            userName={application.User.name}
+                                            userEmail={application.User.email}
+                                            status={application.status}
+                                            appliedAt={formatDate(application.createdAt)}
+                                            applicationId={application.id}
+                                            projectId={projectId}
+                                            onAccept={() => handleAccept(application.id)}
+                                            onReject={() => handleReject(application.id)}
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </>
+                    )}
+                </div>
+            )}
         </>
     )
 }

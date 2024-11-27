@@ -12,6 +12,20 @@ const ProjectInvitationCard = ({ title, teamName, description, status, createdAt
     const descriptionCharCount = description.length
     const maxChars = 70
 
+    const handleAcceptClick = () => {
+        const confirmation = window.confirm(`Are you sure you want to accept the invitation?`)
+        if (confirmation) {
+            onAccept()
+        }
+    }
+
+    const handleRejectClick = () => {
+        const confirmation = window.confirm(`Are you sure you want to reject the invitation?`)
+        if (confirmation) {
+            onReject()
+        }
+    }
+
     return (
         <>
             <div className="received-invitation-card-container">
@@ -47,7 +61,6 @@ const ProjectInvitationCard = ({ title, teamName, description, status, createdAt
                         <div className='received-invitation-info-header'> Invitation info: </div>
                         <p>Status: <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
                         <p>Created at: {createdAt}</p>
-                        {/*acceptedAt && <p>Accepted at: {acceptedAt}</p>*/}
                     </div>
 
                     <div className="received-invitation-action-buttons">
@@ -55,12 +68,12 @@ const ProjectInvitationCard = ({ title, teamName, description, status, createdAt
                             <>
                                 <button 
                                     className='received-invitation-apply-button' 
-                                    onClick={onAccept}>
+                                    onClick={handleAcceptClick}>
                                     Accept
                                 </button>
                                 <button 
                                     className='received-invitation-reject-button' 
-                                    onClick={onReject}>
+                                    onClick={handleRejectClick}>
                                     Reject
                                 </button>
                             </>

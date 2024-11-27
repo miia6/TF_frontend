@@ -89,7 +89,7 @@ const ProjectEditForm = (
                 </div>
 
                 <div className="form-group-proposal">
-                    <label htmlFor="keywords"> {/*<span className="required">*</span>*/} Keywords: </label>
+                    <label htmlFor="keywords"> Keywords: </label>
                     <input
                         type="text"
                         id="keywords"
@@ -102,7 +102,7 @@ const ProjectEditForm = (
                 </div>
 
                 <div className="form-group-proposal">
-                    <label htmlFor="skills"> {/*<span className="required">*</span>*/} Required skills:  </label>
+                    <label htmlFor="skills">Required skills:  </label>
                     <input
                         type="text"
                         id="skills"

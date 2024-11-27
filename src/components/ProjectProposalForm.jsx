@@ -56,7 +56,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                         placeholder="Pick a team name (max. 20 marks)."
                         className={`team-name ${errors.teamName ? 'error' : ''}`}
                     />
-                    {errors.teamName && <p className="error-text">{errors.teamName}</p>}
+                    {errors.teamName && <p className="error-text-project">{errors.teamName}</p>}
                 </div>
 
                 <div className="form-group-proposal">
@@ -69,7 +69,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                         placeholder="Pick a project title (max. 100 marks)."
                         className={`project-title ${errors.title ? 'error' : ''}`}
                     />
-                    {errors.title && <p className="error-text">{errors.title}</p>}
+                    {errors.title && <p className="error-text-project">{errors.title}</p>}
                 </div>
 
                 <div className="form-group-proposal">
@@ -82,7 +82,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                         className={`project-description ${errors.descriptionInput ? 'error' : ''}`}
                         rows="6"
                     />
-                    {errors.descriptionInput && <p className="error-text">{errors.descriptionInput}</p>}
+                    {errors.descriptionInput && <p className="error-text-project">{errors.descriptionInput}</p>}
                 </div>
 
                 <div className="form-group-proposal">

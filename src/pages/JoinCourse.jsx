@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import PageLoader from '../components/PageLoader'
+//import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
 import JoinCourseForm from '../components/JoinCourseForm'
 
@@ -69,7 +69,7 @@ const JoinCourse = () => {
             <TFmenu />
 
             {isLoading ? (
-                <PageLoader message="Loading courses..." />
+                <div className="join-course-loader"></div>
 
             ) : (
 

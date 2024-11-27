@@ -1,3 +1,37 @@
+
+/* loader */
+
+.join-course-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #6A9C89;
+}
+
+.join-course-loader::after {
+    content: '';
+    margin-top: 12rem;
+    margin-left: 10rem;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #ccc;
+    border-top: 2px solid #6A9C89;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* container and form */
 
 .join-course-container {

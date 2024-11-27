@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
@@ -20,8 +19,6 @@ const UserProject = () => {
     const [teammates, setTeammates] = useState(null)
     const [userIsProjectOwner, setUserIsProjectOwner] = useState(false)
     const selectedCourseId = getSelectedCourseCookies()
-
-    const navigate = useNavigate()
 
     const handleEditProject = async (edittedProjectData) => {
         setIsLoading(true)
@@ -45,9 +42,9 @@ const UserProject = () => {
             if (selectedCourseId) {
                 try {
                     const fetchedProject = await getUserCourseProject(selectedCourseId)
-                    //console.log(fetchedProject)
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
                     const currentUser = await getCurrentUserData()
+                    
                     if (fetchedProject) {
                         setProject(fetchedProject)
                         const teammatesNames = getTeammatesNames(fetchedProject.members, fetchedCourseUsers, currentUser.name)

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import TFmenu from '../components/TFmenu'
 import PageLoader from '../components/PageLoader'
@@ -16,9 +15,6 @@ const SentApplications = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [applications, setApplications] = useState([])
     const selectedCourseId = getSelectedCourseCookies()
-    //const projectId = getUserCourseProject()
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchApplications = async () => {
@@ -36,9 +32,6 @@ const SentApplications = () => {
                 } finally {
                     setIsLoading(false)
                 }
-            }
-            else {
-                console.log('Failed to fetch course')
             }
         }
 
@@ -58,32 +51,35 @@ const SentApplications = () => {
         <>
             <TFmenu />
             
-            {isLoading && <PageLoader message="Loading applications..." />}
+            {isLoading ? (
+                 <PageLoader message="Loading applications..." />
+            ) : (
             
-            <div className='sent-applications-form'>
-                {!isLoading && applications.length === 0 ? (
-                    <h3>You have not applied to any projects.</h3>
-                ) : (
-                    <>
-                        <h1>Applied projects</h1>
-                        <Grid container spacing={2}>
-                            {applications.map((application, index) => (
-                                <Grid item key={index} xs={12} sm={6} md={6}>
-                                    <SentApplicationCard 
-                                        key={application.id}
-                                        projectId={application.projectId}
-                                        teamName={application.Project.teamName}
-                                        title={application.Project.name}
-                                        description={application.Project.description}
-                                        status={application.status}
-                                        appliedAt={formatDate(application.createdAt)}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </>
-                )}
-            </div>
+                <div className='sent-applications-form'>
+                    {applications.length === 0 ? (
+                        <h3>You have not applied to any projects.</h3>
+                    ) : (
+                        <>
+                            <h1>Applied projects</h1>
+                            <Grid container spacing={2}>
+                                {applications.map((application, index) => (
+                                    <Grid item key={index} xs={12} sm={6} md={6}>
+                                        <SentApplicationCard 
+                                            key={application.id}
+                                            projectId={application.projectId}
+                                            teamName={application.Project.teamName}
+                                            title={application.Project.name}
+                                            description={application.Project.description}
+                                            status={application.status}
+                                            appliedAt={formatDate(application.createdAt)}
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </>
+                    )}
+                </div>
+            )}
         </>
     )
 }

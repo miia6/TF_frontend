@@ -34,7 +34,7 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
                         const isNotCurrentUser = user.id !== currentUser?.id
                         const isNotProjectMember = !projectMemberIds.includes(user.id)
                         const isNotInvited = !invitedUserIds.includes(user.id)
-                        const isNotApplicant = !appliedUserIds.includes(user.id) //!projectApplicants.some(applicant => applicant.userId === user.id)
+                        const isNotApplicant = !appliedUserIds.includes(user.id) 
 
                         return isNotCurrentUser && isNotProjectMember && isNotInvited && isNotApplicant
                     })
@@ -146,7 +146,6 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
                 .filter(user => user)
 
             await onInvite(usersToInvite)
-            //console.log(`Invitation sent to: ${usersToInvite.map(user => user.name).join(", ")}`)
         } catch (error) {
             console.error("Error inviting teammates:", error);
         }
@@ -155,25 +154,17 @@ const TeammateInvite = ({ teammates, setTeammates, sentInvitations, onInvite, ma
     const availableSlots = Math.min(maxInvitations, filteredUsers.length)
 
     if (isLoading) {
-        return <div className="loading-form">Loading...</div> // Or a loader component
+        return <div className="loading-form">Loading...</div> 
     }
 
-    if (!isLoading && users.length === 0) {
+    if (!isLoading && (users.length === 0 || availableSlots === 0)) {
         return (
             <div className="no-users-message">
                 <h3>No users left to invite due to some of the following reasons:</h3>
-                <p>All course users are already project members / </p>
-                <p>You have already invited all users who are not members of projects / </p>
-                <p>Users who have applied to your project can not be invited / </p>
-            </div>
-        )
-    }
-
-    if (!isLoading && availableSlots === 0) {
-        return (
-            <div className="no-users-message">
-                <h3>You can't invite more teammates</h3>
-                <p>You're project has a maximum amount of members </p>
+                <p>All course users are already project members /</p>
+                <p>You have already invited all users who are not members of projects /</p>
+                <p>Users who have applied to your project can not be invited /</p>
+                <p>Your project has a maximum amount of members</p>
             </div>
         )
     }

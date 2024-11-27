@@ -137,10 +137,10 @@
     color: black;
 }
 
-.error-text {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: 0.1rem;
+.error-text-project {
+    color: red !important;
+    font-size: 0.8rem !important;
+    padding-left: 2rem !important;
 }
 
 /* if the user already has a project */
