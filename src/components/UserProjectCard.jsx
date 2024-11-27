@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { getCurrentUserData } from '../services/auth'
 import GroupsIcon from '@mui/icons-material/Groups'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const UserProjectCard = (
-    { teamName, title, description, keywords, skills, teammates, setEditting }
+    { teamName, title, description, keywords, skills, teammates, setEditting, userIsProjectOwner, handleDeleteProject }
 ) => {
     //console.log("Props received in UserProjectCard:", { teamName, title, description, teammates })
     const [showDescription, setShowDescription] = useState(false)
@@ -20,14 +21,14 @@ const UserProjectCard = (
     return (
         <>
             <div className='user-project-card'>
-                <div className='user-project-buttons-holder'>
+                {userIsProjectOwner ? <div className='user-project-buttons-holder'>
                     <button className='user-project-util-button' onClick={() => setEditting(true)}>
                         <EditIcon />
                     </button>
-                    <button className='user-project-util-button'>
+                    <button className='user-project-util-button' onClick={handleDeleteProject}>
                         <DeleteForeverIcon />
                     </button>
-                </div>
+                </div> : null}
                 <h2>Your project</h2>
                 <div className='user-project-card-header'>
                     <GroupsIcon className="user-project-group-icon" />

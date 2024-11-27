@@ -5,7 +5,7 @@ import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
 import UserProjectCard from '../components/UserProjectCard'
 import ProjectEditForm from '../components/ProjectEditForm'
-import { editProject } from '../services/project'
+import { editProject, deleteProject, removeProjectMemberStatusCookies, removeUserProjectCookies } from '../services/project'
 
 import { getCurrentUserData } from '../services/auth'
 import { getSelectedCourseCookies, getUsersByCourse } from '../services/course'
@@ -18,6 +18,7 @@ const UserProject = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [project, setProject] = useState(null)
     const [teammates, setTeammates] = useState(null)
+    const [userIsProjectOwner, setUserIsProjectOwner] = useState(false)
     const selectedCourseId = getSelectedCourseCookies()
 
     const navigate = useNavigate()
@@ -28,6 +29,15 @@ const UserProject = () => {
         setProject({ ...project, ...edittedProjectData })
         setEditting(false)
         setIsLoading(false)
+    }
+
+    const handleDeleteProject = async (projectId) => {
+        if (confirm('Are you sure you want to delete this project?')) {
+            setProject(null)
+            removeProjectMemberStatusCookies()
+            removeUserProjectCookies()
+            await deleteProject(projectId)
+        }
     }
 
     useEffect(() => {
@@ -42,6 +52,7 @@ const UserProject = () => {
                         setProject(fetchedProject)
                         const teammatesNames = getTeammatesNames(fetchedProject.members, fetchedCourseUsers, currentUser.name)
                         setTeammates(teammatesNames)
+                        setUserIsProjectOwner(currentUser.id === fetchedProject.Creator.id)
                     }
 
                 } catch (error) {
@@ -86,6 +97,8 @@ const UserProject = () => {
                             skills={project.skills}
                             teammates={teammates}
                             setEditting={setEditting}
+                            userIsProjectOwner={userIsProjectOwner}
+                            handleDeleteProject={() => handleDeleteProject(project.id)}
                         />
                     ) : project && editting ? (
                         <ProjectEditForm
