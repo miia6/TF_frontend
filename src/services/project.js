@@ -66,6 +66,37 @@ const createProject = async (projectData) => {
 	}
 }
 
+const editProject = async (projectData) => {
+	try {
+		const user = getCurrentUser()
+		const courseId = getSelectedCourseCookies()
+		const response = await axios.put(`${API_URL}/project/edit-project`, projectData, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error(error)
+		throw new Error('Error editting project')
+	}
+}
+
+const deleteProject = async (projectId) => {
+	try {
+		const user = getCurrentUser()
+		const courseId = getSelectedCourseCookies()
+		const response = await axios.delete(`${API_URL}/project/delete-project`, { projectId }, {
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.error(error)
+		throw new Error('Error deleting project')
+	}
+}
 
 const getUserCourseProject = async (courseId) => {
 	try {
@@ -87,7 +118,7 @@ const getUserCourseProject = async (courseId) => {
 
 const getProjectMembers = async (projectId) => {
 	try {
-		const user = getCurrentUser() 
+		const user = getCurrentUser()
 		const response = await axios.get(`${API_URL}/project/project-members`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -127,11 +158,11 @@ const setUserProjectCookies = (projectId) => {
 }
 
 const getUserProjectCookies = () => {
-    return Cookies.get('projectId')
+	return Cookies.get('projectId')
 }
 
 const removeUserProjectCookies = () => {
-    Cookies.remove('projectId')
+	Cookies.remove('projectId')
 }
 
 
@@ -140,22 +171,26 @@ const setProjectMemberStatusCookies = (status) => {
 }
 
 const getProjectMemberStatusCookies = () => {
-    return Cookies.get('projectMemberStatus')
+	return Cookies.get('projectMemberStatus')
 }
 
 const removeProjectMemberStatusCookies = () => {
-    Cookies.remove('projectMemberStatus')
+	Cookies.remove('projectMemberStatus')
 }
 
-export { getProjects, 
-		 getProject, 
-		 createProject, 
-		 getUserCourseProject, 
-		 getProjectMembers, 
-		 applyToProject, 
-		 setUserProjectCookies,
-		 getUserProjectCookies,
-		 removeUserProjectCookies,
-		 setProjectMemberStatusCookies,
-		 getProjectMemberStatusCookies,
-		 removeProjectMemberStatusCookies }
+export {
+	getProjects,
+	getProject,
+	createProject,
+	editProject,
+	deleteProject,
+	getUserCourseProject,
+	getProjectMembers,
+	applyToProject,
+	setUserProjectCookies,
+	getUserProjectCookies,
+	removeUserProjectCookies,
+	setProjectMemberStatusCookies,
+	getProjectMemberStatusCookies,
+	removeProjectMemberStatusCookies
+}

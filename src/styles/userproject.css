@@ -163,3 +163,29 @@
     color: gray;
     font-style: italic;
 }
+
+.user-project-buttons-holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 100%;
+}
+
+.user-project-util-button {
+    background-color: rgb(233, 239, 236);
+    margin: 5px;
+}
+
+.user-project-util-button:hover {
+    background-color: #C4DAD2;
+    border: none;
+    transition: 0.2s;
+}
+
+.user-project-util-button>* {
+    color: black;
+}
+
+.user-project-util-button:hover>* {
+    color: white;
+}

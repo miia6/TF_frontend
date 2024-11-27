@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 //import TeammateInvite from './TeammateInvite'
 
-const ProjectProposalForm = ({ handleProjectCreation }) => {
-
-    const [teamName, setTeamName] = useState('')
-    const [title, setTitle] = useState('')
-    const [descriptionInput, setDescriptionInput] = useState('')
-    const [keywords, setKeywords] = useState('')
-    const [skills, setSkills] = useState('')
-    const [teammates, setTeammates] = useState([])
+const ProjectEditForm = (
+    { teamName, title, description, keywords, skills, setEditting, handleEditProject }
+) => {
+    const [edittedTeamName, setEdittedTeamName] = useState(teamName)
+    const [edittedTitle, setEdittedTitle] = useState(title)
+    const [edittedDescription, setEdittedDescription] = useState(description)
+    const [edittedKeywords, setEdittedKeywords] = useState(keywords)
+    const [edittedSkills, setEdittedSkills] = useState(skills)
 
     const [errors, setErrors] = useState({})
 
@@ -24,7 +24,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
         if (!title) {
             validationErrors.title = "Title is required"
         }
-        if (!descriptionInput) {
+        if (!description) {
             validationErrors.descriptionInput = "Description is required"
         }
 
@@ -33,27 +33,28 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
             return
         }
 
-        const description = descriptionInput.replace(/\s+/g, ' ').trim()
-
-        const projectData = {
-            title, description, teamName, keywords, skills,
-            teammates: Object.values(teammates).filter(teammate => teammate !== '')
+        const edittedProjectData = {
+            title: edittedTitle,
+            description: edittedDescription.replace(/\s+/g, ' ').trim(),
+            teamName: edittedTeamName,
+            keywords: edittedKeywords,
+            skills: edittedSkills,
         }
-        handleProjectCreation(projectData)
+        handleEditProject(edittedProjectData)
     }
 
     return (
         <div className="project-proposal-form">
             <form onSubmit={handleSubmit}>
-                <h2>Create your own project</h2>
+                <h2>Edit your project</h2>
 
                 <div className="form-group-proposal">
                     <label htmlFor="teamName"> <span className="required">*</span> Team name:</label>
                     <input
                         type="text"
                         id="teamName"
-                        value={teamName}
-                        onChange={(event) => setTeamName(event.target.value)}
+                        value={edittedTeamName}
+                        onChange={(event) => setEdittedTeamName(event.target.value)}
                         placeholder="Pick a team name (max. 20 marks)."
                         className={`team-name ${errors.teamName ? 'error' : ''}`}
                     />
@@ -65,8 +66,8 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     <input
                         type="text"
                         id="title"
-                        value={title}
-                        onChange={(event) => setTitle(event.target.value)}
+                        value={edittedTitle}
+                        onChange={(event) => setEdittedTitle(event.target.value)}
                         placeholder="Pick a project title (max. 100 marks)."
                         className={`project-title ${errors.title ? 'error' : ''}`}
                     />
@@ -77,8 +78,8 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     <label htmlFor="description"> <span className="required">*</span> Description:</label>
                     <textarea
                         id="description"
-                        value={descriptionInput}
-                        onChange={(event) => setDescriptionInput(event.target.value)}
+                        value={edittedDescription}
+                        onChange={(event) => setEdittedDescription(event.target.value)}
                         placeholder="Describe your proposed project (max. 100 words)."
                         className={`project-description ${errors.descriptionInput ? 'error' : ''}`}
                         rows="6"
@@ -91,8 +92,8 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     <input
                         type="text"
                         id="keywords"
-                        value={keywords}
-                        onChange={(event) => setKeywords(event.target.value)}
+                        value={edittedKeywords}
+                        onChange={(event) => setEdittedKeywords(event.target.value)}
                         placeholder="Pick some crucial keywords about your project (max. 50 marks)."
                         className={`project-keywords`}
                         maxLength={50}
@@ -104,23 +105,22 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     <input
                         type="text"
                         id="skills"
-                        value={skills}
-                        onChange={(event) => setSkills(event.target.value)}
+                        value={edittedSkills}
+                        onChange={(event) => setEdittedSkills(event.target.value)}
                         placeholder="Specify required skills to join your project (max. 50 marks)."
                         className={`project-skills`}
                         maxLength={50}
                     />
                 </div>
 
-                <div className="teammate-invite-form">
-                    <p>After project creation, you can invite teammates in Teammates page.</p>
-                </div>
-
                 {/*<TeammateInvite teammates={teammates} setTeammates={setTeammates} />*/}
 
                 <div className="create-button-container">
                     <button type="submit" className="submit-button">
-                        Create project
+                        Update
+                    </button>
+                    <button className="submit-button" onClick={() => setEditting(false)}>
+                        Cancel
                     </button>
                 </div>
 
@@ -129,11 +129,11 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
     )
 }
 
-ProjectProposalForm.propTypes = {
+ProjectEditForm.propTypes = {
     handleProjectCreation: PropTypes.func.isRequired,
     //teamName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     descriptionInput: PropTypes.string.isRequired
 }
 
-export default ProjectProposalForm
+export default ProjectEditForm

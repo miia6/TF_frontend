@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import PageLoader from '../components/PageLoader'
 import TFmenu from '../components/TFmenu'
 import UserProjectCard from '../components/UserProjectCard'
+import ProjectEditForm from '../components/ProjectEditForm'
+import { editProject } from '../services/project'
 
 import { getCurrentUserData } from '../services/auth'
 import { getSelectedCourseCookies, getUsersByCourse } from '../services/course'
@@ -12,6 +14,7 @@ import { getUserCourseProject } from '../services/project'
 import '../styles/userproject.css'
 
 const UserProject = () => {
+    const [editting, setEditting] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [project, setProject] = useState(null)
     const [teammates, setTeammates] = useState(null)
@@ -19,11 +22,20 @@ const UserProject = () => {
 
     const navigate = useNavigate()
 
+    const handleEditProject = async (edittedProjectData) => {
+        setIsLoading(true)
+        await editProject(edittedProjectData)
+        setProject({ ...project, ...edittedProjectData })
+        setEditting(false)
+        setIsLoading(false)
+    }
+
     useEffect(() => {
         const fetchProjectData = async () => {
             if (selectedCourseId) {
                 try {
                     const fetchedProject = await getUserCourseProject(selectedCourseId)
+                    console.log(fetchedProject)
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
                     const currentUser = await getCurrentUserData()
                     if (fetchedProject) {
@@ -65,7 +77,7 @@ const UserProject = () => {
             ) : (
 
                 <div className="project-proposal-container">
-                    {project ? (
+                    {project && !editting ? (
                         <UserProjectCard
                             teamName={project.teamName}
                             title={project.name}
@@ -73,6 +85,18 @@ const UserProject = () => {
                             keywords={project.keywords}
                             skills={project.skills}
                             teammates={teammates}
+                            setEditting={setEditting}
+                        />
+                    ) : project && editting ? (
+                        <ProjectEditForm
+                            teamName={project.teamName}
+                            title={project.name}
+                            description={project.description}
+                            keywords={project.keywords}
+                            skills={project.skills}
+                            teammates={teammates}
+                            setEditting={setEditting}
+                            handleEditProject={handleEditProject}
                         />
                     ) : (
                         <div className="no-project-container">
