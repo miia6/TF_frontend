@@ -35,7 +35,7 @@ const UserProject = () => {
             if (selectedCourseId) {
                 try {
                     const fetchedProject = await getUserCourseProject(selectedCourseId)
-                    console.log(fetchedProject)
+                    //console.log(fetchedProject)
                     const fetchedCourseUsers = await getUsersByCourse(selectedCourseId)
                     const currentUser = await getCurrentUserData()
                     if (fetchedProject) {
