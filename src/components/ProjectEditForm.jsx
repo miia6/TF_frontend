@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import '../styles/projectedit.css'
 
 const ProjectEditForm = (
-    { teamName, title, description, keywords, skills, setEditting, handleEditProject }
+    { teamName, title, description, keywords, skills, setEditting, handleEditProject, projectId }
 ) => {
     const [edittedTeamName, setEdittedTeamName] = useState(teamName)
     const [edittedTitle, setEdittedTitle] = useState(title)
@@ -39,6 +39,7 @@ const ProjectEditForm = (
             teamName: edittedTeamName,
             keywords: edittedKeywords,
             skills: edittedSkills,
+            projectId: projectId
         }
         handleEditProject(edittedProjectData)
     }

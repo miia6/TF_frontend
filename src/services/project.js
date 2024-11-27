@@ -49,6 +49,8 @@ const getProject = async (projectId) => {
  * @param {string} projectData.teamName - Project team name.
  * @param {string} projectData.teammates - Project teammates.
  * @param {string} projectData.courseId - Course ID.
+ * @param {string} projectData.keywords - Keywords
+ * @param {string} projectData.skills - Skills
 */
 const createProject = async (projectData) => {
 	try {
@@ -73,7 +75,7 @@ const editProject = async (projectData) => {
 		const response = await axios.put(`${API_URL}/project/edit-project`, projectData, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
-			}
+			},
 		})
 		return response.data
 	} catch (error) {
@@ -86,10 +88,15 @@ const deleteProject = async (projectId) => {
 	try {
 		const user = getCurrentUser()
 		const courseId = getSelectedCourseCookies()
-		const response = await axios.delete(`${API_URL}/project/delete-project`, { projectId }, {
+		console.log(user)
+		const response = await axios.delete(`${API_URL}/project/remove-project`, {
 			headers: {
 				'Authorization': `Bearer ${user.token}`
+			},
+			params: {
+				projectId
 			}
+
 		})
 		return response.data
 	} catch (error) {
