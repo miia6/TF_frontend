@@ -107,6 +107,7 @@ const UserProject = () => {
                             description={project.description}
                             keywords={project.keywords}
                             skills={project.skills}
+                            projectId={project.id}
                             teammates={teammates}
                             setEditting={setEditting}
                             handleEditProject={handleEditProject}

@@ -12,7 +12,7 @@ import '../styles/projectproposal.css'
 
 const ProjectProposal = () => {
     const [hasProject, setHasProject] = useState(false)
-    const selectedCourseId = getSelectedCourseCookies() 
+    const selectedCourseId = getSelectedCourseCookies()
 
     const navigate = useNavigate()
 
@@ -25,7 +25,7 @@ const ProjectProposal = () => {
                 } catch (error) {
                     console.error("Failed to check project existence:", error)
                 }
-            } 
+            }
         }
 
         fetchProjectData()
@@ -38,11 +38,13 @@ const ProjectProposal = () => {
             const createdProject = await createProject({
                 name: project.title,
                 description: project.description,
+                skills: project.skills,
+                keywords: project.keywords,
                 teamName: project.teamName,
                 teammates: project.teammates,
                 courseId: selectedCourseId,
             })
-                
+
             alert("Project has been created successfully!")
             setHasProject(true)
 
