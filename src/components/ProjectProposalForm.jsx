@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-//import TeammateInvite from './TeammateInvite'
 
 const ProjectProposalForm = ({ handleProjectCreation }) => {
 
@@ -116,8 +115,6 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
                     <p>After project creation, you can invite teammates in Teammates page.</p>
                 </div>
 
-                {/*<TeammateInvite teammates={teammates} setTeammates={setTeammates} />*/}
-
                 <div className="create-button-container">
                     <button type="submit" className="submit-button">
                         Create project
@@ -131,7 +128,7 @@ const ProjectProposalForm = ({ handleProjectCreation }) => {
 
 ProjectProposalForm.propTypes = {
     handleProjectCreation: PropTypes.func.isRequired,
-    //teamName: PropTypes.string.isRequired,
+    teamName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     descriptionInput: PropTypes.string.isRequired
 }

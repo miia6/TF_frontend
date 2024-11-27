@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import '../styles/projectedit.css'
-//import TeammateInvite from './TeammateInvite'
 
 const ProjectEditForm = (
     { teamName, title, description, keywords, skills, setEditting, handleEditProject }
@@ -114,8 +113,6 @@ const ProjectEditForm = (
                     />
                 </div>
 
-                {/*<TeammateInvite teammates={teammates} setTeammates={setTeammates} />*/}
-
                 <div className="edit-button-container">
                     <button type="submit" className="submit-button">
                         Update
@@ -132,7 +129,7 @@ const ProjectEditForm = (
 
 ProjectEditForm.propTypes = {
     handleEditProject: PropTypes.func.isRequired,
-    //teamName: PropTypes.string.isRequired,
+    teamName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired
 }
