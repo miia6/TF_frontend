@@ -27,13 +27,14 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault()
-        setIsLoading(true)
         console.log('Loggin in with:', email )
 
         if (!email || !password) {
             alert('Please fill username and password.')
             return
         }
+
+        setIsLoading(true)
 
         try {
             await login(email, password)

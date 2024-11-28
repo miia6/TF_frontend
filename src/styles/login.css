@@ -6,45 +6,45 @@
     align-items: center;
     justify-content: center;
     background-color: #E9EFEC;
-    padding: 20px;
+    padding: 2rem;
 }
 
 
 .login-form {
     display: flex;
     flex-direction: column; 
-    width: 400px; 
-    height: auto; /*390px;*/
+    width: 25rem;
+    height: auto; 
     background-color: #fff; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     border-radius: 10px; 
-    padding: 20px;
+    padding: 1.5rem;
 }
 
 /* content of the form */
 
 .login-form h1 {
     font-size: 2rem;
-    margin-top: 0px;
-    margin-bottom: 20px; 
+    margin-top: 0;
+    margin-bottom: 1.5rem;
     color: black; 
 }
 
 .form-group {
     display: flex; 
     flex-direction: column;
-    margin-bottom: 15px; 
+    margin-bottom: 1rem; 
 }
 
 .form-group label {
-    margin-bottom: 5px; 
+    margin-bottom: 0.5rem; 
     font-weight: bold; 
     color: black; 
     font-size: 1rem; 
 }
 
 .form-group input {
-    padding: 10px; 
+    padding: 0.5rem;
     background-color: #E9EFEC; 
     border: 1px solid #C4DAD2; 
     border-radius: 5px; 
@@ -54,10 +54,10 @@
 }
 
 .login-form button {
-    width: 95%;
-    padding: 10px;
+    width: auto;
+    padding: auto;
     font-size: 1rem;
-    margin: 10px; 
+    margin: 0;
     cursor: pointer; 
     background-color: #C4DAD2; 
     border: none; 
@@ -70,19 +70,19 @@
 }
 
 .signup-section {
-    margin-top: 20px; 
+    margin-top: 2rem;
     text-align: center; 
 }
 
 .signup-section p {
-    margin-bottom: 10px; 
+    margin-bottom: 0.5rem;
     color: black;
     font-size: 1rem;
 }
 
 .signup-section button {
-    width: 96%;
-    padding: 10px;
+    width: auto;
+    padding: auto;
     font-size: 1rem;
     cursor: pointer; 
     background-color: #E9EFEC; 
@@ -104,8 +104,8 @@
 
 .error-text {
     color: red; 
-    font-size: 0.875rem; 
-    margin-top: 4px; 
+    font-size: 0.8rem; 
+    margin-top: 0.1rem;
 }
 
 

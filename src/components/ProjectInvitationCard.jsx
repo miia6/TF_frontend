@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import GroupsIcon from '@mui/icons-material/Groups'
 
-const ProjectInvitationCard = ({ title, teamName, description, status, createdAt, invitationId, projectId, onAccept, onReject }) => {
+const ProjectInvitationCard = ({ title, teamName, description, status, createdAt, invitationId, projectId, onAccept, onReject, isMember }) => {
     const [showDescription, setShowDescription] = useState(false)
 
     const getShortDescription = (desc) => {
@@ -64,7 +64,7 @@ const ProjectInvitationCard = ({ title, teamName, description, status, createdAt
                     </div>
 
                     <div className="received-invitation-action-buttons">
-                        {status === 'PENDING' && (
+                        {status === 'PENDING' && !isMember && (
                             <>
                                 <button 
                                     className='received-invitation-apply-button' 

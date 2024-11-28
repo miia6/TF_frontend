@@ -5,7 +5,7 @@ const LoginForm = ({
     handleEmailChange,
     handlePasswordChange,
     email,
-    password
+    password,
 }) => {
 
     return (
@@ -53,11 +53,10 @@ const LoginForm = ({
 
 LoginForm.propTypes = {
     handleLogin: PropTypes.func.isRequired,
-    //handleUsernameChange: PropTypes.func.isRequired,
+    handleUsernameChange: PropTypes.func.isRequired,
     handlePasswordChange: PropTypes.func.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    //handleChange: PropTypes.func.isRequired
 }
 
 export default LoginForm

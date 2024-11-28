@@ -7,7 +7,7 @@ import ProjectInvitationCard from '../components/ProjectInvitationCard'
 import Grid from '@mui/material/Grid'
 
 import { getSelectedCourseCookies } from '../services/course'
-import { getUserCourseProject, setUserProjectCookies, setProjectMemberStatusCookies } from '../services/project'
+import { getUserCourseProject, setUserProjectCookies, getUserProjectCookies, setProjectMemberStatusCookies } from '../services/project'
 import { getReceivedInvitations, respondToInvitation } from '../services/invitation'
 
 import '../styles/projectinvitations.css'
@@ -15,6 +15,7 @@ import '../styles/projectinvitations.css'
 const ReceivedInvitations = () => {
     const [isLoading, setIsLoading] = useState(true)
     const selectedCourseId = getSelectedCourseCookies() 
+    const [isMember, setIsMember] = useState(getUserProjectCookies())
 
     const [invitations, setInvitations] = useState([])
     const [courseInvitations, setCourseInvitations] = useState([])
@@ -25,7 +26,6 @@ const ReceivedInvitations = () => {
                 try {
                     const fetchedInvitations = await getReceivedInvitations()
                     setInvitations(fetchedInvitations) 
-                    
                     const filtered = fetchedInvitations.filter(
                         invitation => invitation.Project.courseId === selectedCourseId
                     )
@@ -53,7 +53,7 @@ const ReceivedInvitations = () => {
 
     const handleAccept = async (invitationId) => {
         try {
-            const updatedInvitation = await respondToInvitation(invitationId, true)
+            await respondToInvitation(invitationId, true)
             alert(`Invitation accepted!`)
 
             const userProject = await getUserCourseProject(selectedCourseId)
@@ -68,7 +68,7 @@ const ReceivedInvitations = () => {
 
     const handleReject = async (invitationId) => {
         try {
-            const updatedInvitation = await respondToInvitation(invitationId, false)
+            await respondToInvitation(invitationId, false)
             alert(`Invitation rejected`)
             window.location.reload()
 
@@ -106,6 +106,7 @@ const ReceivedInvitations = () => {
                                             projectId={invitation.Project.id}
                                             onAccept={() => handleAccept(invitation.id)}
                                             onReject={() => handleReject(invitation.id)}
+                                            isMember={isMember}
                                         />
                                     </Grid>
                                 ))}

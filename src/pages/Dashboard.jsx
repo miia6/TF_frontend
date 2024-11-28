@@ -133,8 +133,7 @@ const Dashboard = () => {
                         {!projectId && (
                             <>
                                 <h3>You're not a member of a project yet</h3>
-                                <p>Create your own project or apply to existing projects</p>
-
+                        
                                 {receivedInvitations > 0 && (
                                     <>
                                         <p>
@@ -219,42 +218,52 @@ const Dashboard = () => {
             <div className="dashboard-container">
                 {projectId && projectStatus === 'CREATOR' && (
                     <>
-                        <h3>Find teammates</h3>
-                        <p>Search and invite teammates</p>
-                        <div className="dashboard-link-container">
-                            <a href="/teammatesFinding">Teammates</a>
+                        <div className="dashboard-section">
+                            <h3>Find teammates</h3>
+                            <p>Search and invite teammates</p>
+                            <div className="dashboard-link-container">
+                                <a href="/teammatesFinding">Teammates</a>
+                            </div>
                         </div>
                     </>
                 )}
 
                 {projectId && (
                     <>
-                        <h3>Your project </h3>
-                        <p>View your project</p>
-                        <div className="dashboard-link-container">
-                            <a href="/yourProject">Your project</a>
+                        <div className="dashboard-section">
+                            <h3>Your project</h3>
+                            <p>View your project</p>
+                            <div className="dashboard-link-container">
+                                <a href="/yourProject">Your project</a>
+                            </div>
                         </div>
 
-                        <h3>View projects</h3>
-                        <p>Search and view existing projects</p>
-                        <div className="dashboard-link-container">
-                            <a href="/projectSearch">View projects</a>
+                        <div className="dashboard-section">
+                            <h3>View projects</h3>
+                            <p>Search and view existing projects</p>
+                            <div className="dashboard-link-container">
+                                <a href="/projectSearch">Search projects</a>
+                            </div>
                         </div>
                     </>
                 )}
 
                 {!projectId && (
                     <>
-                        <h3>Create a new project</h3>
-                        <p>Have an idea for project? Create a new project, where you can invite students and students can apply to your project:</p>
-                        <div className="dashboard-link-container">
-                            <a href="/projectProposal">Create Project</a>
+                        <div className="dashboard-section">
+                            <h3>Create a new project</h3>
+                            <p>Have an idea for a project? Create a new project, where you can invite students and students can apply to your project</p>
+                            <div className="dashboard-link-container">
+                                <a href="/projectProposal">Create Project</a>
+                            </div>
                         </div>
 
-                        <h3>Search projects</h3>
-                        <p>Search and apply existing projects</p>
-                        <div className="dashboard-link-container">
-                            <a href="/projectSearch">Search projects</a>
+                        <div className="dashboard-section">
+                            <h3>Search projects</h3>
+                            <p>Don't want to create a new project? Search and apply to existing projects</p>
+                            <div className="dashboard-link-container">
+                                <a href="/projectSearch">Search projects</a>
+                            </div>
                         </div>
                     </>
                 )}

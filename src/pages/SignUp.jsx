@@ -36,7 +36,6 @@ const SignUp = () => {
 
     const handleSignUp = async (event) => {
         event.preventDefault()
-        setIsLoading(true)
         console.log('Signing up with:', { username, email })
 
         let validationErrors = {}
@@ -55,6 +54,8 @@ const SignUp = () => {
             setErrors(validationErrors)
             return
         }
+
+        setIsLoading(true)
 
         try {
             const response = await signup(email, password, username, '1234567890')
