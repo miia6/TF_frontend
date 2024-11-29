@@ -14,7 +14,7 @@ import ProjectProposal from './pages/ProjectProposal'
 
 import ProjectSearch from './pages/ProjectSearch'
 import UserProject from './pages/UserProject'
-import SentApplications from './pages/SentApplications'
+import SentApplications from './pages/sentApplications'
 import ProjectApplications from './pages/ProjectApplications'
 import SentInvitations from './pages/SentInvitations'
 import ReceivedInvitations from './pages/ReceivedInvitations'
