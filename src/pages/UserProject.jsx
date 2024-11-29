@@ -111,11 +111,11 @@ const UserProject = () => {
                         />
                     ) : (
                         <div className="no-project-container">
-                            <h2 className="no-project-header">
+                            <h3 className="no-project-header">
                                 You are not a member of a project yet.
-                            </h2>
+                            </h3>
                             <div className="no-project-links">
-                                <p>Find new projects:</p>
+                                <p>Apply to projects:</p>
                                 <a href="/projectSearch">Search projects</a>
                                 <p>... or create a new project:</p>
                                 <a href="/projectProposal">Create a new project</a>
