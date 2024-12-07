@@ -1,3 +1,5 @@
+Please refer to the final documentation for more details.
+
 # Creating the frontend
 Frontend to TeammatesFinding App
 
@@ -17,8 +19,4 @@ Install to the root: npm install
 # LATEST CHANGES 
 - Added project cookies -> simpler UseEffects 
 - Notifications working
-
-# TO DO
-- Edit and delete projects (?) !NOTE: remember to update project cookies if deleting projects!
-- Let's also start documenting our features in this README.md as we proceed, would probably save time later on.
 
